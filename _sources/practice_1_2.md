@@ -116,9 +116,3 @@ In the end, you should have 8 images, each with the Delaunay triangulation graph
 2. Implement the `knn_graph` function to construct k-NN graphs with varying k values (e.g., k=3, k=5, k=7).
 
 3. Visualize the images with the k-NN graphs overlayed, in a 2x4 grid for each k value.
-
-
-
-### Summary
-
-In this session, you learned about graph construction methods for matching keypoints in images. You implemented Delaunay triangulation and k-NN graph construction algorithms and visualized the graphs overlayed on images from the Willow-Object-Class Dataset. These graph representations will be used in the next session to perform graph matching and alignment tasks.
