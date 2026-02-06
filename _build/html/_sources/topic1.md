@@ -557,6 +557,8 @@ height: 400px
 Not satisfiable cover. Yellow nodes do not belong to the cover. 
 ```
 <br></br>
+In addition, <span style="color:#f88146">not all variable assignments leading to a true CNF lead to a cover</span>. This is the case of $x_1=x_2=0$ and $x_3=1$. 
+<br></br>
 <span style="color:#f88146">**Prove equivalence: 
 <br></br>
 $\text{Cover}\Rightarrow \text{SAT3}$**</span>. Suppose that $G=(V,E)$ has a cover $V'\subseteq V$ of order $J=2m + n$. This means that $V'$ has one vertex per dipole (we have $n$ dipoles) and two vertices per clause (we have $m$ clauses). Check it up by loking at the orange nodes of {numref}`CoverSAT2`. Actually the yellow nodes in each dipole encodes the truth values *not chosen* for a SAT assignment (we choose the truth values of the orange node in the dipole: $\neg x_1=1$,$x_2=1$,$\neg x_3=1$). 
@@ -647,18 +649,18 @@ x_4.  & \\
 \end{align}
 $$
 
-6. However, $x_3$ is 'negative' both in $c_1$ and $c_3$, and 'positive' in $c_2$. This fact *implies that $x_3$ is contributing to make the CNF unsatisfiable*. In other words, <span style="color:#f88146">waiting to visit the clause nodes until level $3$ **does not lead to a Hamiltonian path** since we have to go both right-to-left and left-to-right there</span>. The clause nodes should be visited before level $3$. 
+6. However, $x_3$ is 'negative' both in $c_1$ and $c_3$, and 'positive' in $c_2$. This fact *implies that $x_3$ is contributing to make the CNF unsatisfiable*. In other words, <span style="color:#f88146">waiting to visit these clauses until level $3$ **does not lead to a Hamiltonian path** since we have to go both right-to-left and left-to-right there</span>. Clauses $c_1$ and $c_2$ should be visited before level $3$ where $c_3$ is visited! 
 
 Therefore, the above construction shows that HP is reducible to SAT3, i.e.: *there is a HP in the above graph iff the CNF is satisfiable*.
 
 Extending this result to the **Hamiltonian Cycle** (HC) is straightforward: just create a back link between $x_4$ and $x_1$.
 <br></br>
 <span style="color:#d94f0b"> 
-**Exercise**. Given the SAT3 $(x_1\lor x_2\lor \neg x_3 )\land (\neg x_1\lor\neg x_2\lor x_3)$ which is clearly unsatisfiable (a variable and its negation is present in all clauses). We ask the following: **a)** Build the HC-construction and **b)** Show that it has no Hamiltonian cycles.
+**Exercise**. Let be the SAT3 $(x_1\lor x_2\lor \neg x_3 )\land (\neg x_1\lor\neg x_2\lor x_3)$ which is clearly satisfiable. We ask the following: **a)** Build the HC-construction and and show that if it has a Hamiltonian cycle. **b)** Show an alternative loop/cycle if it does exist. **c)** Identify a configuration of the clauses where the loop/cycle is impossible. 
 </span>
 <br></br>
 <span style="color:#d94f0b"> 
-Answer. We show thre HC-construction in {numref}`HPtoSAT3Ex`. Note that we have  $3\cdot 2 = 6$ nodes per path graph, since there are $c=2$ clauses. 
+Answer. **a)** We show thre HC-construction in {numref}`HPtoSAT3Ex`. Note that we have  $3\cdot 2 = 6$ nodes per path graph, since there are $c=2$ clauses. 
 <br></br>
 ```{figure} ./images/Topic1/Hamiltonian-gadget-Excercise-removebg-preview.png
 ---
@@ -672,10 +674,69 @@ Digraph mapping HP to SAT3. Yellow nodes encode the variables (plus one extra va
 <br></br>
 </span> 
 <span style="color:#d94f0b">
-Note that the two first path graphs go first to $c_1$ in left-to-right order, stating that respectively $x_1$ and $x_2$ must be 'True', but access in the reverse order to $c_2$, where they have to be 'False'. With the third path graph, we have the opposite since $x_3$ must be false in $c_1$ and true in $c_2$. As a result, it is impossible to draw a Hamiltonian cycle in the graph of {numref}`HPtoSAT3Ex`. 
+**1st** of all, we try to make true $x_1$ by choosing the blue path and entering in $c_1$ via ${x_1}{p_1}$ and returning at ${x_1}{p_2}$. This allows us to follow the blue path left-to-right. However, as $x_1=0$ in $c_2$, we enter that clause via ${x_1}{p_5}$ and return to ${x_1}{p_4}$ thus revisiting it which invalidates this solution (the path is non longer Hamiltonian).
 </span> 
+<br></br>
+<span style="color:#d94f0b">
+**2nd**. Instead of visiting $c_2$ now, which leads to a non-Hamiltonian path, we end the first level of ${x_1}{p_{\ast}}$ and proceed with $x_2$ in the second level ${x_2}{p_{\ast}}$ via the right black edge. We do that left to right since $x_2=1$ in $c_1$, but again we cannot enter yet $c_2$ without loosing the Hamiltonianity of the path. Indeed, for the same reason, we avoid visiting $c_2$ and complete this level. Then, we proceed via the second right black edge to the third level. 
+</span>
+<br></br>
+<span style="color:#d94f0b">
+**3rd**. The only chance to visit $c_2$ is when we are at the third level ${x_2}{p_{\ast}}$ (still without leaving the blue or "true" path). If $x_3$ where true in both $c_1$ and $c_2$ this would not be possible, but $x_3=0$ in $c_2$ which allows us to move from yellow node $x_3$ to the red ("false") path, enter $c_2$ and still be in the red path (right-to-left) and later on end up in $x_4$ where we complete the Hamiltonian path.  
+</span>
+<br></br>
+<span style="color:#d94f0b">
+**b)** Note that any true assignment to $c_1\land c_2$ leads to a Hamiltonian path in the above construction. In particular $(x_1=0,x_2=0,x_3=0)$. Since $x_1$ and $x_2$ are false in $c_1$, we should visit first $c_2$ where $\neg x_1$ and $\neg x_2$ are true, but do it "once". Finally, we could visit $c_1$ where $\neg x_3$ is true.    
+</span> 
+<br></br>
+<span style="color:#d94f0b">
+**c)** Actually, for $(x_1=0,x_2=0,x_3=1)$ we have that $c_1$ is false and cannot be visited!
+</span>
+<br></br>
 
+## Subgraph Isomorphism 
+### Reduction to Clique
+One of the NP problems which do have a great practical interest is as follows: 
 
+*Given two graphs $G_1=(V_1,E_1)$ and $G_2=(V_2,G_2)$ where $|V_1|< |V_2|$, determine whether $G_1$ is "isomorphic" to a subgraph of $G_2$*. 
+
+What does "isomorphic" mean? In {numref}`SubIso` we show that the graph $G_1$ is <span style="color:#d94f0b">**strictly contained**</span> in $G_2$ under different re-namings of its vertices. One of these re-namings is $(a=2,b=3,c=4)$. Actually any of the $3!$ permutations of $\{2,3,4\}$ is a valid re-naming. This is what we called in Distrite Maths an **injective function** $f:V_1\rightarrow V_2$. Then if such a function exists we have $(u,v)\in E_1\Leftrightarrow (f(u),f(v))\in E_2$. 
+
+```{figure} ./images/Topic1/SubIso-removebg-preview.png
+---
+name: SubIso
+width: 500px
+align: center
+height: 300px
+---
+Two graphs where there is a sub-graph isomorphism. 
+```
+
+Proving that the Subgraph Isomorphism <span style="color:#d94f0b">$SI\in NP$</span> can be done by reducing it to the <span style="color:#f88146">$\text{Clique}\in\text{NP}$</span>. 
+
+Actually, the reducion consists of creating a new graph $G'=(V',E')$ called the <span style="color:#f88146">association graph</span> where: 
+
+1. The nodes $V'=V_1\times V_2$ have the shape $(a,i)$ or $(b,j)$.
+
+2. The edge $((a,i),(b,j))\in E'$ exists if (1) $a$ is adjacent to $b$ in $G_1$ and (2) $i$ is adjacent to $j$ in $G_2$. 
+
+It is obvious that such a construction can be done in polynomial time. It is also obvious that a <span style="color:#f88146">maximum clique</span> of size $|V_1|$ in $G'$ encodes an injective (one-to-one) function as we show in {numref}`Asograph`. The clique is but a <span style="color:#f88146">**closed chain of matchings**</span> as we will see in the next topic. 
+
+```{figure} ./images/Topic1/Asograph-removebg-preview.png
+---
+name: Asograph
+width: 500px
+align: center
+height: 500px
+---
+The association graph displaying a maximum clique of size $3$. 
+```
+### Isomorphism
+The subgraph isomorphism asumes that $|V_1|<|V_2|$ since the case $|V_1|=|V_2|$ is still under discussion. Initially the so-called <span style="color:#f88146">**isomorphism problem**</span> belongs to NP. The intuition is even stronger than the one for the subgraph problem since we have a <span style="color:#f88146">**permutational flavor**</span>. However, we have to add here the <span style="color:#f88146">**subsetness flavor**</span> to the subgraph isomorphism. 
+
+Hovever, sub-exponential complexities can be obtained by leveraging group theory (see the famous discussion of [Babai results](https://en.wikipedia.org/wiki/Graph_isomorphism_problem)). 
+
+Interestingly, there are polynomial algorithms for special types of graphs such as trees and planar graphs (usually used in Computer Vision). Finding this problem is in $P$ will make <span style="color:#f88146">$P=NP$</span>. Actually this problem seems to be in an intermediate complexity category. 
 
 <!--
 Vertex covers have two main applications in AI: 

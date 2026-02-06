@@ -391,6 +391,11 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hamiltonian-cycle">1.5. Hamiltonian cycle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subgraph-isomorphism">1.6. Subgraph Isomorphism</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reduction-to-clique">1.6.1. Reduction to Clique</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isomorphism">1.6.2. Isomorphism</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -858,6 +863,8 @@ Only a couple of interpretations are <em>counter-model</em>.
 </figcaption>
 </figure>
 <p><br></br>
+In addition, <span style="color:#f88146">not all variable assignments leading to a true CNF lead to a cover</span>. This is the case of <span class="math notranslate nohighlight">\(x_1=x_2=0\)</span> and <span class="math notranslate nohighlight">\(x_3=1\)</span>.
+<br></br>
 <span style="color:#f88146"><strong>Prove equivalence:
 <br></br>
 <span class="math notranslate nohighlight">\(\text{Cover}\Rightarrow \text{SAT3}\)</span></strong></span>. Suppose that <span class="math notranslate nohighlight">\(G=(V,E)\)</span> has a cover <span class="math notranslate nohighlight">\(V'\subseteq V\)</span> of order <span class="math notranslate nohighlight">\(J=2m + n\)</span>. This means that <span class="math notranslate nohighlight">\(V'\)</span> has one vertex per dipole (we have <span class="math notranslate nohighlight">\(n\)</span> dipoles) and two vertices per clause (we have <span class="math notranslate nohighlight">\(m\)</span> clauses). Check it up by loking at the orange nodes of <a class="reference internal" href="#coversat2"><span class="std std-numref">Fig. 1.13</span></a>. Actually the yellow nodes in each dipole encodes the truth values <em>not chosen</em> for a SAT assignment (we choose the truth values of the orange node in the dipole: <span class="math notranslate nohighlight">\(\neg x_1=1\)</span>,<span class="math notranslate nohighlight">\(x_2=1\)</span>,<span class="math notranslate nohighlight">\(\neg x_3=1\)</span>).
@@ -926,17 +933,17 @@ x_4.  &amp; \\
 \end{align}
 \end{split}\]</div>
 <ol class="arabic simple" start="6">
-<li><p>However, <span class="math notranslate nohighlight">\(x_3\)</span> is ‘negative’ both in <span class="math notranslate nohighlight">\(c_1\)</span> and <span class="math notranslate nohighlight">\(c_3\)</span>, and ‘positive’ in <span class="math notranslate nohighlight">\(c_2\)</span>. This fact <em>implies that <span class="math notranslate nohighlight">\(x_3\)</span> is contributing to make the CNF unsatisfiable</em>. In other words, <span style="color:#f88146">waiting to visit the clause nodes until level <span class="math notranslate nohighlight">\(3\)</span> <strong>does not lead to a Hamiltonian path</strong> since we have to go both right-to-left and left-to-right there</span>. The clause nodes should be visited before level <span class="math notranslate nohighlight">\(3\)</span>.</p></li>
+<li><p>However, <span class="math notranslate nohighlight">\(x_3\)</span> is ‘negative’ both in <span class="math notranslate nohighlight">\(c_1\)</span> and <span class="math notranslate nohighlight">\(c_3\)</span>, and ‘positive’ in <span class="math notranslate nohighlight">\(c_2\)</span>. This fact <em>implies that <span class="math notranslate nohighlight">\(x_3\)</span> is contributing to make the CNF unsatisfiable</em>. In other words, <span style="color:#f88146">waiting to visit these clauses until level <span class="math notranslate nohighlight">\(3\)</span> <strong>does not lead to a Hamiltonian path</strong> since we have to go both right-to-left and left-to-right there</span>. Clauses <span class="math notranslate nohighlight">\(c_1\)</span> and <span class="math notranslate nohighlight">\(c_2\)</span> should be visited before level <span class="math notranslate nohighlight">\(3\)</span> where <span class="math notranslate nohighlight">\(c_3\)</span> is visited!</p></li>
 </ol>
 <p>Therefore, the above construction shows that HP is reducible to SAT3, i.e.: <em>there is a HP in the above graph iff the CNF is satisfiable</em>.</p>
 <p>Extending this result to the <strong>Hamiltonian Cycle</strong> (HC) is straightforward: just create a back link between <span class="math notranslate nohighlight">\(x_4\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span>.
 <br></br>
 <span style="color:#d94f0b">
-<strong>Exercise</strong>. Given the SAT3 <span class="math notranslate nohighlight">\((x_1\lor x_2\lor \neg x_3 )\land (\neg x_1\lor\neg x_2\lor x_3)\)</span> which is clearly unsatisfiable (a variable and its negation is present in all clauses). We ask the following: <strong>a)</strong> Build the HC-construction and <strong>b)</strong> Show that it has no Hamiltonian cycles.
+<strong>Exercise</strong>. Let be the SAT3 <span class="math notranslate nohighlight">\((x_1\lor x_2\lor \neg x_3 )\land (\neg x_1\lor\neg x_2\lor x_3)\)</span> which is clearly satisfiable. We ask the following: <strong>a)</strong> Build the HC-construction and and show that if it has a Hamiltonian cycle. <strong>b)</strong> Show an alternative loop/cycle if it does exist. <strong>c)</strong> Identify a configuration of the clauses where the loop/cycle is impossible.
 </span>
 <br></br>
 <span style="color:#d94f0b">
-Answer. We show thre HC-construction in <a class="reference internal" href="#hptosat3ex"><span class="std std-numref">Fig. 1.17</span></a>. Note that we have  <span class="math notranslate nohighlight">\(3\cdot 2 = 6\)</span> nodes per path graph, since there are <span class="math notranslate nohighlight">\(c=2\)</span> clauses.
+Answer. <strong>a)</strong> We show thre HC-construction in <a class="reference internal" href="#hptosat3ex"><span class="std std-numref">Fig. 1.17</span></a>. Note that we have  <span class="math notranslate nohighlight">\(3\cdot 2 = 6\)</span> nodes per path graph, since there are <span class="math notranslate nohighlight">\(c=2\)</span> clauses.
 <br></br></p>
 <figure class="align-center" id="hptosat3ex">
 <a class="reference internal image-reference" href="_images/Hamiltonian-gadget-Excercise-removebg-preview.png"><img alt="_images/Hamiltonian-gadget-Excercise-removebg-preview.png" src="_images/Hamiltonian-gadget-Excercise-removebg-preview.png" style="width: 700px; height: 600px;" /></a>
@@ -947,8 +954,58 @@ Answer. We show thre HC-construction in <a class="reference internal" href="#hpt
 <p><br></br>
 </span>
 <span style="color:#d94f0b">
-Note that the two first path graphs go first to <span class="math notranslate nohighlight">\(c_1\)</span> in left-to-right order, stating that respectively <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> must be ‘True’, but access in the reverse order to <span class="math notranslate nohighlight">\(c_2\)</span>, where they have to be ‘False’. With the third path graph, we have the opposite since <span class="math notranslate nohighlight">\(x_3\)</span> must be false in <span class="math notranslate nohighlight">\(c_1\)</span> and true in <span class="math notranslate nohighlight">\(c_2\)</span>. As a result, it is impossible to draw a Hamiltonian cycle in the graph of <a class="reference internal" href="#hptosat3ex"><span class="std std-numref">Fig. 1.17</span></a>.
-</span></p>
+<strong>1st</strong> of all, we try to make true <span class="math notranslate nohighlight">\(x_1\)</span> by choosing the blue path and entering in <span class="math notranslate nohighlight">\(c_1\)</span> via <span class="math notranslate nohighlight">\({x_1}{p_1}\)</span> and returning at <span class="math notranslate nohighlight">\({x_1}{p_2}\)</span>. This allows us to follow the blue path left-to-right. However, as <span class="math notranslate nohighlight">\(x_1=0\)</span> in <span class="math notranslate nohighlight">\(c_2\)</span>, we enter that clause via <span class="math notranslate nohighlight">\({x_1}{p_5}\)</span> and return to <span class="math notranslate nohighlight">\({x_1}{p_4}\)</span> thus revisiting it which invalidates this solution (the path is non longer Hamiltonian).
+</span>
+<br></br>
+<span style="color:#d94f0b">
+<strong>2nd</strong>. Instead of visiting <span class="math notranslate nohighlight">\(c_2\)</span> now, which leads to a non-Hamiltonian path, we end the first level of <span class="math notranslate nohighlight">\({x_1}{p_{\ast}}\)</span> and proceed with <span class="math notranslate nohighlight">\(x_2\)</span> in the second level <span class="math notranslate nohighlight">\({x_2}{p_{\ast}}\)</span> via the right black edge. We do that left to right since <span class="math notranslate nohighlight">\(x_2=1\)</span> in <span class="math notranslate nohighlight">\(c_1\)</span>, but again we cannot enter yet <span class="math notranslate nohighlight">\(c_2\)</span> without loosing the Hamiltonianity of the path. Indeed, for the same reason, we avoid visiting <span class="math notranslate nohighlight">\(c_2\)</span> and complete this level. Then, we proceed via the second right black edge to the third level.
+</span>
+<br></br>
+<span style="color:#d94f0b">
+<strong>3rd</strong>. The only chance to visit <span class="math notranslate nohighlight">\(c_2\)</span> is when we are at the third level <span class="math notranslate nohighlight">\({x_2}{p_{\ast}}\)</span> (still without leaving the blue or “true” path). If <span class="math notranslate nohighlight">\(x_3\)</span> where true in both <span class="math notranslate nohighlight">\(c_1\)</span> and <span class="math notranslate nohighlight">\(c_2\)</span> this would not be possible, but <span class="math notranslate nohighlight">\(x_3=0\)</span> in <span class="math notranslate nohighlight">\(c_2\)</span> which allows us to move from yellow node <span class="math notranslate nohighlight">\(x_3\)</span> to the red (“false”) path, enter <span class="math notranslate nohighlight">\(c_2\)</span> and still be in the red path (right-to-left) and later on end up in <span class="math notranslate nohighlight">\(x_4\)</span> where we complete the Hamiltonian path.<br />
+</span>
+<br></br>
+<span style="color:#d94f0b">
+<strong>b)</strong> Note that any true assignment to <span class="math notranslate nohighlight">\(c_1\land c_2\)</span> leads to a Hamiltonian path in the above construction. In particular <span class="math notranslate nohighlight">\((x_1=0,x_2=0,x_3=0)\)</span>. Since <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> are false in <span class="math notranslate nohighlight">\(c_1\)</span>, we should visit first <span class="math notranslate nohighlight">\(c_2\)</span> where <span class="math notranslate nohighlight">\(\neg x_1\)</span> and <span class="math notranslate nohighlight">\(\neg x_2\)</span> are true, but do it “once”. Finally, we could visit <span class="math notranslate nohighlight">\(c_1\)</span> where <span class="math notranslate nohighlight">\(\neg x_3\)</span> is true.<br />
+</span>
+<br></br>
+<span style="color:#d94f0b">
+<strong>c)</strong> Actually, for <span class="math notranslate nohighlight">\((x_1=0,x_2=0,x_3=1)\)</span> we have that <span class="math notranslate nohighlight">\(c_1\)</span> is false and cannot be visited!
+</span>
+<br></br></p>
+</section>
+<section id="subgraph-isomorphism">
+<h2><span class="section-number">1.6. </span>Subgraph Isomorphism<a class="headerlink" href="#subgraph-isomorphism" title="Permalink to this heading">#</a></h2>
+<section id="reduction-to-clique">
+<h3><span class="section-number">1.6.1. </span>Reduction to Clique<a class="headerlink" href="#reduction-to-clique" title="Permalink to this heading">#</a></h3>
+<p>One of the NP problems which do have a great practical interest is as follows:</p>
+<p><em>Given two graphs <span class="math notranslate nohighlight">\(G_1=(V_1,E_1)\)</span> and <span class="math notranslate nohighlight">\(G_2=(V_2,G_2)\)</span> where <span class="math notranslate nohighlight">\(|V_1|&lt; |V_2|\)</span>, determine whether <span class="math notranslate nohighlight">\(G_1\)</span> is “isomorphic” to a subgraph of <span class="math notranslate nohighlight">\(G_2\)</span></em>.</p>
+<p>What does “isomorphic” mean? In <a class="reference internal" href="#subiso"><span class="std std-numref">Fig. 1.18</span></a> we show that the graph <span class="math notranslate nohighlight">\(G_1\)</span> is <span style="color:#d94f0b"><strong>strictly contained</strong></span> in <span class="math notranslate nohighlight">\(G_2\)</span> under different re-namings of its vertices. One of these re-namings is <span class="math notranslate nohighlight">\((a=2,b=3,c=4)\)</span>. Actually any of the <span class="math notranslate nohighlight">\(3!\)</span> permutations of <span class="math notranslate nohighlight">\(\{2,3,4\}\)</span> is a valid re-naming. This is what we called in Distrite Maths an <strong>injective function</strong> <span class="math notranslate nohighlight">\(f:V_1\rightarrow V_2\)</span>. Then if such a function exists we have <span class="math notranslate nohighlight">\((u,v)\in E_1\Leftrightarrow (f(u),f(v))\in E_2\)</span>.</p>
+<figure class="align-center" id="subiso">
+<a class="reference internal image-reference" href="_images/SubIso-removebg-preview.png"><img alt="_images/SubIso-removebg-preview.png" src="_images/SubIso-removebg-preview.png" style="width: 500px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1.18 </span><span class="caption-text">Two graphs where there is a sub-graph isomorphism.</span><a class="headerlink" href="#subiso" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Proving that the Subgraph Isomorphism <span style="color:#d94f0b"><span class="math notranslate nohighlight">\(SI\in NP\)</span></span> can be done by reducing it to the <span style="color:#f88146"><span class="math notranslate nohighlight">\(\text{Clique}\in\text{NP}\)</span></span>.</p>
+<p>Actually, the reducion consists of creating a new graph <span class="math notranslate nohighlight">\(G'=(V',E')\)</span> called the <span style="color:#f88146">association graph</span> where:</p>
+<ol class="arabic simple">
+<li><p>The nodes <span class="math notranslate nohighlight">\(V'=V_1\times V_2\)</span> have the shape <span class="math notranslate nohighlight">\((a,i)\)</span> or <span class="math notranslate nohighlight">\((b,j)\)</span>.</p></li>
+<li><p>The edge <span class="math notranslate nohighlight">\(((a,i),(b,j))\in E'\)</span> exists if (1) <span class="math notranslate nohighlight">\(a\)</span> is adjacent to <span class="math notranslate nohighlight">\(b\)</span> in <span class="math notranslate nohighlight">\(G_1\)</span> and (2) <span class="math notranslate nohighlight">\(i\)</span> is adjacent to <span class="math notranslate nohighlight">\(j\)</span> in <span class="math notranslate nohighlight">\(G_2\)</span>.</p></li>
+</ol>
+<p>It is obvious that such a construction can be done in polynomial time. It is also obvious that a <span style="color:#f88146">maximum clique</span> of size <span class="math notranslate nohighlight">\(|V_1|\)</span> in <span class="math notranslate nohighlight">\(G'\)</span> encodes an injective (one-to-one) function as we show in <a class="reference internal" href="#asograph"><span class="std std-numref">Fig. 1.19</span></a>. The clique is but a <span style="color:#f88146"><strong>closed chain of matchings</strong></span> as we will see in the next topic.</p>
+<figure class="align-center" id="asograph">
+<a class="reference internal image-reference" href="_images/Asograph-removebg-preview.png"><img alt="_images/Asograph-removebg-preview.png" src="_images/Asograph-removebg-preview.png" style="width: 500px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1.19 </span><span class="caption-text">The association graph displaying a maximum clique of size <span class="math notranslate nohighlight">\(3\)</span>.</span><a class="headerlink" href="#asograph" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="isomorphism">
+<h3><span class="section-number">1.6.2. </span>Isomorphism<a class="headerlink" href="#isomorphism" title="Permalink to this heading">#</a></h3>
+<p>The subgraph isomorphism asumes that <span class="math notranslate nohighlight">\(|V_1|&lt;|V_2|\)</span> since the case <span class="math notranslate nohighlight">\(|V_1|=|V_2|\)</span> is still under discussion. Initially the so-called <span style="color:#f88146"><strong>isomorphism problem</strong></span> belongs to NP. The intuition is even stronger than the one for the subgraph problem since we have a <span style="color:#f88146"><strong>permutational flavor</strong></span>. However, we have to add here the <span style="color:#f88146"><strong>subsetness flavor</strong></span> to the subgraph isomorphism.</p>
+<p>Hovever, sub-exponential complexities can be obtained by leveraging group theory (see the famous discussion of <a class="reference external" href="https://en.wikipedia.org/wiki/Graph_isomorphism_problem">Babai results</a>).</p>
+<p>Interestingly, there are polynomial algorithms for special types of graphs such as trees and planar graphs (usually used in Computer Vision). Finding this problem is in <span class="math notranslate nohighlight">\(P\)</span> will make <span style="color:#f88146"><span class="math notranslate nohighlight">\(P=NP\)</span></span>. Actually this problem seems to be in an intermediate complexity category.</p>
 <!--
 Vertex covers have two main applications in AI: 
 - Firstly, given their relationship with independent sets, their size characterizes de <span style="color:#f88146">colorability of a graph</span> (how many different colors can we allocate). 
@@ -1005,6 +1062,7 @@ What if we are now asked to **compute $k$-hop accessibilities** with $k>2$? Of c
 
 Reaching nodes *in two hops* requires computing $\mathbf{A}^2 = \mathbf{A}\mathbf{A}$, i.e, requires a matricial product. How difficult is to  
 --></section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1085,6 +1143,11 @@ Reaching nodes *in two hops* requires computing $\mathbf{A}^2 = \mathbf{A}\mathb
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hamiltonian-cycle">1.5. Hamiltonian cycle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subgraph-isomorphism">1.6. Subgraph Isomorphism</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reduction-to-clique">1.6.1. Reduction to Clique</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isomorphism">1.6.2. Isomorphism</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
