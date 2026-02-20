@@ -164,7 +164,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    TAB2025
+                    TAB2026
                 </a>
             </li>
         </ul>
@@ -175,7 +175,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 1</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">3. Introduction to the practical part of TAB2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">3. Introduction to the practical part of TAB2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">4. Graph Construction for Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">5. Graph Matching</a></li>
 </ul>
 
     </div>
@@ -375,7 +377,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">Theoretical Background</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">Node2vec</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hitting-time">Hitting time</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-matching-algorithm">Enhanced Matching Algorithm</a></li>
@@ -386,19 +387,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-comparative-analysis">Exercise 4: Comparative Analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-accuracy-analysis-across-categories">Part 1: Accuracy Analysis Across Categories</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-requirements">Task Requirements</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-csv-format">Expected CSV Format</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-comparative-analysis">Part 2: Comparative Analysis</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#required-experiments">Required Experiments</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-report-requirements">Final Report Requirements</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format">Format</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-format">Submission format</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">Evaluation Criteria</a></li>
 </ul>
             </nav>
         </div>
@@ -417,7 +413,7 @@ document.write(`
 </section>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
-<p>In our previous session, we explored basic graph matching using spatial coordinates and the Hungarian Algorithm. While this approach provides a foundation for matching keypoints between images, it only considers geometric distances. In this session, we’ll enhance our matching by incorporating topological features using node2vec and commute times embeddings.</p>
+<p>In our previous session, we explored basic graph matching using spatial coordinates and the Hungarian Algorithm. While this approach provides a foundation for matching keypoints between images, it only considers geometric distances. In this session, we’ll enhance our matching by incorporating topological features using node2vec embeddings.</p>
 </section>
 <section id="theoretical-background">
 <h2>Theoretical Background<a class="headerlink" href="#theoretical-background" title="Permalink to this heading">#</a></h2>
@@ -430,16 +426,12 @@ document.write(`
 <li><p>Scalable to large networks</p></li>
 </ul>
 </section>
-<section id="hitting-time">
-<h3>Hitting time<a class="headerlink" href="#hitting-time" title="Permalink to this heading">#</a></h3>
-<p>The hitting time of a graph is the expected number of steps that it takes for a random walk to reach a given node in the graph. The hitting time can be used to measure the connectivity of the graph and to find interesting patterns in the graph. This patterns would be more informative than the shortest path or the random walk, since it will give us a more global view of the graph and it is more robust to noise (noise in a graph is the presence of edges that do not follow the general pattern of the graph).</p>
-</section>
 </section>
 <section id="enhanced-matching-algorithm">
 <h2>Enhanced Matching Algorithm<a class="headerlink" href="#enhanced-matching-algorithm" title="Permalink to this heading">#</a></h2>
 <p>We’ll modify our previous approach by:</p>
 <ol class="arabic simple">
-<li><p>Computing node embeddings using both node2vec and hitting times</p></li>
+<li><p>Computing node embeddings using node2vec</p></li>
 <li><p>Creating a combined similarity matrix using both spatial and topological features</p></li>
 <li><p>Applying the Hungarian Algorithm to find optimal matches</p></li>
 </ol>
@@ -451,7 +443,7 @@ document.write(`
 <h3>Exercise 1: Enhanced Graph Matching Using Graph Embeddings<a class="headerlink" href="#exercise-1-enhanced-graph-matching-using-graph-embeddings" title="Permalink to this heading">#</a></h3>
 <p>We’ll modify our previous approach by:</p>
 <ol class="arabic simple">
-<li><p>Computing node embeddings using both node2vec and hitting times</p></li>
+<li><p>Computing node embeddings using both node2vec</p></li>
 <li><p>Creating a combined similarity matrix using both spatial and topological features</p></li>
 <li><p>Applying the Hungarian Algorithm to find optimal matches</p></li>
 </ol>
@@ -482,24 +474,6 @@ document.write(`
 <span class="sd">    Compute node2vec embeddings for the graph</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">embeddings</span>
-<span class="k">def</span> <span class="nf">hitting_time</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">start_node</span><span class="p">,</span> <span class="n">destination_node</span><span class="p">,</span> <span class="n">num_walks</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the hitting time between two nodes in the graph</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">hitting_time</span>
-<span class="k">def</span> <span class="nf">compute_hitting_time_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute hitting time matrix for all pairs of nodes</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-    <span class="n">hitting_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-    
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-            <span class="n">h_time</span> <span class="o">=</span> <span class="n">hitting_time</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
-            <span class="n">hitting_times</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">h_time</span>
-            <span class="n">hitting_times</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">h_time</span>
-    <span class="k">return</span> <span class="n">hitting_times</span>
 <span class="k">def</span> <span class="nf">enhanced_spatial_matching</span><span class="p">(</span><span class="n">kpts1</span><span class="p">,</span> <span class="n">kpts2</span><span class="p">,</span> <span class="n">adj_matrix1</span><span class="p">,</span> <span class="n">adj_matrix2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform enhanced matching using spatial, hitting time, and node2vec features</span>
@@ -517,7 +491,7 @@ document.write(`
     <span class="n">Hints</span><span class="p">:</span>
         <span class="o">-</span> <span class="n">Primero</span> <span class="n">deberás</span> <span class="n">crear</span> <span class="n">una</span> <span class="n">matriz</span> <span class="n">de</span> <span class="n">costes</span> <span class="n">basada</span> <span class="n">en</span> <span class="n">distancias</span> <span class="n">euclidianas</span><span class="p">,</span>
         <span class="n">cuyo</span> <span class="n">tamaño</span> <span class="n">será</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span> <span class="n">donde</span> <span class="n">n1</span> <span class="n">y</span> <span class="n">n2</span> <span class="n">son</span> <span class="n">el</span> <span class="n">número</span> <span class="n">de</span> <span class="n">keypoints</span> <span class="n">en</span> <span class="n">cada</span> <span class="n">grafo</span><span class="o">.</span>
-        <span class="o">-</span> <span class="n">Seguidamente</span><span class="p">,</span> <span class="n">deberás</span> <span class="n">rellenar</span> <span class="n">dicha</span> <span class="n">matriz</span> <span class="n">con</span> <span class="n">las</span> <span class="n">distancias</span> <span class="n">euclidianas</span> <span class="n">de</span> <span class="n">los</span> <span class="n">keypoints</span><span class="p">,</span> <span class="n">las</span> <span class="n">distancias</span><span class="o">/</span><span class="n">normas</span> <span class="n">de</span> <span class="n">node2vec</span> <span class="n">y</span> <span class="n">finalmente</span> <span class="n">distancias</span><span class="o">/</span><span class="n">normas</span> <span class="n">entre</span> <span class="n">el</span> <span class="n">hitting</span> <span class="n">time</span><span class="o">.</span>
+        <span class="o">-</span> <span class="n">Seguidamente</span><span class="p">,</span> <span class="n">deberás</span> <span class="n">rellenar</span> <span class="n">dicha</span> <span class="n">matriz</span> <span class="n">con</span> <span class="n">las</span> <span class="n">distancias</span> <span class="n">euclidianas</span> <span class="n">de</span> <span class="n">los</span> <span class="n">keypoints</span><span class="p">,</span> <span class="n">las</span> <span class="n">distancias</span><span class="o">/</span><span class="n">normas</span> <span class="n">de</span> <span class="n">node2vec</span> 
         <span class="o">-</span> <span class="n">A</span> <span class="n">continuación</span><span class="p">,</span> <span class="n">deberás</span> <span class="n">aplicar</span> <span class="n">el</span> <span class="n">algoritmo</span> <span class="n">húngaro</span> <span class="n">usando</span> <span class="n">la</span> <span class="n">función</span> <span class="n">linear_sum_assignment</span><span class="p">,</span> <span class="n">que</span> <span class="n">recibe</span> <span class="n">la</span> <span class="n">matriz</span> <span class="n">de</span> <span class="n">costes</span> <span class="n">y</span> <span class="n">devuelve</span> <span class="n">los</span> <span class="n">índices</span> <span class="n">de</span> <span class="n">los</span> <span class="n">puntos</span> <span class="n">emparejados</span><span class="o">.</span>
         <span class="o">-</span> <span class="n">Finalmente</span><span class="p">,</span> <span class="n">deberás</span> <span class="n">crear</span> <span class="n">una</span> <span class="n">matriz</span> <span class="n">de</span> <span class="n">matching</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">los</span> <span class="n">índices</span> <span class="n">obtenidos</span><span class="o">.</span>
 
@@ -529,10 +503,6 @@ document.write(`
 <span class="sd">    node2vec_emb1 = compute_node2vec_embeddings(G1)</span>
 <span class="sd">    node2vec_emb2 = compute_node2vec_embeddings(G2)</span>
 <span class="sd">    </span>
-<span class="sd">    print(&quot;Computing hitting time matrices...&quot;)</span>
-<span class="sd">    hitting_times1 = compute_hitting_time_matrix(G1)</span>
-<span class="sd">    hitting_times2 = compute_hitting_time_matrix(G2)</span>
-
 <span class="sd">    # Create cost matrix combining different features</span>
 <span class="sd">    cost_matrix = np.zeros((n1, n2))</span>
 <span class="sd">    </span>
@@ -544,15 +514,10 @@ document.write(`
 <span class="sd">            # Node2vec similarity</span>
 <span class="sd">            node2vec_dist = np.sqrt(np.sum((node2vec_emb1[i] - node2vec_emb2[j])**2))</span>
 <span class="sd">            </span>
-<span class="sd">            # Hitting time profile similarity</span>
-<span class="sd">            hitting_profile_dist = np.sqrt(np.sum((hitting_times1[i] - hitting_times2[j])**2))</span>
-<span class="sd">            </span>
-<span class="sd">            </span>
 <span class="sd">            # Combine distances with weights</span>
 <span class="sd">            cost_matrix[i,j] = (</span>
-<span class="sd">                0.4 * spatial_dist +</span>
-<span class="sd">                0.3 * node2vec_dist +</span>
-<span class="sd">                0.3 * hitting_profile_dist</span>
+<span class="sd">                0.6 * spatial_dist +</span>
+<span class="sd">                0.4 * node2vec_dist</span>
 <span class="sd">            )</span>
 <span class="sd">    </span>
 <span class="sd">    return matching</span>
@@ -604,26 +569,9 @@ document.write(`
 <ul class="simple">
 <li><p>Accuracy = (Number of correctly matched keypoints) / (Total number of keypoints)</p></li>
 <li><p>Process all images in each of the 5 categories</p></li>
-<li><p>Generate a CSV file containing:</p>
-<ul>
-<li><p>Category name</p></li>
-<li><p>Mean accuracy</p></li>
-<li><p>Standard deviation</p></li>
-<li><p>Number of images processed</p></li>
-</ul>
-</li>
 </ul>
 </li>
 </ol>
-</section>
-<section id="expected-csv-format">
-<h4>Expected CSV Format<a class="headerlink" href="#expected-csv-format" title="Permalink to this heading">#</a></h4>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Category</span><span class="p">,</span><span class="n">Mean_Accuracy</span><span class="p">,</span><span class="n">Std_Deviation</span><span class="p">,</span><span class="n">Number_of_Images</span>
-<span class="n">Category1</span><span class="p">,</span><span class="mf">0.</span><span class="n">XX</span><span class="p">,</span><span class="mf">0.</span><span class="n">XX</span><span class="p">,</span><span class="n">XX</span>
-<span class="n">Category2</span><span class="p">,</span><span class="mf">0.</span><span class="n">XX</span><span class="p">,</span><span class="mf">0.</span><span class="n">XX</span><span class="p">,</span><span class="n">XX</span>
-<span class="o">...</span>
-</pre></div>
-</div>
 </section>
 </section>
 <section id="part-2-comparative-analysis">
@@ -658,81 +606,9 @@ document.write(`
 <li><p>Compare results with Delaunay triangulation</p></li>
 </ul>
 </li>
-<li><p><strong>Weight Sensitivity Analysis</strong></p>
-<ul class="simple">
-<li><p>Using your chosen category, experiment with different weight combinations:</p>
-<ul>
-<li><p>Spatial weight: [0.3, 0.4, 0.5, 0.6]</p></li>
-<li><p>Node2vec weight: [0.2, 0.3, 0.4]</p></li>
-<li><p>Hitting time weight: [0.2, 0.3, 0.4]</p></li>
-</ul>
-</li>
-<li><p>Note: Weights should sum to 1.0</p></li>
-</ul>
-</li>
 </ol>
 </section>
 </section>
-<section id="final-report-requirements">
-<h3>Final Report Requirements<a class="headerlink" href="#final-report-requirements" title="Permalink to this heading">#</a></h3>
-</section>
-<section id="format">
-<h3>Format<a class="headerlink" href="#format" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Include visualizations (graphs, charts)</p></li>
-<li><p>Use tables for numerical comparisons</p></li>
-<li><p>No code needed in the report</p></li>
-</ul>
-</section>
-<section id="submission-format">
-<h3>Submission format<a class="headerlink" href="#submission-format" title="Permalink to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>name_surname.zip
-├──<span class="w"> </span>visualization_part_1.ipynb
-<span class="w">    </span>└──<span class="w"> </span>car.png
-<span class="w">    </span>└──<span class="w"> </span>face.png
-<span class="w">    </span>└──<span class="w"> </span>duck.png
-<span class="w">    </span>└──<span class="w"> </span>motorbike.png
-<span class="w">    </span>└──<span class="w"> </span>winebottle.png
-├──<span class="w"> </span>visualization_part_2.ipynb
-<span class="w">    </span>└──<span class="w"> </span>car_Delaunay.png
-<span class="w">    </span>└──<span class="w"> </span>face_Delaunay.png
-<span class="w">    </span>└──<span class="w"> </span>duck_Delaunay.png
-<span class="w">    </span>└──<span class="w"> </span>motorbike_Delaunay.png
-<span class="w">    </span>└──<span class="w"> </span>winebottle_Delaunay.png
-<span class="w">    </span>└──<span class="w"> </span>car_KNN3.png
-<span class="w">    </span>└──<span class="w"> </span>car_KNN5.png
-<span class="w">    </span>└──<span class="w"> </span>car_KNN7.png
-<span class="w">    </span>└──<span class="w"> </span>face_KNN3.png
-<span class="w">    </span>└──<span class="w"> </span>face_KNN5.png
-<span class="w">    </span>└──<span class="w"> </span>face_KNN7.png
-<span class="w">    </span>└──<span class="w"> </span>duck_KNN3.png
-<span class="w">    </span>└──<span class="w"> </span>duck_KNN5.png
-<span class="w">    </span>└──<span class="w"> </span>duck_KNN7.png
-<span class="w">    </span>└──<span class="w"> </span>motorbike_KNN3.png
-<span class="w">    </span>└──<span class="w"> </span>motorbike_KNN5.png
-<span class="w">    </span>└──<span class="w"> </span>motorbike_KNN7.png
-<span class="w">    </span>└──<span class="w"> </span>winebottle_KNN3.png
-<span class="w">    </span>└──<span class="w"> </span>winebottle_KNN5.png
-<span class="w">    </span>└──<span class="w"> </span>winebottle_KNN7.png
-├──<span class="w"> </span>match_part_1.ipynb
-<span class="w">    </span>└──<span class="w"> </span>results.csv
-<span class="w">    </span>└──<span class="w"> </span>some_images.png
-├──<span class="w"> </span>match_part_2.ipynb
-<span class="w">    </span>└──<span class="w"> </span>results.csv
-<span class="w">    </span>└──<span class="w"> </span>some_images.png
-├──<span class="w"> </span>report.ipynb
-</pre></div>
-</div>
-</section>
-</section>
-<section id="evaluation-criteria">
-<h2>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h2>
-<p>Your work will be evaluated based on:</p>
-<ul class="simple">
-<li><p>Thoroughness of analysis</p></li>
-<li><p>Quality of visualizations</p></li>
-<li><p>Clarity of conclusions</p></li>
-</ul>
 </section>
 </section>
 
@@ -785,7 +661,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">Theoretical Background</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">Node2vec</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hitting-time">Hitting time</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-matching-algorithm">Enhanced Matching Algorithm</a></li>
@@ -796,19 +671,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-comparative-analysis">Exercise 4: Comparative Analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-accuracy-analysis-across-categories">Part 1: Accuracy Analysis Across Categories</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-requirements">Task Requirements</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-csv-format">Expected CSV Format</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-comparative-analysis">Part 2: Comparative Analysis</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#required-experiments">Required Experiments</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-report-requirements">Final Report Requirements</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format">Format</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-format">Submission format</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">Evaluation Criteria</a></li>
 </ul>
   </nav></div>
 
