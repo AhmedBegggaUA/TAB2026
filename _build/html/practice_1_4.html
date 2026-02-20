@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Graph Matching with Topological Features &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
+    <title>6. Graph Matching with Topological Features &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
   
   
   
@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice_1_4';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="5. Graph Matching" href="practice_1_3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -174,10 +175,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="topic2.html">2. Simulated and Deterministic Annealing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 1</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">3. Introduction to the practical part of TAB2026</a></li>
 <li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">4. Graph Construction for Matching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">5. Graph Matching</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Graph Matching with Topological Features</a></li>
 </ul>
 
     </div>
@@ -373,24 +375,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-4-graph-matching-with-topological-features">Practical Session 1.4: Graph Matching with Topological Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">Theoretical Background</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">Node2vec</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-4-graph-matching-with-topological-features">6.1. Practical Session 1.4: Graph Matching with Topological Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">6.2. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">6.3. Theoretical Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">6.3.1. Node2vec</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-matching-algorithm">Enhanced Matching Algorithm</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-enhanced-graph-matching-using-graph-embeddings">Exercise 1: Enhanced Graph Matching Using Graph Embeddings</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-optimal-assignment">Exercise 2: Visualize the Optimal Assignment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-evaluate-the-matching-results-and-report">Exercise 3: Evaluate the Matching Results and Report</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-comparative-analysis">Exercise 4: Comparative Analysis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-accuracy-analysis-across-categories">Part 1: Accuracy Analysis Across Categories</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-requirements">Task Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-matching-algorithm">6.4. Enhanced Matching Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">6.5. Exercise</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-enhanced-graph-matching-using-graph-embeddings">6.5.1. Exercise 1: Enhanced Graph Matching Using Graph Embeddings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-optimal-assignment">6.5.2. Exercise 2: Visualize the Optimal Assignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-evaluate-the-matching-results-and-report">6.5.3. Exercise 3: Evaluate the Matching Results and Report</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-comparative-analysis">6.5.4. Exercise 4: Comparative Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-accuracy-analysis-across-categories">6.5.5. Part 1: Accuracy Analysis Across Categories</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-requirements">6.5.5.1. Task Requirements</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-comparative-analysis">Part 2: Comparative Analysis</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#required-experiments">Required Experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-comparative-analysis">6.5.6. Part 2: Comparative Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#required-experiments">6.5.6.1. Required Experiments</a></li>
 </ul>
 </li>
 </ul>
@@ -407,18 +409,18 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="graph-matching-with-topological-features">
-<h1>Graph Matching with Topological Features<a class="headerlink" href="#graph-matching-with-topological-features" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">6. </span>Graph Matching with Topological Features<a class="headerlink" href="#graph-matching-with-topological-features" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-1-4-graph-matching-with-topological-features">
-<h2>Practical Session 1.4: Graph Matching with Topological Features<a class="headerlink" href="#practical-session-1-4-graph-matching-with-topological-features" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.1. </span>Practical Session 1.4: Graph Matching with Topological Features<a class="headerlink" href="#practical-session-1-4-graph-matching-with-topological-features" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.2. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
 <p>In our previous session, we explored basic graph matching using spatial coordinates and the Hungarian Algorithm. While this approach provides a foundation for matching keypoints between images, it only considers geometric distances. In this session, we’ll enhance our matching by incorporating topological features using node2vec embeddings.</p>
 </section>
 <section id="theoretical-background">
-<h2>Theoretical Background<a class="headerlink" href="#theoretical-background" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.3. </span>Theoretical Background<a class="headerlink" href="#theoretical-background" title="Permalink to this heading">#</a></h2>
 <section id="node2vec">
-<h3>Node2vec<a class="headerlink" href="#node2vec" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">6.3.1. </span>Node2vec<a class="headerlink" href="#node2vec" title="Permalink to this heading">#</a></h3>
 <p>Node2vec is an algorithmic framework for learning continuous feature representations for nodes in networks. It maps nodes to a low-dimensional space of features that maximizes the likelihood of preserving network neighborhoods of nodes. The key advantages are:</p>
 <ul class="simple">
 <li><p>Captures structural equivalence and homophily</p></li>
@@ -428,7 +430,7 @@ document.write(`
 </section>
 </section>
 <section id="enhanced-matching-algorithm">
-<h2>Enhanced Matching Algorithm<a class="headerlink" href="#enhanced-matching-algorithm" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.4. </span>Enhanced Matching Algorithm<a class="headerlink" href="#enhanced-matching-algorithm" title="Permalink to this heading">#</a></h2>
 <p>We’ll modify our previous approach by:</p>
 <ol class="arabic simple">
 <li><p>Computing node embeddings using node2vec</p></li>
@@ -437,10 +439,10 @@ document.write(`
 </ol>
 </section>
 <section id="exercise">
-<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.5. </span>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
 <p>In the previous session, we learned about graph construction methods for matching keypoints in images. In this session, we will implement the Hungarian Algorithm to solve the assignment problem in graph matching. We will use the keypoints extracted from images to create a cost matrix and find the optimal assignment of keypoints between two images.</p>
 <section id="exercise-1-enhanced-graph-matching-using-graph-embeddings">
-<h3>Exercise 1: Enhanced Graph Matching Using Graph Embeddings<a class="headerlink" href="#exercise-1-enhanced-graph-matching-using-graph-embeddings" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">6.5.1. </span>Exercise 1: Enhanced Graph Matching Using Graph Embeddings<a class="headerlink" href="#exercise-1-enhanced-graph-matching-using-graph-embeddings" title="Permalink to this heading">#</a></h3>
 <p>We’ll modify our previous approach by:</p>
 <ol class="arabic simple">
 <li><p>Computing node embeddings using both node2vec</p></li>
@@ -538,32 +540,32 @@ document.write(`
 </div>
 </section>
 <section id="exercise-2-visualize-the-optimal-assignment">
-<h3>Exercise 2: Visualize the Optimal Assignment<a class="headerlink" href="#exercise-2-visualize-the-optimal-assignment" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">6.5.2. </span>Exercise 2: Visualize the Optimal Assignment<a class="headerlink" href="#exercise-2-visualize-the-optimal-assignment" title="Permalink to this heading">#</a></h3>
 <p>Visualize the optimal assignment by connecting the matched keypoints with lines on the images.</p>
 <figure class="align-default" id="duck-matching-good">
 <a class="reference internal image-reference" href="_images/duck_matching_combined_embedding.png"><img alt="_images/duck_matching_combined_embedding.png" src="_images/duck_matching_combined_embedding.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-text">Visualizing the Duck Images with Keypoints,Graph embeddings, Delaunay Triangulation and Matching (Good Result)</span><a class="headerlink" href="#duck-matching-good" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 6.1 </span><span class="caption-text">Visualizing the Duck Images with Keypoints,Graph embeddings, Delaunay Triangulation and Matching (Good Result)</span><a class="headerlink" href="#duck-matching-good" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="duck-matching-bad">
 <a class="reference internal image-reference" href="_images/duck_matching_combined_embedding_malo.png"><img alt="_images/duck_matching_combined_embedding_malo.png" src="_images/duck_matching_combined_embedding_malo.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-text">Visualizing the Duck Images with Keypoints,<strong>Without</strong> Graph embeddings, Delaunay Triangulation and Matching (Bad Result)</span><a class="headerlink" href="#duck-matching-bad" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 6.2 </span><span class="caption-text">Visualizing the Duck Images with Keypoints,<strong>Without</strong> Graph embeddings, Delaunay Triangulation and Matching (Bad Result)</span><a class="headerlink" href="#duck-matching-bad" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="exercise-3-evaluate-the-matching-results-and-report">
-<h3>Exercise 3: Evaluate the Matching Results and Report<a class="headerlink" href="#exercise-3-evaluate-the-matching-results-and-report" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">6.5.3. </span>Exercise 3: Evaluate the Matching Results and Report<a class="headerlink" href="#exercise-3-evaluate-the-matching-results-and-report" title="Permalink to this heading">#</a></h3>
 <p>Finally, we ask you to extract the accuracy of the matching results. The accuracy is defined as the number of correctly matched keypoints divided by the total number of keypoints. As you know, you have 5 categories of images, so you should evaluate the accuracy for each category, and create a csv file with the results of each category, reporting the mean accuracy for each category and the standard deviation. If you need to perform any other experiment, this is the time to do it.</p>
 </section>
 <section id="exercise-4-comparative-analysis">
-<h3>Exercise 4: Comparative Analysis<a class="headerlink" href="#exercise-4-comparative-analysis" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">6.5.4. </span>Exercise 4: Comparative Analysis<a class="headerlink" href="#exercise-4-comparative-analysis" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="part-1-accuracy-analysis-across-categories">
-<h3>Part 1: Accuracy Analysis Across Categories<a class="headerlink" href="#part-1-accuracy-analysis-across-categories" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">6.5.5. </span>Part 1: Accuracy Analysis Across Categories<a class="headerlink" href="#part-1-accuracy-analysis-across-categories" title="Permalink to this heading">#</a></h3>
 <section id="task-requirements">
-<h4>Task Requirements<a class="headerlink" href="#task-requirements" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">6.5.5.1. </span>Task Requirements<a class="headerlink" href="#task-requirements" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p>Calculate matching accuracy for each image category:</p>
 <ul class="simple">
@@ -575,9 +577,9 @@ document.write(`
 </section>
 </section>
 <section id="part-2-comparative-analysis">
-<h3>Part 2: Comparative Analysis<a class="headerlink" href="#part-2-comparative-analysis" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">6.5.6. </span>Part 2: Comparative Analysis<a class="headerlink" href="#part-2-comparative-analysis" title="Permalink to this heading">#</a></h3>
 <section id="required-experiments">
-<h4>Required Experiments<a class="headerlink" href="#required-experiments" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">6.5.6.1. </span>Required Experiments<a class="headerlink" href="#required-experiments" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><strong>Baseline Analysis</strong></p>
 <ul class="simple">
@@ -642,6 +644,15 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="practice_1_3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Graph Matching</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -657,24 +668,24 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-4-graph-matching-with-topological-features">Practical Session 1.4: Graph Matching with Topological Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">Theoretical Background</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">Node2vec</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-4-graph-matching-with-topological-features">6.1. Practical Session 1.4: Graph Matching with Topological Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">6.2. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">6.3. Theoretical Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">6.3.1. Node2vec</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-matching-algorithm">Enhanced Matching Algorithm</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-enhanced-graph-matching-using-graph-embeddings">Exercise 1: Enhanced Graph Matching Using Graph Embeddings</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-optimal-assignment">Exercise 2: Visualize the Optimal Assignment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-evaluate-the-matching-results-and-report">Exercise 3: Evaluate the Matching Results and Report</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-comparative-analysis">Exercise 4: Comparative Analysis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-accuracy-analysis-across-categories">Part 1: Accuracy Analysis Across Categories</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-requirements">Task Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-matching-algorithm">6.4. Enhanced Matching Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">6.5. Exercise</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-enhanced-graph-matching-using-graph-embeddings">6.5.1. Exercise 1: Enhanced Graph Matching Using Graph Embeddings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-optimal-assignment">6.5.2. Exercise 2: Visualize the Optimal Assignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-evaluate-the-matching-results-and-report">6.5.3. Exercise 3: Evaluate the Matching Results and Report</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-comparative-analysis">6.5.4. Exercise 4: Comparative Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-accuracy-analysis-across-categories">6.5.5. Part 1: Accuracy Analysis Across Categories</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-requirements">6.5.5.1. Task Requirements</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-comparative-analysis">Part 2: Comparative Analysis</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#required-experiments">Required Experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-comparative-analysis">6.5.6. Part 2: Comparative Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#required-experiments">6.5.6.1. Required Experiments</a></li>
 </ul>
 </li>
 </ul>
