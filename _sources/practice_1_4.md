@@ -3,7 +3,7 @@
 ## Practical Session 1.4: Graph Matching with Topological Features
 
 ## Introduction
-In our previous session, we explored basic graph matching using spatial coordinates and the Hungarian Algorithm. While this approach provides a foundation for matching keypoints between images, it only considers geometric distances. In this session, we'll enhance our matching by incorporating topological features using node2vec and commute times embeddings.
+In our previous session, we explored basic graph matching using spatial coordinates and the Hungarian Algorithm. While this approach provides a foundation for matching keypoints between images, it only considers geometric distances. In this session, we'll enhance our matching by incorporating topological features using node2vec embeddings.
 
 ## Theoretical Background
 
@@ -13,13 +13,11 @@ Node2vec is an algorithmic framework for learning continuous feature representat
 - Flexible random walk strategy
 - Scalable to large networks
 
-### Hitting time
-The hitting time of a graph is the expected number of steps that it takes for a random walk to reach a given node in the graph. The hitting time can be used to measure the connectivity of the graph and to find interesting patterns in the graph. This patterns would be more informative than the shortest path or the random walk, since it will give us a more global view of the graph and it is more robust to noise (noise in a graph is the presence of edges that do not follow the general pattern of the graph).
 
 ## Enhanced Matching Algorithm
 
 We'll modify our previous approach by:
-1. Computing node embeddings using both node2vec and hitting times
+1. Computing node embeddings using node2vec
 2. Creating a combined similarity matrix using both spatial and topological features
 3. Applying the Hungarian Algorithm to find optimal matches
 
@@ -30,7 +28,7 @@ In the previous session, we learned about graph construction methods for matchin
 ### Exercise 1: Enhanced Graph Matching Using Graph Embeddings
 
 We'll modify our previous approach by:
-1. Computing node embeddings using both node2vec and hitting times
+1. Computing node embeddings using both node2vec
 2. Creating a combined similarity matrix using both spatial and topological features
 3. Applying the Hungarian Algorithm to find optimal matches
 
@@ -63,24 +61,6 @@ def compute_node2vec_embeddings(G, dimensions=64, num_walks=10, walk_length=30):
     Compute node2vec embeddings for the graph
     """
     return embeddings
-def hitting_time(G, start_node, destination_node, num_walks=100):
-    """
-    Compute the hitting time between two nodes in the graph
-    """
-    return hitting_time
-def compute_hitting_time_matrix(G):
-    """
-    Compute hitting time matrix for all pairs of nodes
-    """
-    n = G.number_of_nodes()
-    hitting_times = np.zeros((n, n))
-    
-    for i in range(n):
-        for j in range(i+1, n):
-            h_time = hitting_time(G, i, j)
-            hitting_times[i,j] = h_time
-            hitting_times[j,i] = h_time
-    return hitting_times
 def enhanced_spatial_matching(kpts1, kpts2, adj_matrix1, adj_matrix2):
     """
     Perform enhanced matching using spatial, hitting time, and node2vec features
@@ -98,7 +78,7 @@ def enhanced_spatial_matching(kpts1, kpts2, adj_matrix1, adj_matrix2):
     Hints:
         - Primero deberás crear una matriz de costes basada en distancias euclidianas,
         cuyo tamaño será (n1, n2) donde n1 y n2 son el número de keypoints en cada grafo.
-        - Seguidamente, deberás rellenar dicha matriz con las distancias euclidianas de los keypoints, las distancias/normas de node2vec y finalmente distancias/normas entre el hitting time.
+        - Seguidamente, deberás rellenar dicha matriz con las distancias euclidianas de los keypoints, las distancias/normas de node2vec 
         - A continuación, deberás aplicar el algoritmo húngaro usando la función linear_sum_assignment, que recibe la matriz de costes y devuelve los índices de los puntos emparejados.
         - Finalmente, deberás crear una matriz de matching a partir de los índices obtenidos.
 
@@ -110,10 +90,6 @@ def enhanced_spatial_matching(kpts1, kpts2, adj_matrix1, adj_matrix2):
     node2vec_emb1 = compute_node2vec_embeddings(G1)
     node2vec_emb2 = compute_node2vec_embeddings(G2)
     
-    print("Computing hitting time matrices...")
-    hitting_times1 = compute_hitting_time_matrix(G1)
-    hitting_times2 = compute_hitting_time_matrix(G2)
-
     # Create cost matrix combining different features
     cost_matrix = np.zeros((n1, n2))
     
@@ -125,15 +101,10 @@ def enhanced_spatial_matching(kpts1, kpts2, adj_matrix1, adj_matrix2):
             # Node2vec similarity
             node2vec_dist = np.sqrt(np.sum((node2vec_emb1[i] - node2vec_emb2[j])**2))
             
-            # Hitting time profile similarity
-            hitting_profile_dist = np.sqrt(np.sum((hitting_times1[i] - hitting_times2[j])**2))
-            
-            
             # Combine distances with weights
             cost_matrix[i,j] = (
-                0.4 * spatial_dist +
-                0.3 * node2vec_dist +
-                0.3 * hitting_profile_dist
+                0.6 * spatial_dist +
+                0.4 * node2vec_dist
             )
     
     return matching
@@ -180,19 +151,6 @@ Finally, we ask you to extract the accuracy of the matching results. The accurac
 1. Calculate matching accuracy for each image category:
    - Accuracy = (Number of correctly matched keypoints) / (Total number of keypoints)
    - Process all images in each of the 5 categories
-   - Generate a CSV file containing:
-     * Category name
-     * Mean accuracy
-     * Standard deviation
-     * Number of images processed
-
-#### Expected CSV Format
-```
-Category,Mean_Accuracy,Std_Deviation,Number_of_Images
-Category1,0.XX,0.XX,XX
-Category2,0.XX,0.XX,XX
-...
-```
 
 ### Part 2: Comparative Analysis
 
@@ -215,60 +173,3 @@ Category2,0.XX,0.XX,XX
      * KNN(5)
      * KNN(7)
    - Compare results with Delaunay triangulation
-
-4. **Weight Sensitivity Analysis**
-   - Using your chosen category, experiment with different weight combinations:
-     * Spatial weight: [0.3, 0.4, 0.5, 0.6]
-     * Node2vec weight: [0.2, 0.3, 0.4]
-     * Hitting time weight: [0.2, 0.3, 0.4]
-   - Note: Weights should sum to 1.0
-
-### Final Report Requirements
-
-### Format
-- Include visualizations (graphs, charts)
-- Use tables for numerical comparisons
-- No code needed in the report
-### Submission format
-```bash
-name_surname.zip
-├── visualization_part_1.ipynb
-    └── car.png
-    └── face.png
-    └── duck.png
-    └── motorbike.png
-    └── winebottle.png
-├── visualization_part_2.ipynb
-    └── car_Delaunay.png
-    └── face_Delaunay.png
-    └── duck_Delaunay.png
-    └── motorbike_Delaunay.png
-    └── winebottle_Delaunay.png
-    └── car_KNN3.png
-    └── car_KNN5.png
-    └── car_KNN7.png
-    └── face_KNN3.png
-    └── face_KNN5.png
-    └── face_KNN7.png
-    └── duck_KNN3.png
-    └── duck_KNN5.png
-    └── duck_KNN7.png
-    └── motorbike_KNN3.png
-    └── motorbike_KNN5.png
-    └── motorbike_KNN7.png
-    └── winebottle_KNN3.png
-    └── winebottle_KNN5.png
-    └── winebottle_KNN7.png
-├── match_part_1.ipynb
-    └── results.csv
-    └── some_images.png
-├── match_part_2.ipynb
-    └── results.csv
-    └── some_images.png
-├── report.ipynb
-```
-## Evaluation Criteria
-Your work will be evaluated based on:
-- Thoroughness of analysis
-- Quality of visualizations
-- Clarity of conclusions
