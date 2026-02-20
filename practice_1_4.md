@@ -141,19 +141,10 @@ Visualizing the Duck Images with Keypoints,**Without** Graph embeddings, Delauna
 ```
 ### Exercise 3: Evaluate the Matching Results and Report
 
-Finally, we ask you to extract the accuracy of the matching results. The accuracy is defined as the number of correctly matched keypoints divided by the total number of keypoints. As you know, you have 5 categories of images, so you should evaluate the accuracy for each category, and create a csv file with the results of each category, reporting the mean accuracy for each category and the standard deviation. If you need to perform any other experiment, this is the time to do it.
-
-### Exercise 4: Comparative Analysis
-
-### Part 1: Accuracy Analysis Across Categories
-
 #### Task Requirements
 1. Calculate matching accuracy for each image category:
    - Accuracy = (Number of correctly matched keypoints) / (Total number of keypoints)
    - Process all images in each of the 5 categories
-
-### Part 2: Comparative Analysis
-
 #### Required Experiments
 
 1. **Baseline Analysis**
