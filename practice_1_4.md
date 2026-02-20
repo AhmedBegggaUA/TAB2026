@@ -63,7 +63,7 @@ def compute_node2vec_embeddings(G, dimensions=64, num_walks=10, walk_length=30):
     return embeddings
 def enhanced_spatial_matching(kpts1, kpts2, adj_matrix1, adj_matrix2):
     """
-    Perform enhanced matching using spatial, hitting time, and node2vec features
+    Perform enhanced matching using spatial and node2vec features
     """
 
     
