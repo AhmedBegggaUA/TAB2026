@@ -1096,10 +1096,12 @@ SA is appealing for AI since it allows us to track the global optimum in a sort 
 2) The <span style="color:#f88146">global optimum is only guaranteed for a **slow** annealing</span> $T(t)=\frac{C}{\log(1+t)}\rightarrow 0$. SA has to be slow enough to not missing that global optimum; otherwise SA becomes greedy prematurely. This is an **important limitation** of SA: remember that for QAP we have to evaluate $F(\omega)$ at each time $t$ and it takes $O(n^4)$.
 
 
+<!--
 ## Central Clustering
 **Deterministic Annealing** (DA) emerges as a faster method than SA. In order to motivate this technique it is more convenient to visit another NP problem. This problem is **central clustering** (or <span style="color:#f88146">**$k-$centrer clustering**</span>) and it is formulated as follows: 
 
 *Given a set ${\cal X}=\{\mathbf{x}_1,\mathbf{x_2},\ldots,\mathbf{x}_m\}\subset \mathbb{R}^d$ ($d-$dimensional points)  and an integer parameter $k>1$, *find a set of $k$ centers* ${\cal C}=\{\mathbf{c}_1,\mathbf{c}_2,\ldots,\mathbf{c}_k\}\subset \mathbb{R}^d$ such that so that the Euclidean distance $D(\mathbf{x},\mathbf{c})$ of each point $\mathbf{x}_a$ to its closest center $\mathbf{c}_i$ is minimal.*
+
 
 ### Clusters and Prototypes
 A more intuitive formulation is as follows. Let 
@@ -1829,7 +1831,7 @@ Clusters and estimated prototypes in $\mathbb{R}^2$ (K=2).
 ```
 
 As a result, <span style="color:#f88146">**entropy is crucial** for the interpretation of clustering problems!</span>
-
+-->
 
 ## SoftMax for Graph Matching
 
@@ -1844,6 +1846,7 @@ the Permuthoedron $\Pi_n$, i.e. the set of **permutation matrices**.
 under a **slow annealing schedule**. Each iteration takes $O(n^4)$ for evaluating the 
 quadratic cost function $F(\mathbf{M})$. 
 
+<!--
 We have seen that central clustering can be posed, however, in <span style="color:#f88146">**continuous terms** via DA</span>:
 1) The search space is $\mathbb{R}^d\times {\cal P}$: we have to jointly find $k$ centers 
 $\mathbf{c}_i\in\mathbb{R}^d$ and a binary matrix $\mathbf{M}\in\{0,1\}^{m\times k}$ indicating 
@@ -1858,6 +1861,7 @@ it **allows faster annealing schedules**.
 (the Gibbs partition function) thanks to the **independence assumption**: points are assumed to 
 be independently assigned to any cluster.  
 
+-->
 
 In the [Gurobi framework ](https://gurobi-optimods.readthedocs.io/en/latest/index.html), 
 for optimization, where graph matching is seen as a Maximmum Clique, many combinatorial algorithm share 
@@ -1893,7 +1897,9 @@ of numbers:
     
           $m_i\leftarrow \frac{m_i}{\sum_{i=1}^m m_i}$
 
-    3. Increase $\beta$
+    3. Update $X_i$ 
+
+    4. Increase $\beta$
 
 3. **return** $\{m_i\}$ where $\sum_{i=1}^m m_i=1$
 ```
@@ -1919,7 +1925,7 @@ width: 800px
 align: center
 height: 800px
 ---
-Softmaxing a list of real-valued elements.
+Softmaxing a list of real-valued elements. Herein, $X_i$ are not updated per iteration, to show the role of $m_i$. 
 ```
 
 ### Graduated Assignment
@@ -1978,13 +1984,16 @@ Algorithmically, the **SoftLA** needs to **enforce the two-way constraints** in 
 **Outputs** $\mathbf{M}^{\ast}$ maximal assignment.
 
 1. Initialize $\beta\leftarrow \beta_0$
-2. **while** $\beta < \beta_f$:  
+2. Initialize $\mathbf{M}_{ai}\leftarrow (1+\epsilon)$
+3. **while** $\beta < \beta_f$:  
 
-    1. $\mathbf{M}_{ai}\leftarrow \exp(\beta \mathbf{X}_{ai})$
+    1. $\mathbf{Q}_{ai}\leftarrow \mathbf{M}_{ai}\mathbf{X}_{ai}$
+
+    2. $\mathbf{M}_{ai}\leftarrow \exp(\beta \mathbf{Q}_{ai})$
     
-    2. $\mathbf{M}\leftarrow\text{Sinkhorn}(\mathbf{M})$
+    3. $\mathbf{M}\leftarrow\text{Sinkhorn}(\mathbf{M})$
    
-    3. Increase $\beta$
+    4. Increase $\beta$
 
 3. **return** $\mathbf{M}^{\ast}$ optimal doubly-stochastic matrix. 
 ```
@@ -2038,8 +2047,7 @@ SoftLA solution for a $m=n=5$ instance with random costs.
 ```
 
 Note that: 
-1) The general initialization is $\mathbf{M}^0=\mathbf{1}^T\mathbf{1}+ \epsilon\mathbf{I}$, 
-i.e. the matrix of ones with a slight perturbation: $\mathbf{M}^0_{ai}=1+\epsilon$. This 
+1) The general initialization is the matrix of ones with a slight perturbation: $\mathbf{M}^0_{ai}=1+\epsilon$. This 
 initialization is known as **baricenter** or **neutral**. 
 2) In the above example, $\mathbf{X}$ is drawn from $n\times n$ **random** integers between $0$ and $n^2-1$.
 3) The role of $\text{Sinkhorn}$ is to enforce the two-way constraints and sometimes it may lead 
@@ -2207,16 +2215,18 @@ $\text{SoftAssign}$ algorithm detailed below.
 **Inputs** Adjacency matrices $\mathbf{X}\in\{0,1\}^{m\times m}$, $\mathbf{Y}\in\{0,1\}^{n\times n}$,  $\beta_0>0$\
 **Outputs** $\hat{\mathbf{M}}^{\ast}$ (extended) maximal quadratic assignment.
 
-1. Initialize $\beta\leftarrow \beta_0$,  $\hat{\mathbf{M}}_{ai}\leftarrow 1+\epsilon$
-2. **while** $\beta < \beta_f$:  
+1. Initialize $\beta\leftarrow \beta_0$  
+2. Initialize $\mathbf{M}_{ai}\leftarrow 1+\epsilon$
+3. **while** $\beta < \beta_f$:  
     
     1. $t\leftarrow 0$
 
     2. convergence$\leftarrow$ False
 
+
     3. **while** $\neg$convergence: 
 
-        1. $\hat{\mathbf{M}}^{old}_{ai}\leftarrow \hat{\mathbf{M}}_{ai}$
+        1. $\mathbf{M}^{old}_{ai}\leftarrow \mathbf{M}_{ai}$
 
         2. $\mathbf{Q}_{ai}\leftarrow \sum_{b=1}^m\sum_{j=1}^n\mathbf{M}_{bj}\mathbf{X}_{ab}\mathbf{Y}_{ij}$
       
@@ -2226,11 +2236,13 @@ $\text{SoftAssign}$ algorithm detailed below.
 
         5. $\hat{\mathbf{M}}^0\leftarrow\text{Sinkhorn}(\hat{\mathbf{M}}^0)$
 
-        6. $t\leftarrow t + 1$
+        6. De-expand $\mathbf{M}\leftarrow \hat{\mathbf{M}}^0$
 
-        7. convergence = $(t>t_{max})$ **or** $(\sum_{ai}|\hat{\mathbf{M}}_{ai}- \hat{\mathbf{M}}^{old}_{ai}|\le\epsilon' )$
+        7. $t\leftarrow t + 1$
+
+        8. convergence = $(t>t_{max})$ **or** $(\sum_{ai}|\mathbf{M}_{ai}- \mathbf{M}^{old}_{ai}|\le\epsilon' )$
    
-    3. Increase $\beta$
+    4. Increase $\beta$
 
 3. **return** $\hat{\mathbf{M}}^{\ast}$ optimal doubly-stochastic matrix. 
 ```
@@ -2239,9 +2251,6 @@ Some notes:
 
 1) If $m\neq n$ we always assume $m\le n$, i.e. $\mathbf{X}$ is the smallest graph.
 
-2) Given the expanded $\hat{\mathbf{M}}$ in step $1$, we implicitly use its 
-$\mathbf{M}$ $m\times n$ matrix in steps $3.2$ and $3.3$. 
-
 2) In step $3.4$ we expand explicitly $\mathbf{M}^0$ by incorporating an additiona row and column 
 of zeros. Note that $\text{Sinkhorn}$ **always needs** a $(m+1)\times (n+1)$ matrix if $m\neq n$!
 
@@ -2249,6 +2258,43 @@ of zeros. Note that $\text{Sinkhorn}$ **always needs** a $(m+1)\times (n+1)$ mat
 roughtly $O(n^3)$, or more precisely $O(|E|n)$, if $m=n$ and $|E|$ is the number of edges.
 Such a complexity is due to step 3.2 (the computation of $\mathbf{Q}$ which involves the 
 product of 3 matrices).
+
+#### Overview 
+Note that, conceptually speaking, the SoftAssign (or Graduated Assignment Algorithm) for graphs can be seen as a SoftLA where the features $\mathbf{X}_{ai}$ correspond to $\mathbf{Q}_{ai}$, the number of rectangles we can close with the neighbors of $a$ and $i$ if the matching $\mathbf{M}_{ai}$ is activated. This is encoded by $\mathbf{C}_{aibj}$. 
+
+This rationale is illustrated in {numref}`Overview`.
+
+```{figure} ./images/Topic2/Overview-nobag.png
+---
+name: Overview
+width: 800px
+align: center
+height: 400px
+---
+Overview of the SoftAssign algorithm as a SoftLA.
+```
+
+#### Including attributes
+A feasible way of including attributes, for instance in nodes, is to define a node-2-node compabilility (binary) matrix $C_{ai}$ of size $m\times n$, so that $C_{ai}=1$ means that node $a$ in $X$ is **compatible** with node $i$ in $Y$, and $C_{ai}=0$ otherwise. 
+
+For instance, in {numref}`Alternative`, a way of forcing an alternative matching to those of the notable vertices is to impose that $a$ can be matching with anyother, but $b$ can be only matched with $4$ and $c$ with $1$. 
+
+```{figure} ./images/Topic2/Alternative-nbg.png
+---
+name: Alternative
+width: 800px
+align: center
+height: 600px
+---
+Proposing alterative matching based on node compatibility constraints.
+```
+
+In terms of the cost function, we have that 
+
+$$
+\mathbf{Q}=\mathbf{X}^T(\mathbf{C}\odot\mathbf{M}[:m,:n])\mathbf{Y}\;.
+$$
+
 
 #### Cleanup
 Remember that continuation methods are **solved in the continuum** but our **original 
@@ -2358,7 +2404,7 @@ $$
 Or, in other words, applying the Bayes theorem we have that $A$ and $B$ are independent iff 
 
 $$
-p(A,B) = p(B|A)p(A) = p(A|B)p(B)\Rightarrow p(B|A)=p(B)\;\text{and}\;p(A|B)=p(B)\;.
+p(A,B) = p(B|A)p(A) = p(A|B)p(B)\Rightarrow p(B|A)=p(B)\;\text{and}\;p(A|B)=p(A)\;.
 $$
 
 In other words: 
@@ -2748,7 +2794,7 @@ $$
 
 and similarly for $H(B|A)$. Actually we have several **properties** linking conditional entropies and joint entropies:
 1) **Zero-value**: $H(A|B)=0$ if the value of $A$ is *completely determined* by $B$. In other words, $H(A|B)$ measures how much uncertainty adds $B$ to $A$. Then, if $p(A|B)=1$ it is expected that knowing $B$ is the same as knowing $A$ itself.   
-2) **Independence**: $H(A|B)=H(A)$ and $H(B|A)=H(A)$ iff $A$ and $B$ are *independent*, as it happens with $p(A|B)=p(A)$ and $p(B|A)=p(A)$.  
+2) **Independence**: $H(A|B)=H(A)$ and $H(B|A)=H(B)$ iff $A$ and $B$ are *independent*, as it happens with $p(A|B)=p(A)$ and $p(B|A)=p(A)$.  
 3) **Chain rule**: the conditional entropies can be derived from the joint entropy $H(A,B)$ by subtracting the entropy of the conditioning variable: 
 
 $$
