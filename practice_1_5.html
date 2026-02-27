@@ -1,0 +1,844 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>7. SoftAssign &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practice_1_5';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="6. Graph Matching with Topological Features" href="practice_1_4.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Técnicas y Algoritmos de Búsqueda IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Técnicas y Algoritmos de Búsqueda IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    TAB2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">NP-Hardness and Graph Matching</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic1.html">1. NP-Complete Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topic2.html">2. Simulated and Deterministic Annealing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 1</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">3. Introduction to the practical part of TAB2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">4. Graph Construction for Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">5. Graph Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_4.html">6. Graph Matching with Topological Features</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. SoftAssign</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpractice_1_5.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practice_1_5.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>SoftAssign</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-5-graph-matching-with-softassign">7.1. Practical Session 1.5: Graph Matching with SoftAssign</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">7.2. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">7.3. Theoretical Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-rectangle-criterion">7.3.1. The Rectangle Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-affinity-matrix-q">7.3.2. The Affinity Matrix Q</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sinkhorn-normalization">7.3.3. Sinkhorn Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-parameter-and-annealing">7.3.4. The β Parameter and Annealing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-pseudocode">7.4. Algorithm Pseudocode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-sinkhorn">7.4.1. Algorithm 1 — Sinkhorn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-2-softassign">7.4.2. Algorithm 2 — SoftAssign</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-3-cleanup">7.4.3. Algorithm 3 — Cleanup</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">7.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-implement-softassign">7.5.1. Exercise 1 — Implement SoftAssign</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-result">7.5.2. Exercise 2 — Visualize the Result</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-hyperparameter-tuning">7.5.3. Exercise 3 — Hyperparameter Tuning</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="softassign">
+<h1><span class="section-number">7. </span>SoftAssign<a class="headerlink" href="#softassign" title="Permalink to this heading">#</a></h1>
+<section id="practical-session-1-5-graph-matching-with-softassign">
+<h2><span class="section-number">7.1. </span>Practical Session 1.5: Graph Matching with SoftAssign<a class="headerlink" href="#practical-session-1-5-graph-matching-with-softassign" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="introduction">
+<h2><span class="section-number">7.2. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<p>In the previous sessions we built a pipeline for graph matching that ended with the <strong>Hungarian Algorithm</strong>: given a cost matrix of pairwise Euclidean distances, it finds the optimal one-to-one assignment between keypoints in <span class="math notranslate nohighlight">\(O(n^3)\)</span>.</p>
+<p>The limitation is structural: the Hungarian Algorithm only sees <strong>where</strong> points are, not <strong>how they are connected</strong>. In this session we implement <strong>SoftAssign</strong>, which explicitly maximizes structural compatibility between the two graphs through the <em>rectangle</em> criterion.</p>
+</section>
+<hr class="docutils" />
+<section id="theoretical-background">
+<h2><span class="section-number">7.3. </span>Theoretical Background<a class="headerlink" href="#theoretical-background" title="Permalink to this heading">#</a></h2>
+<section id="the-rectangle-criterion">
+<h3><span class="section-number">7.3.1. </span>The Rectangle Criterion<a class="headerlink" href="#the-rectangle-criterion" title="Permalink to this heading">#</a></h3>
+<p>A rectangle is formed when four conditions hold simultaneously:</p>
+<ul class="simple">
+<li><p>Edge <span class="math notranslate nohighlight">\(a\)</span>–<span class="math notranslate nohighlight">\(b\)</span> exists in <span class="math notranslate nohighlight">\(G_1\)</span> → <span class="math notranslate nohighlight">\(X_{ab} = 1\)</span></p></li>
+<li><p>Edge <span class="math notranslate nohighlight">\(i\)</span>–<span class="math notranslate nohighlight">\(j\)</span> exists in <span class="math notranslate nohighlight">\(G_2\)</span> → <span class="math notranslate nohighlight">\(Y_{ij} = 1\)</span></p></li>
+<li><p>Node <span class="math notranslate nohighlight">\(a\)</span> is matched to <span class="math notranslate nohighlight">\(i\)</span> → <span class="math notranslate nohighlight">\(M_{ai} = 1\)</span></p></li>
+<li><p>Node <span class="math notranslate nohighlight">\(b\)</span> is matched to <span class="math notranslate nohighlight">\(j\)</span> → <span class="math notranslate nohighlight">\(M_{bj} = 1\)</span></p></li>
+</ul>
+<p>The objective function that counts all rectangles is:</p>
+<div class="math notranslate nohighlight">
+\[F(\mathbf{M}) = \frac{1}{2} \sum_{a,i,b,j} M_{ai}\, M_{bj}\, X_{ab}\, Y_{ij}\]</div>
+</section>
+<section id="the-affinity-matrix-q">
+<h3><span class="section-number">7.3.2. </span>The Affinity Matrix Q<a class="headerlink" href="#the-affinity-matrix-q" title="Permalink to this heading">#</a></h3>
+<p>For each candidate match <span class="math notranslate nohighlight">\((a, i)\)</span>, <span class="math notranslate nohighlight">\(Q_{ai}\)</span> counts how many rectangles it could close given the current soft matching <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[Q_{ai} = \sum_{b}\sum_{j} X_{ab} \cdot M_{bj} \cdot Y_{ij} \quad \Longleftrightarrow \quad \mathbf{Q} = \mathbf{X} \cdot \mathbf{M} \cdot \mathbf{Y}\]</div>
+</section>
+<section id="sinkhorn-normalization">
+<h3><span class="section-number">7.3.3. </span>Sinkhorn Normalization<a class="headerlink" href="#sinkhorn-normalization" title="Permalink to this heading">#</a></h3>
+<p>After updating <span class="math notranslate nohighlight">\(\mathbf{M} \leftarrow \exp(\beta \cdot \mathbf{Q})\)</span>, rows and columns no longer sum to 1. Sinkhorn fixes this by alternating row and column normalization until convergence.</p>
+</section>
+<section id="the-parameter-and-annealing">
+<h3><span class="section-number">7.3.4. </span>The β Parameter and Annealing<a class="headerlink" href="#the-parameter-and-annealing" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Low <span class="math notranslate nohighlight">\(\beta\)</span></strong>: assignments are soft → the algorithm explores freely</p></li>
+<li><p><strong>High <span class="math notranslate nohighlight">\(\beta\)</span></strong>: assignments peak sharply → the algorithm commits to a solution</p></li>
+</ul>
+<p>SoftAssign starts at <span class="math notranslate nohighlight">\(\beta_0\)</span> and multiplies by <span class="math notranslate nohighlight">\(\beta_r &gt; 1\)</span> at each outer iteration. This is <strong>deterministic annealing</strong>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="algorithm-pseudocode">
+<h2><span class="section-number">7.4. </span>Algorithm Pseudocode<a class="headerlink" href="#algorithm-pseudocode" title="Permalink to this heading">#</a></h2>
+<section id="algorithm-1-sinkhorn">
+<h3><span class="section-number">7.4.1. </span>Algorithm 1 — Sinkhorn<a class="headerlink" href="#algorithm-1-sinkhorn" title="Permalink to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INPUT:  Matrix M (m×n), max_iter, ε
+OUTPUT: Doubly stochastic matrix M
+
+1. FOR t = 1, 2, …, max_iter:
+    a. M_old ← M
+    b. FOR each row a:   M[a,:] ← M[a,:] / sum(M[a,:])
+    c. FOR each col i:   M[:,i] ← M[:,i] / sum(M[:,i])
+    d. IF ||M − M_old||₁ &lt; ε:  BREAK
+2. RETURN M
+</pre></div>
+</div>
+</section>
+<section id="algorithm-2-softassign">
+<h3><span class="section-number">7.4.2. </span>Algorithm 2 — SoftAssign<a class="headerlink" href="#algorithm-2-softassign" title="Permalink to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INPUT:  Adjacency matrices X (m×m), Y (n×n)
+        β₀, β_f, β_r, I₀, I₁, ε
+OUTPUT: Soft matching matrix M (m×n)
+
+1. M ← ones(m,n) + 0.1·rand(m,n)
+2. M ← Sinkhorn(M)
+3. β ← β₀
+
+4. WHILE β &lt; β_f:
+    a. FOR t = 1, …, I₀:
+        i.   M_old ← M
+        ii.  Q ← X · M · Y
+        iii. M ← exp(β · Q)
+        iv.  M ← Sinkhorn(M)
+        v.   IF ||M − M_old||₁ &lt; ε: BREAK
+    b. β ← β · β_r
+
+5. RETURN M
+</pre></div>
+</div>
+</section>
+<section id="algorithm-3-cleanup">
+<h3><span class="section-number">7.4.3. </span>Algorithm 3 — Cleanup<a class="headerlink" href="#algorithm-3-cleanup" title="Permalink to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INPUT:  Soft matching matrix M (m×n)
+OUTPUT: Binary matching matrix M_binary (m×n)
+
+1. M_binary ← zeros(m,n)
+2. M_work   ← copy(M)
+
+3. FOR k = 1, …, min(m,n):
+    a. (a*, i*) ← argmax(M_work)
+    b. M_binary[a*, i*] ← 1
+    c. M_work[a*, :] ← −∞
+    d. M_work[:, i*] ← −∞
+
+4. RETURN M_binary
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercises">
+<h2><span class="section-number">7.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<section id="exercise-1-implement-softassign">
+<h3><span class="section-number">7.5.1. </span>Exercise 1 — Implement SoftAssign<a class="headerlink" href="#exercise-1-implement-softassign" title="Permalink to this heading">#</a></h3>
+<p>Complete the following skeleton. The utility functions <code class="docutils literal notranslate"><span class="pre">load_and_preprocess_images</span></code>, <code class="docutils literal notranslate"><span class="pre">delaunay_triangulation</span></code> and <code class="docutils literal notranslate"><span class="pre">visualize_matching_full</span></code> are the same as in Session 1.3 and are already provided.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">Delaunay</span>
+
+<span class="c1"># ── Hyperparameters ───────────────────────────────────────────────────────────</span>
+<span class="n">BETA_0</span>    <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">BETA_F</span>    <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">BETA_RATE</span> <span class="o">=</span> <span class="mf">1.075</span>
+<span class="n">I0</span>        <span class="o">=</span> <span class="mi">4</span>
+<span class="n">I1</span>        <span class="o">=</span> <span class="mi">30</span>
+<span class="n">EPS</span>       <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">OBJ_RESIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+
+<span class="c1"># ── Provided utilities ────────────────────────────────────────────────────────</span>
+<span class="k">def</span> <span class="nf">load_and_preprocess_images</span><span class="p">(</span><span class="n">img_path1</span><span class="p">,</span> <span class="n">img_path2</span><span class="p">,</span> <span class="n">mat_path1</span><span class="p">,</span> <span class="n">mat_path2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load images and scale keypoints to obj_resize.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">kpts1</span><span class="p">,</span> <span class="n">kpts2</span>
+
+<span class="k">def</span> <span class="nf">delaunay_triangulation</span><span class="p">(</span><span class="n">kpt</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build adjacency matrix from Delaunay triangulation.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">A</span>
+
+<span class="k">def</span> <span class="nf">visualize_matching_full</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">kpts1</span><span class="p">,</span> <span class="n">kpts2</span><span class="p">,</span> <span class="n">adj1</span><span class="p">,</span> <span class="n">adj2</span><span class="p">,</span> <span class="n">matching</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize matching: yellow edges, green correct, red incorrect.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="c1"># ── TO IMPLEMENT ──────────────────────────────────────────────────────────────</span>
+<span class="k">def</span> <span class="nf">sinkhorn</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Alternate row/column normalization until M is doubly stochastic.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        M        : (m×n) non-negative matrix</span>
+<span class="sd">        max_iter : maximum iterations</span>
+<span class="sd">        eps      : convergence threshold on ||M - M_old||₁</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        M : doubly stochastic matrix (rows and columns sum to 1)</span>
+
+<span class="sd">    Hints:</span>
+<span class="sd">        - Normalize rows:    M = M / M.sum(axis=1, keepdims=True)</span>
+<span class="sd">        - Normalize columns: M = M / M.sum(axis=0, keepdims=True)</span>
+<span class="sd">        - Add 1e-10 in the denominator to avoid division by zero</span>
+<span class="sd">        - Stop early if ||M - M_old||₁ &lt; eps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">M</span>
+
+
+<span class="k">def</span> <span class="nf">softassign</span><span class="p">(</span><span class="n">X_adj</span><span class="p">,</span> <span class="n">Y_adj</span><span class="p">,</span>
+               <span class="n">beta0</span><span class="o">=</span><span class="n">BETA_0</span><span class="p">,</span> <span class="n">beta_f</span><span class="o">=</span><span class="n">BETA_F</span><span class="p">,</span> <span class="n">beta_rate</span><span class="o">=</span><span class="n">BETA_RATE</span><span class="p">,</span>
+               <span class="n">i0</span><span class="o">=</span><span class="n">I0</span><span class="p">,</span> <span class="n">i1</span><span class="o">=</span><span class="n">I1</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">EPS</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Graph matching by maximizing structural rectangles (Gold &amp; Rangarajan 1996).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X_adj     : (m×m) adjacency matrix of G1</span>
+<span class="sd">        Y_adj     : (n×n) adjacency matrix of G2</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        M : (m×n) soft matching matrix</span>
+
+<span class="sd">    Hints:</span>
+<span class="sd">        - Initialize: M = ones(m,n) + 0.1*rand(m,n), then Sinkhorn</span>
+<span class="sd">        - Outer loop: while beta &lt; beta_f, multiply beta by beta_rate at the end</span>
+<span class="sd">        - Inner loop (i0 iterations):</span>
+<span class="sd">            · Q = X_adj @ M @ Y_adj</span>
+<span class="sd">            · M = exp(beta * Q)</span>
+<span class="sd">            · M = sinkhorn(M)</span>
+<span class="sd">            · break if ||M - M_old||₁ &lt; eps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">M</span>
+
+
+<span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="n">M_soft</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert soft matching to binary via greedy assignment.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        M_soft : (m×n) soft matching matrix</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        M_binary : (m×n) binary matching matrix</span>
+
+<span class="sd">    Hints:</span>
+<span class="sd">        - Repeatedly find argmax of M_work</span>
+<span class="sd">        - Assign that entry, then set its row and column to -inf</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">M_binary</span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-2-visualize-the-result">
+<h3><span class="section-number">7.5.2. </span>Exercise 2 — Visualize the Result<a class="headerlink" href="#exercise-2-visualize-the-result" title="Permalink to this heading">#</a></h3>
+<p>Run SoftAssign on one Duck pair and save the result. Compare visually with the Hungarian result from Session 1.3.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">kpts1</span><span class="p">,</span> <span class="n">kpts2</span> <span class="o">=</span> <span class="n">load_and_preprocess_images</span><span class="p">(</span>
+    <span class="s1">&#39;./data/WillowObject/WILLOW-ObjectClass/Duck/060_0081.png&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;./data/WillowObject/WILLOW-ObjectClass/Duck/060_0066.png&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;./data/WillowObject/WILLOW-ObjectClass/Duck/060_0081.mat&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;./data/WillowObject/WILLOW-ObjectClass/Duck/060_0066.mat&#39;</span>
+<span class="p">)</span>
+
+<span class="n">A1</span> <span class="o">=</span> <span class="n">delaunay_triangulation</span><span class="p">(</span><span class="n">kpts1</span><span class="p">)</span>
+<span class="n">A2</span> <span class="o">=</span> <span class="n">delaunay_triangulation</span><span class="p">(</span><span class="n">kpts2</span><span class="p">)</span>
+
+<span class="n">M_soft</span>   <span class="o">=</span> <span class="n">softassign</span><span class="p">(</span><span class="n">A1</span><span class="p">,</span> <span class="n">A2</span><span class="p">)</span>
+<span class="n">matching</span> <span class="o">=</span> <span class="n">cleanup</span><span class="p">(</span><span class="n">M_soft</span><span class="p">)</span>
+
+<span class="n">correct</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">matching</span><span class="p">))</span>
+<span class="n">total</span>   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">matching</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">correct</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">correct</span><span class="o">/</span><span class="n">total</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">visualize_matching_full</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">kpts1</span><span class="p">,</span> <span class="n">kpts2</span><span class="p">,</span> <span class="n">A1</span><span class="p">,</span> <span class="n">A2</span><span class="p">,</span> <span class="n">matching</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/duck_softassign.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-3-hyperparameter-tuning">
+<h3><span class="section-number">7.5.3. </span>Exercise 3 — Hyperparameter Tuning<a class="headerlink" href="#exercise-3-hyperparameter-tuning" title="Permalink to this heading">#</a></h3>
+<p>For each of the 5 Willow categories, select <strong>one image pair</strong> where the default hyperparameters give a poor result. Tune the hyperparameters until you achieve an accuracy gain of at least <strong>+40 percentage points</strong> on that pair.</p>
+<p><strong>Hyperparameters to explore:</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>What it controls</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BETA_0</span></code></p></td>
+<td><p>0.5</p></td>
+<td><p>Initial softness — how uniform the starting assignments are</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BETA_F</span></code></p></td>
+<td><p>10.0</p></td>
+<td><p>How binary the final solution is</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BETA_RATE</span></code></p></td>
+<td><p>1.075</p></td>
+<td><p>Speed of annealing — how fast β grows</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">I0</span></code></p></td>
+<td><p>4</p></td>
+<td><p>Inner iterations per β step</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>For each of the 5 categories, deliver:</strong></p>
+<ol class="arabic simple">
+<li><p>The two image filenames used.</p></li>
+<li><p>A side-by-side figure: matching <strong>before</strong> tuning (default params) and <strong>after</strong> tuning.</p></li>
+<li><p>The following table filled in:</p></li>
+</ol>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Tuned</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BETA_0</span></code></p></td>
+<td><p>0.5</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BETA_F</span></code></p></td>
+<td><p>10.0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BETA_RATE</span></code></p></td>
+<td><p>1.075</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">I0</span></code></p></td>
+<td><p>4</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Accuracy</strong></p></td>
+<td><p>%</p></td>
+<td><p>%</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p><strong>Where to start:</strong> vary <code class="docutils literal notranslate"><span class="pre">BETA_F</span></code> first — it has the largest effect. If the result is already sharp but wrong, slow down the annealing by reducing <code class="docutils literal notranslate"><span class="pre">BETA_RATE</span></code>.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="practice_1_4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Graph Matching with Topological Features</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-5-graph-matching-with-softassign">7.1. Practical Session 1.5: Graph Matching with SoftAssign</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">7.2. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">7.3. Theoretical Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-rectangle-criterion">7.3.1. The Rectangle Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-affinity-matrix-q">7.3.2. The Affinity Matrix Q</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sinkhorn-normalization">7.3.3. Sinkhorn Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-parameter-and-annealing">7.3.4. The β Parameter and Annealing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-pseudocode">7.4. Algorithm Pseudocode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-sinkhorn">7.4.1. Algorithm 1 — Sinkhorn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-2-softassign">7.4.2. Algorithm 2 — SoftAssign</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-3-cleanup">7.4.3. Algorithm 3 — Cleanup</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">7.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-implement-softassign">7.5.1. Exercise 1 — Implement SoftAssign</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-result">7.5.2. Exercise 2 — Visualize the Result</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-hyperparameter-tuning">7.5.3. Exercise 3 — Hyperparameter Tuning</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Francisco Javier Escolano Ruiz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
