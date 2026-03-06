@@ -397,8 +397,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-implement-softassign">7.5.1. Exercise 1 — Implement SoftAssign</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-result">7.5.2. Exercise 2 — Visualize the Result</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-hyperparameter-tuning">7.5.3. Exercise 3 — Hyperparameter Tuning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-format">7.5.4. Submission format</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">7.6. Evaluation Criteria</a></li>
 </ul>
             </nav>
         </div>
@@ -709,6 +711,63 @@ OUTPUT: Binary matching matrix M_binary (m×n)
 <div><p><strong>Where to start:</strong> vary <code class="docutils literal notranslate"><span class="pre">BETA_F</span></code> first — it has the largest effect. If the result is already sharp but wrong, slow down the annealing by reducing <code class="docutils literal notranslate"><span class="pre">BETA_RATE</span></code>.</p>
 </div></blockquote>
 </section>
+<section id="submission-format">
+<h3><span class="section-number">7.5.4. </span>Submission format<a class="headerlink" href="#submission-format" title="Permalink to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>name_surname.zip
+├──<span class="w"> </span>intro.ipynb<span class="w"> </span><span class="c1"># IMPORTANTE HACER UN CÓDIGO OPTIMO Y BIEN DOCUMENTADO, CON COMENTARIOS EXPLICATIVOS</span>
+<span class="w">    </span>└──<span class="w"> </span>car8.png
+<span class="w">    </span>└──<span class="w"> </span>face8.png
+<span class="w">    </span>└──<span class="w"> </span>duck8.png
+<span class="w">    </span>└──<span class="w"> </span>motorbike8.png
+<span class="w">    </span>└──<span class="w"> </span>winebottle.png
+├──<span class="w"> </span>construction.ipynb<span class="w"> </span><span class="c1"># IMPORTANTE HACER UN CÓDIGO OPTIMO Y BIEN DOCUMENTADO, CON COMENTARIOS EXPLICATIVOS</span>
+<span class="w">    </span>└──<span class="w"> </span>car_Delaunay8.png
+<span class="w">    </span>└──<span class="w"> </span>face_Delaunay8.png
+<span class="w">    </span>└──<span class="w"> </span>duck_Delaunay8.png
+<span class="w">    </span>└──<span class="w"> </span>motorbike_Delaunay8.png
+<span class="w">    </span>└──<span class="w"> </span>winebottle_Delaunay8.png
+<span class="w">    </span>└──<span class="w"> </span>car_KNN3_8.png
+<span class="w">    </span>└──<span class="w"> </span>car_KNN5_8.png
+<span class="w">    </span>└──<span class="w"> </span>car_KNN7_8.png
+<span class="w">    </span>└──<span class="w"> </span>face_KNN3_8.png
+<span class="w">    </span>└──<span class="w"> </span>face_KNN5_8.png
+<span class="w">    </span>└──<span class="w"> </span>face_KNN7_8.png
+<span class="w">    </span>└──<span class="w"> </span>duck_KNN3_8.png
+<span class="w">    </span>└──<span class="w"> </span>duck_KNN5_8.png
+<span class="w">    </span>└──<span class="w"> </span>duck_KNN7_8.png
+<span class="w">    </span>└──<span class="w"> </span>motorbike_KNN3_8.png
+<span class="w">    </span>└──<span class="w"> </span>motorbike_KNN5_8.png
+<span class="w">    </span>└──<span class="w"> </span>motorbike_KNN7_8.png
+<span class="w">    </span>└──<span class="w"> </span>winebottle_KNN3_8.png
+<span class="w">    </span>└──<span class="w"> </span>winebottle_KNN5_8.png
+<span class="w">    </span>└──<span class="w"> </span>winebottle_KNN7_8.png
+├──<span class="w"> </span>match_part_1.ipynb
+<span class="w">    </span>└──<span class="w"> </span>results.csv<span class="w"> </span><span class="c1"># IMPORTANTE GENERAR TODAS LAS PERMUTACIONES DE IMAGENES Y SACAR EL ACCURACY!!!!!!</span>
+<span class="w">    </span><span class="c1"># EL CSV TIENE COLUMNAS DE CATEGORIA, ACC, STD Y NUMERO DE PARES EVALUADOS</span>
+<span class="w">    </span>└──<span class="w"> </span>some_images.png<span class="w"> </span><span class="c1"># DOS POR CLASE USANDO EL MATCHING ESPACIAL (UNA BIEN Y OTRA MAL)</span>
+├──<span class="w"> </span>match_part_2.ipynb
+<span class="w">    </span>└──<span class="w"> </span>results.csv<span class="w"> </span><span class="c1"># IMPORTANTE GENERAR TODAS LAS PERMUTACIONES DE IMAGENES Y SACAR EL ACCURACY!!!!!!</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1"># EL CSV TIENE COLUMNAS DE CATEGORIA,TIPO DE GRAFO,PESO_ESPACIAL,PESO_NODE2VEC, ACC, STD Y NUMERO DE PARES EVALUADOS (HACER POR LO MENOS DOS COMBINACIONES DE PESOS PARA CADA CLASE Y PARA CADA K, K3, K5 Y K7)</span>
+<span class="w">    </span>
+<span class="w">    </span>└──<span class="w"> </span>some_images.png<span class="w"> </span><span class="c1"># DOS POR CLASE USANDO EL MATCHING ESPACIAL+NODE2VEC (UNA BIEN Y OTRA MAL, PARA DELAUNAY Y PARA KNN)</span>
+├──<span class="w"> </span>softAsign.ipynb
+<span class="w">    </span>└──<span class="w"> </span>some_images.png<span class="w"> </span>
+<span class="w">    </span><span class="c1"># DOS POR CLASE USANDO EL SOFTASIGN (UNA BIEN Y OTRA MAL) PERO SOLO USANDO KNN O DELAUNAY, NO HACE FALTA HACERLO PARA AMBOS TIPOS DE GRAFO</span>
+<span class="w">    </span>└──<span class="w"> </span>results.csv<span class="w"> </span>
+<span class="w">    </span><span class="c1"># SIMPLEMENTE COGER UN EJEMPLO POR CADA CATEGORÍA Y SACAR UN MATCH MALO Y MEJORARLO CON LOS HIPEPARAMETROS. IMPORTANTE QUE HAYA UNA DISCUSIÓN AL FINAL PARA DEMOSTRAR QUE SE HA ENTENDIDO EL ALGORITMO Y EL EFECTO DE LOS HIPERPARÁMETROS</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="evaluation-criteria">
+<h2><span class="section-number">7.6. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h2>
+<p>Your work will be evaluated based on:</p>
+<ul class="simple">
+<li><p>Thoroughness of analysis</p></li>
+<li><p>Quality of visualizations</p></li>
+<li><p>Clarity of conclusions</p></li>
+</ul>
 </section>
 </section>
 
@@ -785,8 +844,10 @@ OUTPUT: Binary matching matrix M_binary (m×n)
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-implement-softassign">7.5.1. Exercise 1 — Implement SoftAssign</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-result">7.5.2. Exercise 2 — Visualize the Result</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-hyperparameter-tuning">7.5.3. Exercise 3 — Hyperparameter Tuning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-format">7.5.4. Submission format</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">7.6. Evaluation Criteria</a></li>
 </ul>
   </nav></div>
 
