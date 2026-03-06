@@ -257,3 +257,56 @@ For each of the 5 Willow categories, select **one image pair** where the default
 | **Accuracy** | % | % |
 
 > **Where to start:** vary `BETA_F` first — it has the largest effect. If the result is already sharp but wrong, slow down the annealing by reducing `BETA_RATE`.
+
+
+### Submission format
+```bash
+name_surname.zip
+├── intro.ipynb # IMPORTANTE HACER UN CÓDIGO OPTIMO Y BIEN DOCUMENTADO, CON COMENTARIOS EXPLICATIVOS
+    └── car8.png
+    └── face8.png
+    └── duck8.png
+    └── motorbike8.png
+    └── winebottle.png
+├── construction.ipynb # IMPORTANTE HACER UN CÓDIGO OPTIMO Y BIEN DOCUMENTADO, CON COMENTARIOS EXPLICATIVOS
+    └── car_Delaunay8.png
+    └── face_Delaunay8.png
+    └── duck_Delaunay8.png
+    └── motorbike_Delaunay8.png
+    └── winebottle_Delaunay8.png
+    └── car_KNN3_8.png
+    └── car_KNN5_8.png
+    └── car_KNN7_8.png
+    └── face_KNN3_8.png
+    └── face_KNN5_8.png
+    └── face_KNN7_8.png
+    └── duck_KNN3_8.png
+    └── duck_KNN5_8.png
+    └── duck_KNN7_8.png
+    └── motorbike_KNN3_8.png
+    └── motorbike_KNN5_8.png
+    └── motorbike_KNN7_8.png
+    └── winebottle_KNN3_8.png
+    └── winebottle_KNN5_8.png
+    └── winebottle_KNN7_8.png
+├── match_part_1.ipynb
+    └── results.csv # IMPORTANTE GENERAR TODAS LAS PERMUTACIONES DE IMAGENES Y SACAR EL ACCURACY!!!!!!
+    # EL CSV TIENE COLUMNAS DE CATEGORIA, ACC, STD Y NUMERO DE PARES EVALUADOS
+    └── some_images.png # DOS POR CLASE USANDO EL MATCHING ESPACIAL (UNA BIEN Y OTRA MAL)
+├── match_part_2.ipynb
+    └── results.csv # IMPORTANTE GENERAR TODAS LAS PERMUTACIONES DE IMAGENES Y SACAR EL ACCURACY!!!!!!
+    
+    # EL CSV TIENE COLUMNAS DE CATEGORIA,TIPO DE GRAFO,PESO_ESPACIAL,PESO_NODE2VEC, ACC, STD Y NUMERO DE PARES EVALUADOS (HACER POR LO MENOS DOS COMBINACIONES DE PESOS PARA CADA CLASE Y PARA CADA K, K3, K5 Y K7)
+    
+    └── some_images.png # DOS POR CLASE USANDO EL MATCHING ESPACIAL+NODE2VEC (UNA BIEN Y OTRA MAL, PARA DELAUNAY Y PARA KNN)
+├── softAsign.ipynb
+    └── some_images.png 
+    # DOS POR CLASE USANDO EL SOFTASIGN (UNA BIEN Y OTRA MAL) PERO SOLO USANDO KNN O DELAUNAY, NO HACE FALTA HACERLO PARA AMBOS TIPOS DE GRAFO
+    └── results.csv 
+    # SIMPLEMENTE COGER UN EJEMPLO POR CADA CATEGORÍA Y SACAR UN MATCH MALO Y MEJORARLO CON LOS HIPEPARAMETROS. IMPORTANTE QUE HAYA UNA DISCUSIÓN AL FINAL PARA DEMOSTRAR QUE SE HA ENTENDIDO EL ALGORITMO Y EL EFECTO DE LOS HIPERPARÁMETROS
+```
+## Evaluation Criteria
+Your work will be evaluated based on:
+- Thoroughness of analysis
+- Quality of visualizations
+- Clarity of conclusions
