@@ -1,4 +1,4 @@
-# Search Algorithms
+# UCS and A\* Search
 
 ## Practical Session: UCS and A\*
 
