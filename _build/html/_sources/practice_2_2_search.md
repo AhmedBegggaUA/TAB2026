@@ -72,9 +72,9 @@ DFS follows one branch as deep as possible before backtracking. A long corridor 
 
 ```
 %%%%%%%%%%%%
-%         P%
-%%%%%%%%%%%  %
-%.          %
+%P         %
+%%%%%%%%%% %
+%         .%
 %%%%%%%%%%%%
 ```
 
