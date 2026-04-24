@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>10. UCS and A* Search &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
+    <title>11. UCS and A* Search &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
   
   
   
@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice_2_1_search';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="11. Search Algorithms" href="practice_2_2_search.html" />
-    <link rel="prev" title="9. Search Algorithms" href="practice_2_search.html" />
+    <link rel="next" title="12. Search Algorithms" href="practice_2_2_search.html" />
+    <link rel="prev" title="10. Search Algorithms" href="practice_2_search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -187,19 +187,23 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="topic3.html">3. Heuristic Search</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Game Searching</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic4.html">4. Game Search</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 1</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">4. Introduction to the practical part of TAB2026</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">5. Graph Construction for Matching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">6. Graph Matching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_4.html">7. Graph Matching with Topological Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_5.html">8. SoftAssign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">5. Introduction to the practical part of TAB2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">6. Graph Construction for Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">7. Graph Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_4.html">8. Graph Matching with Topological Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_5.html">9. SoftAssign</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 2</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_2_search.html">9. Search Algorithms</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. UCS and A* Search</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_2_2_search.html">11. Search Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_search.html">10. Search Algorithms</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. UCS and A* Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_2_search.html">12. Search Algorithms</a></li>
 </ul>
 
     </div>
@@ -395,14 +399,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-ucs-and-a">10.1. Practical Session: UCS and A*</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">10.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-cost-search">10.1.2. Uniform Cost Search</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-search">10.1.3. A* Search</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-translation-table">10.1.4. Putting it all together: the translation table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-ucs-and-a">11.1. Practical Session: UCS and A*</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">11.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-cost-search">11.1.2. Uniform Cost Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-search">11.1.3. A* Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-translation-table">11.1.4. Putting it all together: the translation table</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">10.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">11.2. Exercise</a></li>
 </ul>
             </nav>
         </div>
@@ -415,17 +419,17 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ucs-and-a-search">
-<h1><span class="section-number">10. </span>UCS and A* Search<a class="headerlink" href="#ucs-and-a-search" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">11. </span>UCS and A* Search<a class="headerlink" href="#ucs-and-a-search" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-ucs-and-a">
-<h2><span class="section-number">10.1. </span>Practical Session: UCS and A*<a class="headerlink" href="#practical-session-ucs-and-a" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.1. </span>Practical Session: UCS and A*<a class="headerlink" href="#practical-session-ucs-and-a" title="Permalink to this heading">#</a></h2>
 <section id="introduction">
-<h3><span class="section-number">10.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
 <p>In the previous session you implemented DFS and BFS by translating the NumPy versions into the Pacman framework. Both algorithms treated all steps as equal — a move North costs the same as a move West. In this session we introduce two algorithms that take <strong>cost into account</strong>: <strong>Uniform Cost Search (UCS)</strong> and <strong>A* Search</strong>.</p>
 <p>You will follow the same translation process as before: understand the algorithm, see how each piece maps to the Pacman <code class="docutils literal notranslate"><span class="pre">problem</span></code> interface, and implement it inside <code class="docutils literal notranslate"><span class="pre">search.py</span></code>.</p>
 </section>
 <hr class="docutils" />
 <section id="uniform-cost-search">
-<h3><span class="section-number">10.1.2. </span>Uniform Cost Search<a class="headerlink" href="#uniform-cost-search" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.2. </span>Uniform Cost Search<a class="headerlink" href="#uniform-cost-search" title="Permalink to this heading">#</a></h3>
 <p>BFS finds the path with the fewest actions. UCS finds the path with the <strong>lowest total cost</strong>, which is more useful when different actions have different costs. Instead of expanding nodes in the order they were added (FIFO), UCS always expands the node with the <strong>lowest accumulated cost so far</strong>.</p>
 <p>The Pacman framework provides a data structure for this:</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">util.PriorityQueue</span></code></strong> — pops the element with the lowest priority value. Its interface is:</p>
@@ -467,7 +471,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="a-search">
-<h3><span class="section-number">10.1.3. </span>A* Search<a class="headerlink" href="#a-search" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.3. </span>A* Search<a class="headerlink" href="#a-search" title="Permalink to this heading">#</a></h3>
 <p>UCS expands nodes in order of <span class="math notranslate nohighlight">\(g(n)\)</span> — the cost already spent. A* improves on this by also considering <span class="math notranslate nohighlight">\(h(n)\)</span> — an <strong>estimate of the remaining cost to the goal</strong>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -502,7 +506,7 @@ h(n) = |x_n - x_{goal}| + |y_n - y_{goal}|
 </section>
 <hr class="docutils" />
 <section id="putting-it-all-together-the-translation-table">
-<h3><span class="section-number">10.1.4. </span>Putting it all together: the translation table<a class="headerlink" href="#putting-it-all-together-the-translation-table" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.4. </span>Putting it all together: the translation table<a class="headerlink" href="#putting-it-all-together-the-translation-table" title="Permalink to this heading">#</a></h3>
 <p>The table below summarises how each piece of the algorithm changes across the four methods you have now implemented:</p>
 <table class="table">
 <thead>
@@ -550,7 +554,7 @@ h(n) = |x_n - x_{goal}| + |y_n - y_{goal}|
 </section>
 <hr class="docutils" />
 <section id="exercise">
-<h2><span class="section-number">10.2. </span>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.2. </span>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
 <p><strong>Part 1 — UCS.</strong> Open <code class="docutils literal notranslate"><span class="pre">search.py</span></code> and implement <code class="docutils literal notranslate"><span class="pre">uniformCostSearch</span></code> inside its stub. Follow the structure described above. Test it on the following mazes:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>ucs
 python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumDottedMaze<span class="w"> </span>-p<span class="w"> </span>StayEastSearchAgent
@@ -656,7 +660,7 @@ python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Search Algorithms</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Search Algorithms</p>
       </div>
     </a>
     <a class="right-next"
@@ -664,7 +668,7 @@ python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Search Algorithms</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Search Algorithms</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -684,14 +688,14 @@ python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-ucs-and-a">10.1. Practical Session: UCS and A*</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">10.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-cost-search">10.1.2. Uniform Cost Search</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-search">10.1.3. A* Search</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-translation-table">10.1.4. Putting it all together: the translation table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-ucs-and-a">11.1. Practical Session: UCS and A*</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">11.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-cost-search">11.1.2. Uniform Cost Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-search">11.1.3. A* Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-translation-table">11.1.4. Putting it all together: the translation table</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">10.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">11.2. Exercise</a></li>
 </ul>
   </nav></div>
 
