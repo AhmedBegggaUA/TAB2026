@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Search Algorithms &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
+    <title>11. Search Algorithms &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
   
   
   
@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice_2_2_search';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="10. UCS and A* Search" href="practice_2_1_search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -194,9 +195,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="practice_1_5.html">8. SoftAssign</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 2</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="practice_2_search.html">9. Search Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="practice_2_1_search.html">10. UCS and A* Search</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Search Algorithms</a></li>
 </ul>
 
     </div>
@@ -392,22 +394,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-custom-mazes-and-algorithm-comparison">Practical Session: Custom Mazes and Algorithm Comparison</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-mazes-are-defined-in-pacman">How mazes are defined in Pacman</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-mazes-that-reveal-algorithm-behaviour">Designing mazes that reveal algorithm behaviour</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-a-dfs-finds-a-very-long-path">Maze A — DFS finds a very long path</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path">Maze B — BFS expands many nodes but finds the optimal path</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-c-a-shines-over-ucs-with-a-good-heuristic">Maze C — A* shines over UCS with a good heuristic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-custom-mazes-and-algorithm-comparison">11.1. Practical Session: Custom Mazes and Algorithm Comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">11.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-mazes-are-defined-in-pacman">11.1.2. How mazes are defined in Pacman</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-mazes-that-reveal-algorithm-behaviour">11.1.3. Designing mazes that reveal algorithm behaviour</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-a-dfs-finds-a-very-long-path">11.1.3.1. Maze A — DFS finds a very long path</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path">11.1.3.2. Maze B — BFS expands many nodes but finds the optimal path</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-c-a-shines-over-ucs-with-a-good-heuristic">11.1.3.3. Maze C — A* shines over UCS with a good heuristic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-all-three-sessions">Summary of all three sessions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-1-bfs-and-dfs">Session 1 — BFS and DFS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-2-ucs-and-a">Session 2 — UCS and A*</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-3-custom-mazes-and-comparison">Session 3 — Custom mazes and comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">11.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-all-three-sessions">11.3. Summary of all three sessions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-1-bfs-and-dfs">11.3.1. Session 1 — BFS and DFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-2-ucs-and-a">11.3.2. Session 2 — UCS and A*</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-3-custom-mazes-and-comparison">11.3.3. Session 3 — Custom mazes and comparison</a></li>
 </ul>
 </li>
 </ul>
@@ -422,16 +424,16 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="search-algorithms">
-<h1>Search Algorithms<a class="headerlink" href="#search-algorithms" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">11. </span>Search Algorithms<a class="headerlink" href="#search-algorithms" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-custom-mazes-and-algorithm-comparison">
-<h2>Practical Session: Custom Mazes and Algorithm Comparison<a class="headerlink" href="#practical-session-custom-mazes-and-algorithm-comparison" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.1. </span>Practical Session: Custom Mazes and Algorithm Comparison<a class="headerlink" href="#practical-session-custom-mazes-and-algorithm-comparison" title="Permalink to this heading">#</a></h2>
 <section id="introduction">
-<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
 <p>In the previous two sessions you implemented DFS, BFS, UCS and A* in the Pacman framework. All tests were run on mazes provided by the course. In this session you will design and test your own mazes, observe how the structure of the maze affects each algorithm, and consolidate everything with a final comparison.</p>
 </section>
 <hr class="docutils" />
 <section id="how-mazes-are-defined-in-pacman">
-<h3>How mazes are defined in Pacman<a class="headerlink" href="#how-mazes-are-defined-in-pacman" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.2. </span>How mazes are defined in Pacman<a class="headerlink" href="#how-mazes-are-defined-in-pacman" title="Permalink to this heading">#</a></h3>
 <p>Mazes live in the <code class="docutils literal notranslate"><span class="pre">layouts/</span></code> folder inside the project directory. Each layout is a plain text file with extension <code class="docutils literal notranslate"><span class="pre">.lay</span></code>. Open any existing one to see the format:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>./layouts/smallClassic.lay
 </pre></div>
@@ -490,10 +492,10 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="designing-mazes-that-reveal-algorithm-behaviour">
-<h3>Designing mazes that reveal algorithm behaviour<a class="headerlink" href="#designing-mazes-that-reveal-algorithm-behaviour" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.3. </span>Designing mazes that reveal algorithm behaviour<a class="headerlink" href="#designing-mazes-that-reveal-algorithm-behaviour" title="Permalink to this heading">#</a></h3>
 <p>Not all mazes are equally informative. The goal of this session is to design layouts that expose a specific property of each algorithm. Below are three templates to guide you, each targeting a different behaviour.</p>
 <section id="maze-a-dfs-finds-a-very-long-path">
-<h4>Maze A — DFS finds a very long path<a class="headerlink" href="#maze-a-dfs-finds-a-very-long-path" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.1.3.1. </span>Maze A — DFS finds a very long path<a class="headerlink" href="#maze-a-dfs-finds-a-very-long-path" title="Permalink to this heading">#</a></h4>
 <p>DFS follows one branch as deep as possible before backtracking. A long corridor that loops away from the goal will trap DFS into exploring a huge detour while BFS finds the direct route immediately.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%</span>
 <span class="o">%</span><span class="n">P</span>        <span class="o">%</span>
@@ -504,7 +506,7 @@ document.write(`
 <p>In this layout the only path goes all the way right, then wraps around — DFS will walk the long way because it dives in and does not backtrack until it is forced to. Try making the corridor longer or adding dead ends to exaggerate the effect.</p>
 </section>
 <section id="maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path">
-<h4>Maze B — BFS expands many nodes but finds the optimal path<a class="headerlink" href="#maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.1.3.2. </span>Maze B — BFS expands many nodes but finds the optimal path<a class="headerlink" href="#maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path" title="Permalink to this heading">#</a></h4>
 <p>BFS expands level by level in all directions, so in an open maze with few walls it will visit almost every cell before reaching a distant goal. This makes the node count large even though the path is short.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%%%</span>
 <span class="o">%</span><span class="n">P</span>          <span class="o">%</span>
@@ -517,7 +519,7 @@ document.write(`
 <p>Place the goal far from the start in an open space. BFS will flood the entire grid before finding it.</p>
 </section>
 <section id="maze-c-a-shines-over-ucs-with-a-good-heuristic">
-<h4>Maze C — A* shines over UCS with a good heuristic<a class="headerlink" href="#maze-c-a-shines-over-ucs-with-a-good-heuristic" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.1.3.3. </span>Maze C — A* shines over UCS with a good heuristic<a class="headerlink" href="#maze-c-a-shines-over-ucs-with-a-good-heuristic" title="Permalink to this heading">#</a></h4>
 <p>Design a maze where there are two routes of similar length but one is more “straight” toward the goal. A* with the Manhattan distance heuristic will prefer the straighter route and expand fewer nodes than UCS, which is blind to direction.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%%%%%</span>
 <span class="o">%</span><span class="n">P</span>    <span class="o">%</span>       <span class="o">%</span>
@@ -533,7 +535,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="exercise">
-<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.2. </span>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
 <p><strong>Part 1 — run the provided templates.</strong> Save each of the three maze templates above as a <code class="docutils literal notranslate"><span class="pre">.lay</span></code> file in the <code class="docutils literal notranslate"><span class="pre">layouts/</span></code> folder (<code class="docutils literal notranslate"><span class="pre">mazeA.lay</span></code>, <code class="docutils literal notranslate"><span class="pre">mazeB.lay</span></code>, <code class="docutils literal notranslate"><span class="pre">mazeC.lay</span></code>). Run all four algorithms on each maze and fill in the table:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example for mazeA — repeat for mazeB, mazeC and for fn=dfs, fn=ucs, fn=astar,heuristic=manhattanHeuristic</span>
 python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mazeA<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>bfs
@@ -621,9 +623,9 @@ python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"
 </section>
 <hr class="docutils" />
 <section id="summary-of-all-three-sessions">
-<h2>Summary of all three sessions<a class="headerlink" href="#summary-of-all-three-sessions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.3. </span>Summary of all three sessions<a class="headerlink" href="#summary-of-all-three-sessions" title="Permalink to this heading">#</a></h2>
 <section id="session-1-bfs-and-dfs">
-<h3>Session 1 — BFS and DFS<a class="headerlink" href="#session-1-bfs-and-dfs" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.1. </span>Session 1 — BFS and DFS<a class="headerlink" href="#session-1-bfs-and-dfs" title="Permalink to this heading">#</a></h3>
 <p><strong>What you learned:</strong> the structural difference between DFS (LIFO, stack) and BFS (FIFO, queue), how to translate a NumPy graph implementation into the Pacman <code class="docutils literal notranslate"><span class="pre">problem</span></code> interface, and why BFS is optimal for uniform-cost graphs while DFS is not.</p>
 <p><strong>What you implemented:</strong> <code class="docutils literal notranslate"><span class="pre">depthFirstSearch</span></code> and <code class="docutils literal notranslate"><span class="pre">breadthFirstSearch</span></code> in <code class="docutils literal notranslate"><span class="pre">search.py</span></code>.</p>
 <p><strong>Exercises completed:</strong></p>
@@ -637,7 +639,7 @@ python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"
 </section>
 <hr class="docutils" />
 <section id="session-2-ucs-and-a">
-<h3>Session 2 — UCS and A*<a class="headerlink" href="#session-2-ucs-and-a" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.2. </span>Session 2 — UCS and A*<a class="headerlink" href="#session-2-ucs-and-a" title="Permalink to this heading">#</a></h3>
 <p><strong>What you learned:</strong> how to incorporate edge costs using a priority queue, what makes A* different from UCS (the heuristic term <span class="math notranslate nohighlight">\(h(n)\)</span>), why admissibility guarantees optimality, and why visited nodes must be marked on pop rather than on push in cost-sensitive search.</p>
 <p><strong>What you implemented:</strong> <code class="docutils literal notranslate"><span class="pre">uniformCostSearch</span></code> and <code class="docutils literal notranslate"><span class="pre">aStarSearch</span></code> in <code class="docutils literal notranslate"><span class="pre">search.py</span></code>.</p>
 <p><strong>Exercises completed:</strong></p>
@@ -652,7 +654,7 @@ python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"
 </section>
 <hr class="docutils" />
 <section id="session-3-custom-mazes-and-comparison">
-<h3>Session 3 — Custom mazes and comparison<a class="headerlink" href="#session-3-custom-mazes-and-comparison" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.3. </span>Session 3 — Custom mazes and comparison<a class="headerlink" href="#session-3-custom-mazes-and-comparison" title="Permalink to this heading">#</a></h3>
 <p><strong>What you learned:</strong> how Pacman layout files are structured, how maze topology influences the behaviour of each algorithm, and how to design a maze that exposes a specific algorithmic property.</p>
 <p><strong>What you implemented:</strong> three layout files (<code class="docutils literal notranslate"><span class="pre">mazeA.lay</span></code>, <code class="docutils literal notranslate"><span class="pre">mazeB.lay</span></code>, <code class="docutils literal notranslate"><span class="pre">mazeC.lay</span></code>) and one original layout (<code class="docutils literal notranslate"><span class="pre">myMaze.lay</span></code>).</p>
 <p><strong>Exercises completed:</strong></p>
@@ -696,6 +698,15 @@ python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="practice_2_1_search.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>UCS and A* Search</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -712,22 +723,22 @@ python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-custom-mazes-and-algorithm-comparison">Practical Session: Custom Mazes and Algorithm Comparison</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-mazes-are-defined-in-pacman">How mazes are defined in Pacman</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-mazes-that-reveal-algorithm-behaviour">Designing mazes that reveal algorithm behaviour</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-a-dfs-finds-a-very-long-path">Maze A — DFS finds a very long path</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path">Maze B — BFS expands many nodes but finds the optimal path</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-c-a-shines-over-ucs-with-a-good-heuristic">Maze C — A* shines over UCS with a good heuristic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-custom-mazes-and-algorithm-comparison">11.1. Practical Session: Custom Mazes and Algorithm Comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">11.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-mazes-are-defined-in-pacman">11.1.2. How mazes are defined in Pacman</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-mazes-that-reveal-algorithm-behaviour">11.1.3. Designing mazes that reveal algorithm behaviour</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-a-dfs-finds-a-very-long-path">11.1.3.1. Maze A — DFS finds a very long path</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path">11.1.3.2. Maze B — BFS expands many nodes but finds the optimal path</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maze-c-a-shines-over-ucs-with-a-good-heuristic">11.1.3.3. Maze C — A* shines over UCS with a good heuristic</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-all-three-sessions">Summary of all three sessions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-1-bfs-and-dfs">Session 1 — BFS and DFS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-2-ucs-and-a">Session 2 — UCS and A*</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-3-custom-mazes-and-comparison">Session 3 — Custom mazes and comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">11.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-all-three-sessions">11.3. Summary of all three sessions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-1-bfs-and-dfs">11.3.1. Session 1 — BFS and DFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-2-ucs-and-a">11.3.2. Session 2 — UCS and A*</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-3-custom-mazes-and-comparison">11.3.3. Session 3 — Custom mazes and comparison</a></li>
 </ul>
 </li>
 </ul>
