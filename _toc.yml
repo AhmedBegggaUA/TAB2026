@@ -25,3 +25,4 @@ parts:
   chapters:
   - file: practice_2_search
   - file: practice_2_1_search
+  - file: practice_2_2_search
