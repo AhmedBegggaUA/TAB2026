@@ -71,10 +71,11 @@ Not all mazes are equally informative. The goal of this session is to design lay
 DFS follows one branch as deep as possible before backtracking. A long corridor that loops away from the goal will trap DFS into exploring a huge detour while BFS finds the direct route immediately.
 
 ```
-%%%%%%%%%%%
-%P        %
-%%%%%%%%%.%
-%%%%%%%%%%%
+%%%%%%%%%%%%
+%P         %
+%%%%%%%%%% %
+%         .%
+%%%%%%%%%%%%
 ```
 
 In this layout the only path goes all the way right, then wraps around — DFS will walk the long way because it dives in and does not backtrack until it is forced to. Try making the corridor longer or adding dead ends to exaggerate the effect.
