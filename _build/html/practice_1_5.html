@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>8. SoftAssign &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
+    <title>9. SoftAssign &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
   
   
   
@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice_1_5';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="9. Search Algorithms" href="practice_2_search.html" />
-    <link rel="prev" title="7. Graph Matching with Topological Features" href="practice_1_4.html" />
+    <link rel="next" title="10. Search Algorithms" href="practice_2_search.html" />
+    <link rel="prev" title="8. Graph Matching with Topological Features" href="practice_1_4.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -187,19 +187,23 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="topic3.html">3. Heuristic Search</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Game Searching</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic4.html">4. Game Search</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 1</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">4. Introduction to the practical part of TAB2026</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">5. Graph Construction for Matching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">6. Graph Matching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_4.html">7. Graph Matching with Topological Features</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. SoftAssign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">5. Introduction to the practical part of TAB2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">6. Graph Construction for Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">7. Graph Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_4.html">8. Graph Matching with Topological Features</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. SoftAssign</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 2</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_2_search.html">9. Search Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_2_1_search.html">10. UCS and A* Search</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_2_2_search.html">11. Search Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_search.html">10. Search Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_1_search.html">11. UCS and A* Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_2_search.html">12. Search Algorithms</a></li>
 </ul>
 
     </div>
@@ -395,29 +399,29 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-5-graph-matching-with-softassign">8.1. Practical Session 1.5: Graph Matching with SoftAssign</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">8.2. Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">8.3. Theoretical Background</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-rectangle-criterion">8.3.1. The Rectangle Criterion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-affinity-matrix-q">8.3.2. The Affinity Matrix Q</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sinkhorn-normalization">8.3.3. Sinkhorn Normalization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-parameter-and-annealing">8.3.4. The β Parameter and Annealing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-5-graph-matching-with-softassign">9.1. Practical Session 1.5: Graph Matching with SoftAssign</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">9.2. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">9.3. Theoretical Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-rectangle-criterion">9.3.1. The Rectangle Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-affinity-matrix-q">9.3.2. The Affinity Matrix Q</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sinkhorn-normalization">9.3.3. Sinkhorn Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-parameter-and-annealing">9.3.4. The β Parameter and Annealing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-pseudocode">8.4. Algorithm Pseudocode</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-sinkhorn">8.4.1. Algorithm 1 — Sinkhorn</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-2-softassign">8.4.2. Algorithm 2 — SoftAssign</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-3-cleanup">8.4.3. Algorithm 3 — Cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-pseudocode">9.4. Algorithm Pseudocode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-sinkhorn">9.4.1. Algorithm 1 — Sinkhorn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-2-softassign">9.4.2. Algorithm 2 — SoftAssign</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-3-cleanup">9.4.3. Algorithm 3 — Cleanup</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">8.5. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-implement-softassign">8.5.1. Exercise 1 — Implement SoftAssign</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-result">8.5.2. Exercise 2 — Visualize the Result</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-hyperparameter-tuning">8.5.3. Exercise 3 — Hyperparameter Tuning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-format">8.5.4. Submission format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">9.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-implement-softassign">9.5.1. Exercise 1 — Implement SoftAssign</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-result">9.5.2. Exercise 2 — Visualize the Result</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-hyperparameter-tuning">9.5.3. Exercise 3 — Hyperparameter Tuning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-format">9.5.4. Submission format</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">8.6. Evaluation Criteria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">9.6. Evaluation Criteria</a></li>
 </ul>
             </nav>
         </div>
@@ -430,20 +434,20 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="softassign">
-<h1><span class="section-number">8. </span>SoftAssign<a class="headerlink" href="#softassign" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">9. </span>SoftAssign<a class="headerlink" href="#softassign" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-1-5-graph-matching-with-softassign">
-<h2><span class="section-number">8.1. </span>Practical Session 1.5: Graph Matching with SoftAssign<a class="headerlink" href="#practical-session-1-5-graph-matching-with-softassign" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.1. </span>Practical Session 1.5: Graph Matching with SoftAssign<a class="headerlink" href="#practical-session-1-5-graph-matching-with-softassign" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="introduction">
-<h2><span class="section-number">8.2. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.2. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
 <p>In the previous sessions we built a pipeline for graph matching that ended with the <strong>Hungarian Algorithm</strong>: given a cost matrix of pairwise Euclidean distances, it finds the optimal one-to-one assignment between keypoints in <span class="math notranslate nohighlight">\(O(n^3)\)</span>.</p>
 <p>The limitation is structural: the Hungarian Algorithm only sees <strong>where</strong> points are, not <strong>how they are connected</strong>. In this session we implement <strong>SoftAssign</strong>, which explicitly maximizes structural compatibility between the two graphs through the <em>rectangle</em> criterion.</p>
 </section>
 <hr class="docutils" />
 <section id="theoretical-background">
-<h2><span class="section-number">8.3. </span>Theoretical Background<a class="headerlink" href="#theoretical-background" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.3. </span>Theoretical Background<a class="headerlink" href="#theoretical-background" title="Permalink to this heading">#</a></h2>
 <section id="the-rectangle-criterion">
-<h3><span class="section-number">8.3.1. </span>The Rectangle Criterion<a class="headerlink" href="#the-rectangle-criterion" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.3.1. </span>The Rectangle Criterion<a class="headerlink" href="#the-rectangle-criterion" title="Permalink to this heading">#</a></h3>
 <p>A rectangle is formed when four conditions hold simultaneously:</p>
 <ul class="simple">
 <li><p>Edge <span class="math notranslate nohighlight">\(a\)</span>–<span class="math notranslate nohighlight">\(b\)</span> exists in <span class="math notranslate nohighlight">\(G_1\)</span> → <span class="math notranslate nohighlight">\(X_{ab} = 1\)</span></p></li>
@@ -456,17 +460,17 @@ document.write(`
 \[F(\mathbf{M}) = \frac{1}{2} \sum_{a,i,b,j} M_{ai}\, M_{bj}\, X_{ab}\, Y_{ij}\]</div>
 </section>
 <section id="the-affinity-matrix-q">
-<h3><span class="section-number">8.3.2. </span>The Affinity Matrix Q<a class="headerlink" href="#the-affinity-matrix-q" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.3.2. </span>The Affinity Matrix Q<a class="headerlink" href="#the-affinity-matrix-q" title="Permalink to this heading">#</a></h3>
 <p>For each candidate match <span class="math notranslate nohighlight">\((a, i)\)</span>, <span class="math notranslate nohighlight">\(Q_{ai}\)</span> counts how many rectangles it could close given the current soft matching <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[Q_{ai} = \sum_{b}\sum_{j} X_{ab} \cdot M_{bj} \cdot Y_{ij} \quad \Longleftrightarrow \quad \mathbf{Q} = \mathbf{X} \cdot \mathbf{M} \cdot \mathbf{Y}\]</div>
 </section>
 <section id="sinkhorn-normalization">
-<h3><span class="section-number">8.3.3. </span>Sinkhorn Normalization<a class="headerlink" href="#sinkhorn-normalization" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.3.3. </span>Sinkhorn Normalization<a class="headerlink" href="#sinkhorn-normalization" title="Permalink to this heading">#</a></h3>
 <p>After updating <span class="math notranslate nohighlight">\(\mathbf{M} \leftarrow \exp(\beta \cdot \mathbf{Q})\)</span>, rows and columns no longer sum to 1. Sinkhorn fixes this by alternating row and column normalization until convergence.</p>
 </section>
 <section id="the-parameter-and-annealing">
-<h3><span class="section-number">8.3.4. </span>The β Parameter and Annealing<a class="headerlink" href="#the-parameter-and-annealing" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.3.4. </span>The β Parameter and Annealing<a class="headerlink" href="#the-parameter-and-annealing" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Low <span class="math notranslate nohighlight">\(\beta\)</span></strong>: assignments are soft → the algorithm explores freely</p></li>
 <li><p><strong>High <span class="math notranslate nohighlight">\(\beta\)</span></strong>: assignments peak sharply → the algorithm commits to a solution</p></li>
@@ -476,9 +480,9 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="algorithm-pseudocode">
-<h2><span class="section-number">8.4. </span>Algorithm Pseudocode<a class="headerlink" href="#algorithm-pseudocode" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.4. </span>Algorithm Pseudocode<a class="headerlink" href="#algorithm-pseudocode" title="Permalink to this heading">#</a></h2>
 <section id="algorithm-1-sinkhorn">
-<h3><span class="section-number">8.4.1. </span>Algorithm 1 — Sinkhorn<a class="headerlink" href="#algorithm-1-sinkhorn" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.4.1. </span>Algorithm 1 — Sinkhorn<a class="headerlink" href="#algorithm-1-sinkhorn" title="Permalink to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INPUT:  Matrix M (m×n), max_iter, ε
 OUTPUT: Doubly stochastic matrix M
 
@@ -492,7 +496,7 @@ OUTPUT: Doubly stochastic matrix M
 </div>
 </section>
 <section id="algorithm-2-softassign">
-<h3><span class="section-number">8.4.2. </span>Algorithm 2 — SoftAssign<a class="headerlink" href="#algorithm-2-softassign" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.4.2. </span>Algorithm 2 — SoftAssign<a class="headerlink" href="#algorithm-2-softassign" title="Permalink to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INPUT:  Adjacency matrices X (m×m), Y (n×n)
         β₀, β_f, β_r, I₀, I₁, ε
 OUTPUT: Soft matching matrix M (m×n)
@@ -515,7 +519,7 @@ OUTPUT: Soft matching matrix M (m×n)
 </div>
 </section>
 <section id="algorithm-3-cleanup">
-<h3><span class="section-number">8.4.3. </span>Algorithm 3 — Cleanup<a class="headerlink" href="#algorithm-3-cleanup" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.4.3. </span>Algorithm 3 — Cleanup<a class="headerlink" href="#algorithm-3-cleanup" title="Permalink to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INPUT:  Soft matching matrix M (m×n)
 OUTPUT: Binary matching matrix M_binary (m×n)
 
@@ -535,9 +539,9 @@ OUTPUT: Binary matching matrix M_binary (m×n)
 </section>
 <hr class="docutils" />
 <section id="exercises">
-<h2><span class="section-number">8.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <section id="exercise-1-implement-softassign">
-<h3><span class="section-number">8.5.1. </span>Exercise 1 — Implement SoftAssign<a class="headerlink" href="#exercise-1-implement-softassign" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.5.1. </span>Exercise 1 — Implement SoftAssign<a class="headerlink" href="#exercise-1-implement-softassign" title="Permalink to this heading">#</a></h3>
 <p>Complete the following skeleton. The utility functions <code class="docutils literal notranslate"><span class="pre">load_and_preprocess_images</span></code>, <code class="docutils literal notranslate"><span class="pre">delaunay_triangulation</span></code> and <code class="docutils literal notranslate"><span class="pre">visualize_matching_full</span></code> are the same as in Session 1.3 and are already provided.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
@@ -633,7 +637,7 @@ OUTPUT: Binary matching matrix M_binary (m×n)
 </div>
 </section>
 <section id="exercise-2-visualize-the-result">
-<h3><span class="section-number">8.5.2. </span>Exercise 2 — Visualize the Result<a class="headerlink" href="#exercise-2-visualize-the-result" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.5.2. </span>Exercise 2 — Visualize the Result<a class="headerlink" href="#exercise-2-visualize-the-result" title="Permalink to this heading">#</a></h3>
 <p>Run SoftAssign on one Duck pair and save the result. Compare visually with the Hungarian result from Session 1.3.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">kpts1</span><span class="p">,</span> <span class="n">kpts2</span> <span class="o">=</span> <span class="n">load_and_preprocess_images</span><span class="p">(</span>
     <span class="s1">&#39;./data/WillowObject/WILLOW-ObjectClass/Duck/060_0081.png&#39;</span><span class="p">,</span>
@@ -659,7 +663,7 @@ OUTPUT: Binary matching matrix M_binary (m×n)
 </div>
 </section>
 <section id="exercise-3-hyperparameter-tuning">
-<h3><span class="section-number">8.5.3. </span>Exercise 3 — Hyperparameter Tuning<a class="headerlink" href="#exercise-3-hyperparameter-tuning" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.5.3. </span>Exercise 3 — Hyperparameter Tuning<a class="headerlink" href="#exercise-3-hyperparameter-tuning" title="Permalink to this heading">#</a></h3>
 <p>For each of the 5 Willow categories, select <strong>one image pair</strong> where the default hyperparameters give a poor result. Tune the hyperparameters until you achieve an accuracy gain of at least <strong>+40 percentage points</strong> on that pair.</p>
 <p><strong>Hyperparameters to explore:</strong></p>
 <table class="table">
@@ -729,7 +733,7 @@ OUTPUT: Binary matching matrix M_binary (m×n)
 </div></blockquote>
 </section>
 <section id="submission-format">
-<h3><span class="section-number">8.5.4. </span>Submission format<a class="headerlink" href="#submission-format" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.5.4. </span>Submission format<a class="headerlink" href="#submission-format" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>name_surname.zip
 ├──<span class="w"> </span>intro.ipynb<span class="w"> </span><span class="c1"># IMPORTANTE HACER UN CÓDIGO OPTIMO Y BIEN DOCUMENTADO, CON COMENTARIOS EXPLICATIVOS</span>
 <span class="w">    </span>└──<span class="w"> </span>car8.png
@@ -778,7 +782,7 @@ OUTPUT: Binary matching matrix M_binary (m×n)
 </section>
 </section>
 <section id="evaluation-criteria">
-<h2><span class="section-number">8.6. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.6. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h2>
 <p>Your work will be evaluated based on:</p>
 <ul class="simple">
 <li><p>Thoroughness of analysis</p></li>
@@ -824,7 +828,7 @@ OUTPUT: Binary matching matrix M_binary (m×n)
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Graph Matching with Topological Features</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Graph Matching with Topological Features</p>
       </div>
     </a>
     <a class="right-next"
@@ -832,7 +836,7 @@ OUTPUT: Binary matching matrix M_binary (m×n)
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Search Algorithms</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Search Algorithms</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -852,29 +856,29 @@ OUTPUT: Binary matching matrix M_binary (m×n)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-5-graph-matching-with-softassign">8.1. Practical Session 1.5: Graph Matching with SoftAssign</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">8.2. Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">8.3. Theoretical Background</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-rectangle-criterion">8.3.1. The Rectangle Criterion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-affinity-matrix-q">8.3.2. The Affinity Matrix Q</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sinkhorn-normalization">8.3.3. Sinkhorn Normalization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-parameter-and-annealing">8.3.4. The β Parameter and Annealing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-1-5-graph-matching-with-softassign">9.1. Practical Session 1.5: Graph Matching with SoftAssign</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">9.2. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-background">9.3. Theoretical Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-rectangle-criterion">9.3.1. The Rectangle Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-affinity-matrix-q">9.3.2. The Affinity Matrix Q</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sinkhorn-normalization">9.3.3. Sinkhorn Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-parameter-and-annealing">9.3.4. The β Parameter and Annealing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-pseudocode">8.4. Algorithm Pseudocode</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-sinkhorn">8.4.1. Algorithm 1 — Sinkhorn</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-2-softassign">8.4.2. Algorithm 2 — SoftAssign</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-3-cleanup">8.4.3. Algorithm 3 — Cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-pseudocode">9.4. Algorithm Pseudocode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-sinkhorn">9.4.1. Algorithm 1 — Sinkhorn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-2-softassign">9.4.2. Algorithm 2 — SoftAssign</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-3-cleanup">9.4.3. Algorithm 3 — Cleanup</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">8.5. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-implement-softassign">8.5.1. Exercise 1 — Implement SoftAssign</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-result">8.5.2. Exercise 2 — Visualize the Result</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-hyperparameter-tuning">8.5.3. Exercise 3 — Hyperparameter Tuning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-format">8.5.4. Submission format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">9.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-implement-softassign">9.5.1. Exercise 1 — Implement SoftAssign</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-visualize-the-result">9.5.2. Exercise 2 — Visualize the Result</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-hyperparameter-tuning">9.5.3. Exercise 3 — Hyperparameter Tuning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-format">9.5.4. Submission format</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">8.6. Evaluation Criteria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">9.6. Evaluation Criteria</a></li>
 </ul>
   </nav></div>
 
