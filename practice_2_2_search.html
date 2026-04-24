@@ -435,18 +435,15 @@ document.write(`
 <section id="how-mazes-are-defined-in-pacman">
 <h3><span class="section-number">11.1.2. </span>How mazes are defined in Pacman<a class="headerlink" href="#how-mazes-are-defined-in-pacman" title="Permalink to this heading">#</a></h3>
 <p>Mazes live in the <code class="docutils literal notranslate"><span class="pre">layouts/</span></code> folder inside the project directory. Each layout is a plain text file with extension <code class="docutils literal notranslate"><span class="pre">.lay</span></code>. Open any existing one to see the format:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>./layouts/smallClassic.lay
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>layouts/tinyMaze.lay
 </pre></div>
 </div>
 <p>You will see something like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%%%%%%%%%%</span>
-<span class="o">%......%</span><span class="n">G</span>  <span class="n">G</span><span class="o">%......%</span>
-<span class="o">%.%%...%%</span>  <span class="o">%%...%%.%</span>
-<span class="o">%.%</span><span class="n">o</span><span class="o">.%........%.</span><span class="n">o</span><span class="o">%.%</span>
-<span class="o">%.%%.%.%%%%%%.%.%%.%</span>
-<span class="o">%........</span><span class="n">P</span><span class="o">.........%</span>
-<span class="o">%%%%%%%%%%%%%%%%%%%%</span>
-<span class="n">ahmedbegga</span><span class="nd">@MacBook</span><span class="o">-</span><span class="n">Air</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%</span>
+<span class="o">%</span> <span class="o">.%</span>
+<span class="o">%</span>  <span class="o">%</span>
+<span class="o">%</span><span class="n">P</span> <span class="o">%</span>
+<span class="o">%%%%</span>
 </pre></div>
 </div>
 <p>Each character has a fixed meaning:</p>
@@ -475,15 +472,20 @@ document.write(`
 </tbody>
 </table>
 <p>The grid is read top-to-bottom, left-to-right. The coordinate system places <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code> at the bottom-left, so the top-left character in the file corresponds to the highest <span class="math notranslate nohighlight">\(y\)</span> coordinate. Walls must form a closed border around the maze — there should be no gaps on the edges.</p>
-<p>A minimal valid layout looks like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%</span>
-<span class="o">%</span><span class="n">P</span>  <span class="o">%</span>
-<span class="o">%</span> <span class="o">%%%</span> 
-<span class="o">%</span>   <span class="o">%</span>
-<span class="o">%</span> <span class="o">.</span> <span class="o">%</span>
-<span class="o">%%%%%</span>
+<blockquote>
+<div><p><strong>Warning — rules you must follow or the maze will not work:</strong></p>
+<ul class="simple">
+<li><p><strong>All rows must have exactly the same length.</strong> A single extra space at the end of one line is enough to break the layout. Count characters carefully before saving.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">P</span></code> must appear in the top-right area of the file, and <code class="docutils literal notranslate"><span class="pre">.</span></code> in the bottom-left area.</strong> Because the game inverts the Y axis when reading the file, what is at the top of the text appears at the bottom of the screen. If <code class="docutils literal notranslate"><span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">.</span></code> end up in similar positions in the file they will be next to each other on screen and Pacman will not move.</p></li>
+<li><p><strong>No trailing spaces or blank lines</strong> at the end of the file.</p></li>
+<li><p><strong>No tab characters</strong> — use spaces only.</p></li>
+</ul>
+</div></blockquote>
+<p>You can verify that your layout parses correctly before launching the full game with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from layout import getLayout; l = getLayout(&#39;myMaze&#39;); print(l.width, l.height)&quot;</span>
 </pre></div>
 </div>
+<p>If this prints two numbers without errors, the format is valid.</p>
 <p>Save your layout file as <code class="docutils literal notranslate"><span class="pre">layouts/myMaze.lay</span></code> and run it with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>myMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>bfs
 </pre></div>
@@ -498,39 +500,43 @@ document.write(`
 <h4><span class="section-number">11.1.3.1. </span>Maze A — DFS finds a very long path<a class="headerlink" href="#maze-a-dfs-finds-a-very-long-path" title="Permalink to this heading">#</a></h4>
 <p>DFS follows one branch as deep as possible before backtracking. A long corridor that loops away from the goal will trap DFS into exploring a huge detour while BFS finds the direct route immediately.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%%</span>
-<span class="o">%</span><span class="n">P</span>         <span class="o">%</span>
-<span class="o">%%%%%%%%%%</span> <span class="o">%</span>
-<span class="o">%</span>         <span class="o">.%</span>
+<span class="o">%</span>         <span class="n">P</span><span class="o">%</span>
+<span class="o">%%%%%%%%%%%</span>  <span class="o">%</span>
+<span class="o">%.</span>          <span class="o">%</span>
 <span class="o">%%%%%%%%%%%%</span>
 </pre></div>
 </div>
-<p>In this layout the only path goes all the way right, then wraps around — DFS will walk the long way because it dives in and does not backtrack until it is forced to. Try making the corridor longer or adding dead ends to exaggerate the effect.</p>
+<p>In this layout the only path goes all the way left from <code class="docutils literal notranslate"><span class="pre">P</span></code>, drops down, and then reaches the goal — DFS will walk the long way because it dives in and does not backtrack until it is forced to.</p>
 </section>
 <section id="maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path">
 <h4><span class="section-number">11.1.3.2. </span>Maze B — BFS expands many nodes but finds the optimal path<a class="headerlink" href="#maze-b-bfs-expands-many-nodes-but-finds-the-optimal-path" title="Permalink to this heading">#</a></h4>
 <p>BFS expands level by level in all directions, so in an open maze with few walls it will visit almost every cell before reaching a distant goal. This makes the node count large even though the path is short.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%%%</span>
-<span class="o">%</span><span class="n">P</span>          <span class="o">%</span>
-<span class="o">%</span>           <span class="o">%</span>
-<span class="o">%</span>           <span class="o">%</span>
-<span class="o">%</span>          <span class="o">.%</span>
-<span class="o">%%%%%%%%%%%%%</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%%%%%%%%%%</span>
+<span class="o">%</span>                 <span class="n">P</span><span class="o">%</span>
+<span class="o">%</span>                  <span class="o">%</span>
+<span class="o">%</span>                  <span class="o">%</span>
+<span class="o">%</span>                  <span class="o">%</span>
+<span class="o">%</span>                  <span class="o">%</span>
+<span class="o">%.</span>                 <span class="o">%</span>
+<span class="o">%%%%%%%%%%%%%%%%%%%%</span>
 </pre></div>
 </div>
-<p>Place the goal far from the start in an open space. BFS will flood the entire grid before finding it.</p>
+<p>The goal is in the bottom-left corner and Pacman starts top-right. BFS will flood the entire open space before finding it.</p>
 </section>
 <section id="maze-c-a-shines-over-ucs-with-a-good-heuristic">
 <h4><span class="section-number">11.1.3.3. </span>Maze C — A* shines over UCS with a good heuristic<a class="headerlink" href="#maze-c-a-shines-over-ucs-with-a-good-heuristic" title="Permalink to this heading">#</a></h4>
-<p>Design a maze where there are two routes of similar length but one is more “straight” toward the goal. A* with the Manhattan distance heuristic will prefer the straighter route and expand fewer nodes than UCS, which is blind to direction.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%%%%%</span>
-<span class="o">%</span><span class="n">P</span>    <span class="o">%</span>       <span class="o">%</span>
-<span class="o">%</span>     <span class="o">%</span>   <span class="o">.</span>   <span class="o">%</span>
-<span class="o">%</span>     <span class="o">%</span>       <span class="o">%</span>
-<span class="o">%</span>             <span class="o">%</span>
-<span class="o">%%%%%%%%%%%%%%%</span>
+<p>Two routes of similar length, but one goes straight toward the goal and the other detours around a wall. A* with the Manhattan distance heuristic will prefer the straighter route and expand fewer nodes than UCS, which is blind to direction.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%%%%%%%%%%%%%%%%%</span>
+<span class="o">%</span>               <span class="n">P</span><span class="o">%</span>
+<span class="o">%</span>       <span class="o">%</span>        <span class="o">%</span>
+<span class="o">%</span>       <span class="o">%</span>        <span class="o">%</span>
+<span class="o">%</span>       <span class="o">%</span>       <span class="o">.%</span>
+<span class="o">%</span>       <span class="o">%</span>        <span class="o">%</span>
+<span class="o">%</span>                <span class="o">%</span>
+<span class="o">%%%%%%%%%%%%%%%%%%</span>
 </pre></div>
 </div>
-<p>The wall in the middle creates a choice: go around it to the left or to the right. The Manhattan heuristic will guide A* toward the side closer to the goal, while UCS treats both sides equally.</p>
+<p>The vertical wall forces a choice: go around left or right. The Manhattan heuristic guides A* toward the side closer to the goal, while UCS treats both sides equally.</p>
 </section>
 </section>
 </section>

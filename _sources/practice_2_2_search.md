@@ -13,20 +13,17 @@ In the previous two sessions you implemented DFS, BFS, UCS and A\* in the Pacman
 Mazes live in the `layouts/` folder inside the project directory. Each layout is a plain text file with extension `.lay`. Open any existing one to see the format:
 
 ```bash
-cat ./layouts/smallClassic.lay
+cat layouts/tinyMaze.lay
 ```
 
 You will see something like:
 
 ```
-%%%%%%%%%%%%%%%%%%%%
-%......%G  G%......%
-%.%%...%%  %%...%%.%
-%.%o.%........%.o%.%
-%.%%.%.%%%%%%.%.%%.%
-%........P.........%
-%%%%%%%%%%%%%%%%%%%%
-ahmedbegga@MacBook-Air
+%%%%
+% .%
+%  %
+%P %
+%%%%
 ```
 
 Each character has a fixed meaning:
@@ -41,16 +38,19 @@ Each character has a fixed meaning:
 
 The grid is read top-to-bottom, left-to-right. The coordinate system places `(0, 0)` at the bottom-left, so the top-left character in the file corresponds to the highest $y$ coordinate. Walls must form a closed border around the maze — there should be no gaps on the edges.
 
-A minimal valid layout looks like this:
+> **Warning — rules you must follow or the maze will not work:**
+> - **All rows must have exactly the same length.** A single extra space at the end of one line is enough to break the layout. Count characters carefully before saving.
+> - **`P` must appear in the top-right area of the file, and `.` in the bottom-left area.** Because the game inverts the Y axis when reading the file, what is at the top of the text appears at the bottom of the screen. If `P` and `.` end up in similar positions in the file they will be next to each other on screen and Pacman will not move.
+> - **No trailing spaces or blank lines** at the end of the file.
+> - **No tab characters** — use spaces only.
 
+You can verify that your layout parses correctly before launching the full game with:
+
+```bash
+python -c "from layout import getLayout; l = getLayout('myMaze'); print(l.width, l.height)"
 ```
-%%%%%
-%P  %
-% %%% 
-%   %
-% . %
-%%%%%
-```
+
+If this prints two numbers without errors, the format is valid.
 
 Save your layout file as `layouts/myMaze.lay` and run it with:
 
@@ -72,43 +72,47 @@ DFS follows one branch as deep as possible before backtracking. A long corridor 
 
 ```
 %%%%%%%%%%%%
-%P         %
-%%%%%%%%%% %
-%         .%
+%         P%
+%%%%%%%%%%%  %
+%.          %
 %%%%%%%%%%%%
 ```
 
-In this layout the only path goes all the way right, then wraps around — DFS will walk the long way because it dives in and does not backtrack until it is forced to. Try making the corridor longer or adding dead ends to exaggerate the effect.
+In this layout the only path goes all the way left from `P`, drops down, and then reaches the goal — DFS will walk the long way because it dives in and does not backtrack until it is forced to.
 
 #### Maze B — BFS expands many nodes but finds the optimal path
 
 BFS expands level by level in all directions, so in an open maze with few walls it will visit almost every cell before reaching a distant goal. This makes the node count large even though the path is short.
 
 ```
-%%%%%%%%%%%%%
-%P          %
-%           %
-%           %
-%          .%
-%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%                 P%
+%                  %
+%                  %
+%                  %
+%                  %
+%.                 %
+%%%%%%%%%%%%%%%%%%%%
 ```
 
-Place the goal far from the start in an open space. BFS will flood the entire grid before finding it.
+The goal is in the bottom-left corner and Pacman starts top-right. BFS will flood the entire open space before finding it.
 
 #### Maze C — A\* shines over UCS with a good heuristic
 
-Design a maze where there are two routes of similar length but one is more "straight" toward the goal. A\* with the Manhattan distance heuristic will prefer the straighter route and expand fewer nodes than UCS, which is blind to direction.
+Two routes of similar length, but one goes straight toward the goal and the other detours around a wall. A\* with the Manhattan distance heuristic will prefer the straighter route and expand fewer nodes than UCS, which is blind to direction.
 
 ```
-%%%%%%%%%%%%%%%
-%P    %       %
-%     %   .   %
-%     %       %
-%             %
-%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+%               P%
+%       %        %
+%       %        %
+%       %       .%
+%       %        %
+%                %
+%%%%%%%%%%%%%%%%%%
 ```
 
-The wall in the middle creates a choice: go around it to the left or to the right. The Manhattan heuristic will guide A\* toward the side closer to the goal, while UCS treats both sides equally.
+The vertical wall forces a choice: go around left or right. The Manhattan heuristic guides A\* toward the side closer to the goal, while UCS treats both sides equally.
 
 ---
 
