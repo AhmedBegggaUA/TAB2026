@@ -103,12 +103,12 @@ Two routes of similar length, but one goes straight toward the goal and the othe
 
 ```
 %%%%%%%%%%%%%%%%%%
-%               P%
-%       %        %
-%       %        %
-%       %       .%
-%       %        %
+%          P     %
+%      %         %
 %                %
+%      %         %
+%                %
+%.     %         %
 %%%%%%%%%%%%%%%%%%
 ```
 
