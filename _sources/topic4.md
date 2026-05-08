@@ -278,8 +278,561 @@ Note that $\mathbf{\alpha\ge\beta}$ (the cutoff condition) is equal to $\mathbf{
 2. The root updates its $\alpha$ and sends $(10,+\infty)$ to is second child.
 3. The pair $(10,+\infty)$ passes through F and D. 
 4. D is a MIN node having $(10,+\infty)$ and it updates its $\beta$. This leads to $(10,5)$. As $\beta\le\alpha$, MIN declares a cut and returns its $\alpha=10$. 
-5. F has now the pair $(10,+\infty)$. No cut. It asks G. 
+5. F has now the pair $(10,+\infty)$. No cut. It asks G. Only if G gets a value greater than $\alpha=10$, say $20$, may change the best movement to the root. If this happens, we obtain $\alpha=20$ and F returns $(20,+\infty)$.
+6. Finally, the root chooses the second child as the optimal move.  
 
+## Monte Carlo Tree Search 
+### Motivation 
+Modern game searchers such as [Alpha Zero and its variants](https://www.nature.com/articles/nature24270) **do not rely on Minimax-like search**. The reason? Well, even with activating the Alpha-Beta heuristic, complex games such as Chess and Go lead to **very large branching processes** which collapse in practice. This is even worse in Pacman, where we have to double the number of levels for the ghosts.  
+
+<span style="color:#f88146">**Monte Carlo Tree Search (MCTS)**</span> provides a more "flexible and intelligent" way of performing a tree search. Let us detail here what do "flexible and intelligent" means: 
+
+- **More focused search**. Minimax tree expansions are (in the absence of Alpha-Beta cuts) **symmetric**, i.e. they make grow the tree uniformly. It is the Alpha-Beta cut what breaks eventually such a symmetry when it discovers not promising subtrees. <span style="color:#f88146">MCTS, puts more search effort on the **most promising subreees**</span>. 
+
+- **Keeps the balance**. In MCTS, "more focused seach" does not mean pure depth-search but <span style="color:#f88146">a balance between **exploiting**</span> (refine the most promising subtrees) <span style="color:#f88146">and **exploring**</span> (test unexplored subtrees which may lead to even better estimations).  
+
+### Generic MCTS 
+**Example**. Let us start by searching from the root on a $b-$*nary tree* of depth $d$. Note that for a constrant branching factor $b$, we have the following increasing number of nodes as the level grows: 
+
+$$
+\underbrace{b^0}_{root} + b^1 + b^2 + \ldots + b^{d-1} + \underbrace{b^d}_{leaves}\;.
+$$
+
+In MCTS, the root has to decide <span style="color:#f88146">what of its $b$ actions (children) leads to a **maximal reward**</span>. However, the rewards are placed at the $b^d$ leaves. 
+
+Let us **assume (initially)** that at each level of the tree is a **unique player** just exploring what of the $b$ subtrees leads to the maximal reward (no zero-sum game for the moment). 
+
+The MCTS's search loop has the following logic: 
+
+```{prf:algorithm} MCTS-Generic
+:label: MCTS
+
+**Inputs** Root node $s$, $\text{num_iter}=n$, $\text{explore_const}=C$\
+**Output** Best action $a$ from $s$.
+ 
+1. **for** $k=1,2,\ldots, \text{num_iter}$:
+    1. $J_k\leftarrow \textbf{Select}$($s$,$\text{explore_const}$)  
+    2. **if** $J_k$ is **not** terminal **then**: 
+       1. $J_k\leftarrow \textbf{Expand}$($J_k$)
+    3. $\text{reward}\leftarrow \textbf{Simulate}$($J_k$)
+    4. $\textbf{Backpropagate}$($J_k$,$\text{reward}$)
+2. $a\leftarrow\textbf{BestAction}$($s$)
+3. **return** $a$
+```
+
+
+```{figure} ./images/Topic4/MCTS-Loop-removebg-preview.png
+---
+name: MCTS-loop
+width: 800px
+align: center
+height: 350px
+---
+MCTS-loop. Source: The Art of Reinforcement Learning book.
+```
+
+
+Some indications (see also {numref}`MCTS-loop`): 
+
+1) **Loop and return**. Note that the search stands for a given number of iterations and after them it returns the best estimation from the root $s$.  
+
+2) **Node parameters**. Each node has 3 parameters: $W$ (wins or total reward), $V$ (number of visits) and $\text{parent}$. These parameters are set/updated during the seach and  <span style="color:#f88146">it is typically the **most visited child** from the root $s$ which is returned as **best action**</span>.  
+
+3) **Selection** and/or **expansion**. Each iteration 'selects' a node (and 'expands' it if it is not a terminal): 
+
+    a) <ins>If the node is terminal</ins>, then we perform a **simulation** (which is going to return the reward in this case) and then we **backpropagate** (basically backup rewards and number of visits up to the respective parents). 
+
+    b) <ins>If the node is not terminal</ins>, we proceed to **expand** it. Herein, expansion means (i) choosing 'randomly' one of the 'not-yet-choosen' children of $J_k$, (ii) mark it as chosen, (iii) and name it after its parent. If all the children are yet choosed, **expand** return the parent itself. Anyway, the result is **simulated** and **backpropagated**. 
+4)  **Simulation**. A 'simulation' is as follows: 
+
+    a) It <span style="color:#f88146">can be seen as a **depth-search** (rollout)</span> that goes from the node $J_k$ where it is called until one terminal node, where it returns the **reward** to the calling node $J_k$. 
+
+    b) The rollout is done according to some kind of **rollout policy**. The most usual policy is to get randomly a child (action) each time whe progress to the leaves. 
+
+    c) Here in we are **not** 'expanding' nodes, just generating children and children of children until we reach a leaf. 
+5) **Backpropagation** (Backup). Note that the $\textbf{Backpropagate}$ call in the MCTS loop is the last call for each iteration and it does not return anything. All we do here is just to travel back from $J_k$ to the root $s$ doing three things: 
+
+    a) Incrementing the node visits $+1$. 
+
+    b) Increment the node wins $+\text{reward}$.
+
+    b) Go back its parent. 
+
+Therefore, <span style="color:#f88146">each iteration updates the tree giving new **statistics** to the nodes</span>. 
+
+**Selection policy**. The call to $\textbf{Select}$, has to select $J_k$. Then $J_k$ is either a **child of the root** if there exist an un-tried action for the root, or a **child of a child of the root** (recursive), otherwise.  
+
+Anyway, this must be done by following a given criterion. In MCTS, such a criterion follows a <span style="color:#f88146">trade-off between **exploration** and **exploitation**</span> by means of maximizing
+
+$$
+UCB_1 = \underbrace{\frac{W(J_k)}{V(J_k)}}_{\text{exploit}} + \underbrace{C\cdot\sqrt{\frac{log V(s)}{V(J_k)}}}_{\text{explore}}\;,
+$$
+
+where: 
+- $W(J_k)$ is the **cumulative reward** of $J_k$
+- $V(J_k)$ are the **self-visits** or visits  to $J_k$ 
+- $C$ is the **exploration constant**. 
+- $V(s)$ are the **parent visits** or visits to the root $s$. 
+
+The cost $UCB_1$ (**Upper-Confidence Bound**) follows this rationale: 
+
+a) $W(J_k)/V(J_k)$ measures the **average reward** of $J_k$. This first term (known as **exploitation**) enforces MCTS to seach the most promising subtree.  
+
+b) The second term is also a ratio, but **between visits**. The numerator is $\log$ because everytime the root is visited, all the nodes below it are **less visited**. This second term encourages **exploration** (i.e. visiting non-optimal subtrees with very low number of visits).
+
+c) In the beginning, $N(J_k)=0$ and $UCB_1=+\infty$. This ensures that each child of the root is selected at least once!
+
+**Example (back)**. Coming back to the $b-$ary tree. Let us set $b=2$ (binary) and $d=4$. 
+
+The stucture of the tree is: 
+
+$$
+\begin{eqnarray}
+R &:& [N1, N2]\\
+\hline
+N1 &:& [N3, N4]\\
+N3 &:& [N5, N6]\\
+N5 &:& [L7, \;L8]\\
+L7 &:& \text{reward}=34,\; L8 &:&\text{reward}=38\\ 
+N6 &:& [L9, \;L10]\\
+L9 &:& \text{reward}=45,\; L10 &:&\text{reward}=51\\
+N4 &:& [N11, N12]\\
+N11 &:& [L13, \;L14]\\
+L13 &:& \text{reward}=63,\; L14 &:&\text{reward}=70\\
+N12 &:& [L15, \;L16]\\
+L15 &:& \text{reward}=77,\; L16 &:&\text{reward}=80\\
+\hline
+N2 &:& [N17, N18]\\
+N17 &:& [N19, N20]\\
+N19 &:& [L21, \;L22]\\
+L21 &:& \text{reward}=100,\; L22 &:&\text{reward}=100\\ 
+N20 &:& [L23, \;L24]\\
+L23 &:& \text{reward}=100,\; L24 &:&\text{reward}=100\\
+N18 &:& [N25, N26]\\
+N25 &:& [L27, \;L28]\\
+L27 &:& \text{reward}=100,\; L28 &:&\text{reward}=100\\
+N26 &:& [L29, \;L30]\\
+L29 &:& \text{reward}=100,\; L30 &:&\text{reward}=100\\
+\hline
+\end{eqnarray}
+$$
+
+Note that each horizontal line separates the two main sub-trees and the leaves are encoded as nodes with reward. **Note also that the subtree $N2$ is the most promising since all its leaves do have a reward of $100$**. 
+
+**Iteration 1**. In the begining, we have the root $R$ (see {numref}`MCTS-1-2`-left). The root has two children $N1$ and $N2$, both with zero visits so far. We randomly select $N2$, expand it and perform a simimulation leading to leaf node with reward $100$. The backup procedure 'reinforces' the path leading to it and ends up giving $W(N2)=100$, $V(N2)=1$, $W(R)=100$ and $V(R)=1$. 
+
+```{figure} ./images/Topic4/MCTS-It1-2-removebg-preview.png
+---
+name: MCTS-1-2
+width: 800px
+align: center
+height: 350px
+---
+MCTS-example: Iterations 1 and 2. Created by Gemini.
+```
+
+**Iteration 2**. The root $R$ selects now $N1$ based on $UBC_1$, since $V(N1)=0$ (see {numref}`MCTS-1-2`-right). Then, $N1$ is simulated and reaches a leaf with reward $45$. The backup provides $W(N1)=45$ and $V(N1)=1$, but also $W(R)+45=145$ and $V(R)+1 = 2$. 
+
+**Iteration 3**. For iteration 3, all the children has been selected, the root $R$ does not have any 'untried action' and only $N1$ or $N2$ can be selected. Looking at $UCB_1$ we have: 
+
+$$
+\begin{eqnarray}
+UCB_1 (N1) &=& \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + C\cdot\sqrt{\frac{log 2}{1}}\\
+UCB_1 (N2) &=& \frac{W(N2)}{V(N2)} + C\cdot\sqrt{\frac{log V(R)}{V(N2)}} = \frac{100}{1} + C\cdot\sqrt{\frac{log 2}{1}}\;.\\
+\end{eqnarray}
+$$
+
+Since both $N1$ and $N2$ have the same exploration term (the second one), the selection is determined by the WIN/VISIT ratio, where $N2$ is better.
+
+Then, in this iteration we select $N2$ and expand one of its two children: $N17$ in this case ({numref}`MCTS-3`). The simulation from $N17$ to a leaf leads to a reward of $100$. This means that $W(N2)$ becomes $200$, $V(N2)=2$, and for the root we have $W(R)=245$ and $V(R)=3$. 
+
+```{figure} ./images/Topic4/MCTS-It3-removebg-preview.png
+---
+name: MCTS-3
+width: 800px
+align: center
+height: 350px
+---
+MCTS-example: Iteration 3. Created by Gemini.
+```
+
+**Iteration 4**. The new selection must be either $N1$, $N2$. Why not $N17$?. Because $N1$ and $N2$ **still do have untried actions**. We have, for $C=1.4$ and $\log =\ln$: 
+
+$$
+\begin{eqnarray}
+UCB_1 (N1) &=& \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 46.6\\
+UCB_1 (N2) &=& \frac{W(N2)}{V(N2)} + C\cdot\sqrt{\frac{log V(R)}{V(N2)}} = \frac{145}{2} + 1.4\cdot\sqrt{\frac{log 3}{2}} = 73.5\;.\\
+\end{eqnarray}
+$$
+
+Note, that though the exploration term of $N2$ decreases wrt to that of $N1$, the WIN/VISIT ratio is still recommending $N2$ for this iteration. Exploiting the $N2$ subtree leads to {numref}`MCTS-4` where: 
+
+```{figure} ./images/Topic4/MCTS-It4-removebg-preview.png
+---
+name: MCTS-4
+width: 800px
+align: center
+height: 350px
+---
+MCTS-example: Iteration 4. Created by Gemini.
+```
+
+the last unexplored child of $N2$, $N18$ is selected and its simulation returs $100$ leading to $W(N2)=300$, $V(N2)=3$, $W(R)=345$ and $V(R)=4$. 
+
+**Iteration 5**. For this iteration, we have that $N2$ **has explored all its actions and cannot be selected**. Only $N17$, $N18$ and, of course $N1$, can be selected. Therefore, we have: 
+
+$$
+\begin{eqnarray}
+UCB_1 (N1) &=& \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 46.6\\
+UCB_1 (N17) &=& \frac{W(N17)}{V(N17)} + C\cdot\sqrt{\frac{log V(N2)}{V(N17)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 3}{1}} = 101.5\;.\\
+UCB_1 (N18) &=& \frac{W(N18)}{V(N18)} + C\cdot\sqrt{\frac{log V(N2)}{V(N18)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 3}{1}} = 101.5\;.\\
+\end{eqnarray}
+$$
+
+As we see in {numref}`MCTS-5`, in this iteration we MCTS chooses $N17$ (could also be $N18$ because they are equally promising).  
+
+```{figure} ./images/Topic4/MCTS-It5-removebg-preview.png
+---
+name: MCTS-5
+width: 800px
+align: center
+height: 350px
+---
+MCTS-example: Iteration 5. Created by Gemini.
+```
+**Iteration 6 and beyond**. What should be the next step? Firstly, as $N17$ and $N18$ still have not explored all their children, they can be again chosen for expansion as $N1$, but know there is a new node: $N19$. Therefore, we have
+
+$$
+\begin{eqnarray}
+UCB_1 (N1) &=& \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + 1.4\cdot\sqrt{\frac{log 5}{1}} = 46.8\\
+UCB_1 (N17) &=& \frac{W(N17)}{V(N17)} + C\cdot\sqrt{\frac{log V(N2)}{V(N17)}} = \frac{200}{2} + 1.4\cdot\sqrt{\frac{log 4}{2}} = 101.2\;.\\
+UCB_1 (N18) &=& \frac{W(N18)}{V(N18)} + C\cdot\sqrt{\frac{log V(N2)}{V(N18)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 101.6\;.\\
+UCB_1 (N19) &=& \frac{W(N19)}{V(N19)} + C\cdot\sqrt{\frac{log V(N17)}{V(N19)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 2}{1}} = 101.2\;.\\
+\end{eqnarray}
+$$
+
+Herein, the **exploration term is key** to choose $N18$, thus enforcing breath-like search  (more exploration than exploitation). 
+
+<br></br>
+<span style="color:#d94f0b"> 
+**Exercise**. The tree in {numref}`MCTS-10` represents the status of the MCTS search at iteration $10$. We ask: **a)** How did MCTS arrive to this result?, and **b)** Predict result for next iteration. 
+</span>
+
+```{figure} ./images/Topic4/MCTS-It10-removebg-preview.png
+---
+name: MCTS-10
+width: 800px
+align: center
+height: 350px
+---
+MCTS-example: Iteration 10. Created by Gemini.
+```
+
+<br></br>
+<span style="color:#d94f0b"> 
+**a)** First of all, note that $N1$ is still un-chosen. This means that the search is still focused on subtree $N2$ (this is normal because all the leaves in this subtree provide a reward of $100$ - see the binary tree on top of this example). 
+</span>
+<br></br>
+<span style="color:#d94f0b"> 
+Once this is clear, focus on subtree $N2$ and observe that its root has $9$ visits so far. These visits are comming from its offspring, mainly from $N17$ and $N18$ ($4$ visits each). This symmetry means that both subtrees are explored in a similar way: i) a more promising subtree ($N19$ and $N26$ respectively) which has reached a leave, and ii) a less promising subtree not yet expanded.  
+</span>
+<br></br>
+<span style="color:#d94f0b"> 
+**b)** Each subtree ($N17$ and $N18$) leads to select a leave (in green in {numref}`MCTS-10`). As **leaves cannot be selected** (they are terminal nodes), next iteration will explore one of these nodes: $N19$, $N20$, $N26$ and $N25$ (in addition to $N1$, whose exploration term is not competitive for this maximal depth):
+</span>
+<br></br>
+<span style="color:#d94f0b">
+$
+\begin{eqnarray}
+UCB_1 (N19) &=& \frac{W(N19)}{V(N19)} + C\cdot\sqrt{\frac{log V(N17)}{V(N19)}} = \frac{200}{2} + 1.4\cdot\sqrt{\frac{log 4}{2}} = 101.16\\
+UCB_1 (N20) &=& \frac{W(N20)}{V(N20)} + C\cdot\sqrt{\frac{log V(N17)}{V(N20)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 101.64\;.\\
+UCB_1 (N26) &=& \frac{W(N26)}{V(N26)} + C\cdot\sqrt{\frac{log V(N18)}{V(N26)}} = \frac{200}{2} + 1.4\cdot\sqrt{\frac{log 4}{2}} = 101.16\;.\\
+UCB_1 (N25) &=& \frac{W(N25)}{V(N25)} + C\cdot\sqrt{\frac{log V(N18)}{V(N25)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 101.64\;.\\
+UCB_1 (N1) &=& \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + 1.4\cdot\sqrt{\frac{log 10}{1}} = 47.12\;.\\
+\end{eqnarray}
+$
+</span>
+<br></br>
+<span style="color:#d94f0b">
+Therefore, either $N20$ or $N25$ are the most promising nodes to select. This is preferred to pick a children of $N19$ or $N26$. Note that **this decision was mainly influenced by the exploration term** (all exploitation terms are equal to $100$).
+</span>
+<br></br>
+<span style="color:#d94f0b">
+Actually, by $50$ iterations, all leaves of subtree $N2$ have been explored, and $N1$ will never be selected: 
+</span>
+```{figure} ./images/Topic4/MCTS-It50-removebg-preview.png
+---
+name: MCTS-50
+width: 800px
+align: center
+height: 350px
+---
+MCTS-example: Iteration 50. Created by Gemini.
+```
+
+**Conclusion**. As Minimax/$\alpha-\beta$, <span style="color:#f88146">MCTS is **driven by the distribution of the rewards** in the leaves</span>. In the above example and exercise, we have biased the leaves towards high values in one of the subtrees ($N2$) and smaller values in the other. The prefered action is $N2$ (and it always has been), because the tree is not deep enough to activate the exploration term of $N1$. 
+
+### MCTS for Games  
+#### Tic-Tac-Toe
+The main difference between the generic MCTS search and MCTS-Game search is that MAX levels are implemented as usual MCTS search, whereas <span style="color:#f88146">MIN levels lead to **negative WINs**</span>. Therefore, the main difference is in the backup. 
+
+<span style="color:#f88146">**Backpropagate**. In MCTS-Game Search, a MAX node is udated a $+\text{reward}$ whereas a MIN node is udated a $-\text{reward}$</span>.
+
+**Example**. Tic-Tac-Toe has a maximum of $9$ choices (if the board is empty). In {numref}`TTT-9` we show the status of the MCTS search at iteration 9: 
+
+```{figure} ./images/Topic4/TTT-it9-removebg-preview.png
+---
+name: TTT-9
+width: 800px
+align: center
+height: 500px
+---
+Tic-Tac-Toe. MCTS search tree for 9 Iterations. Created by Gemini.
+```
+
+Some considerations: 
+- **Root and children**. Note that the root is player 'X' and it starts with an empty board. This means that it can make one of 9 actions and yield the turn to 'O'. The objetive of MCTS is to discover what of these children is more promising. 
+
+- **Rewards**. When we reach a leave we can obtain three types of rewards: $+1$ (WIN), $-1$ (LOSS) and $0$ (DRAW) all wrt 'X' (MAX). 
+
+- **First explorations**. At iteration 10, we are sure that the root 'X' has explored the potential of all its 9 moves before going in depth. 
+
+    a) Some of these moves report $+1$, some $-1$ and some $0$. 
+
+    b) All of them have $1$ visit  which confirm the dominance of the exploration term in $UCB_1$. This is because children with $0$ visits lead to $+\infty$. 
+
+    c) Root's WIN is $-4$ which is the sum of all the WINs of its children.
+
+
+**Selection and Expansion**. Then, once that all have $1$ visit, one of them with WIN$=1$ is going to be selected.
+
+**Simulations** This is **BIG difference** wrt Minimax/$\alpha-\beta$. Simulations choose and deploy children randomly (the most basic **rollout policy**) until hitting a terminal node. 
+
+**Iteration 10**. At this point, the node with WIN$=1$ selected expands one of its children whose simulation provides a DRAW reward. This increments the number of visits of the ROOT but not its WINS. 
+
+```{figure} ./images/Topic4/TTT-it10-removebg-preview.png
+---
+name: TTT-10
+width: 800px
+align: center
+height: 500px
+---
+Tic-Tac-Toe. MCTS search tree for 10 Iterations. Created by Gemini.
+```
+**Iteration 11** Illustrated the '$-\text{reward}$' performed at levels where 'O' is in turn (see {numref}`TTT-11`)
+
+```{figure} ./images/Topic4/TTT-it11-removebg-preview.png
+---
+name: TTT-11
+width: 800px
+align: center
+height: 500px
+---
+Tic-Tac-Toe. MCTS search tree for 11 Iterations. Created by Gemini.
+```
+**Backup**. Note that node $N1$ (movement 1) predicted a WIN$=1$ from 'O' in the previous iteration ({numref}`TTT-11`). After selecting its child $N5$ (movement 5) which achieves a reward of $+1$, <span style="color:#f88146">its reward is reduced to $0$ in the **backup** since it is a 'O' node**</span>. As a result, after 11 visits, the ROOT has a WIN of $-3$ instead of $-4$ as in the previous iterations. 
+
+**Going on**. At iteration $1000$, the WIN expectation of the ROOT is clear and the most promising movement of is $N0$ (0 movement) with a predicted WIN of $+3$ (see {numref}`TTT-1000` where we only plot 3 levels for clarity): 
+
+```{figure} ./images/Topic4/MCTS-It1000-removebg-preview.png
+---
+name: TTT-1000
+width: 800px
+align: center
+height: 500px
+---
+Tic-Tac-Toe. MCTS search tree for 1000 Iterations. Created by Gemini.
+```
+
+However, in MCTS the <span style="color:#f88146">best child action **is not taken according to WINs** but according to the maximal **number of visit**</span> since MCTS visits more the most promising parts of the tree. 
+
+#### AlphaZero 
+Looking at MCTS the following question arises: <span style="color:#f88146">What part of the tree search **bottleneck can be optimized** via a Neural Network (NN)?</span>. There are two key points: 
+
+1) **Policy Network**. In the general MCTS, the **selection** of a child is random. We could train a NN to provide <ins>more informative selections</ins>. This is the Policy Network. 
+
+2) **Value Network**. The **simulation** is the main bottleneck of MCTS, so it deserves a predictive tool for <ins>saving computational load</ins>. 
+
+Instead of training two NNs, AlphaZero trains a <span style="color:#f88146">unique NN with two **output heads**</span>: probability distribution and value. Then, given a state $J$, we have: 
+
+$$
+f_{\theta}(J)= [\pi(a|J),v(J)]\;, 
+$$
+
+where: 
+
+- $\pi(a|J)$ is a probability distribution over the possible actions $a$ that can be taken from state $J$. 
+- $v(J)$ is the predicted reward from $J$. 
+
+The NN is called just **after** the $\text{Select}$ of a state $J$. Therefore, $\pi(A=a|J)$ provides a grounded means of sampling the children $a$ of $J$ for doing $J_k\leftarrow \text{Expand}$ and $\text{reward}\leftarrow v(J)$ **replaces the simulation** from $J_k$. 
+
+Summarizing, we have: 
+
+```{prf:algorithm} MCTS-AlphaZero
+:label: AlphaZero
+
+**Inputs** Root node $s$, $\text{num_iter}=n$, $\text{explore_const}=C$\
+**Output** Best action $a$ from $s$.
+ 
+1. **for** $k=1,2,\ldots, \text{num_iter}$:
+    1. $J_k\leftarrow \textbf{Select}$($s$,$\text{explore_const}$)  
+    2. **if** $J_k$ is **not** terminal **then**: 
+       1. $[\pi(a|J_k),v(J_k)]\leftarrow f_{\theta}(J_k)$
+       2. $J_k\leftarrow \textbf{Expand}$($J_k$)
+       3. $\text{reward}\leftarrow v(J_k)$
+    3. **else**: 
+       1. $\text{reward}\leftarrow \textbf{Reward}(J_k)$
+    4. $\textbf{Backpropagate}$($J_k$,$\text{reward}$)
+2. $a\leftarrow\textbf{BestAction}$($s$)
+3. **return** $a$
+```
+
+**Selection criterion**. Instead of $UBC_1$, AlphaZero uses a modification according to the existence of the NN. This is the Polynomial Upper Confidence Tree (PUCT)
+
+$$
+PUCT(s,a) = \underbrace{\frac{W(a)}{V(a)}}_{Q(s,a)} + \underbrace{C\cdot\pi(a|s)\cdot\frac{\sqrt{N(s)}}{1 + N(a)}}_{U(s,a)}
+$$
+
+where $s$ is the parent and $a$ the child. Note that if $a$ has not been visited, $PUCT$ sould return $+\infty$, as usual, in order to encourage breath-first search for un-visited states. 
+
+**Self-play**. The NN is trained by simulating a given number of games, each one with $\text{num_iter}$ iterations.
+
+**Training**. Consider, for instance, the Tic-Tac-Toe game. We have that $f_{\theta}$ is an MLP with a vectorized state of $9$ binary ('X','O')input dimensions (positions in the board). Then, in the following layers we increase the dimensions (e.g. 128) and later on we decrease them to produce $9$ outputs (probabilities of performing any of the $9$ actions) + 1 output for the value. 
+
+As we are simulating the game for a given number of iterations, we get $\text{num_games}\times\text{num_iter}$ 'training samples', each one as follows: 
+
+$$
+\{\text{vec_state}, \pi_{\text{vec}}, \text{reward}\}\;,
+$$
+
+where: 
+- $\text{vec_state}$ is the vectorized state. 
+- $\pi_{\text{vec}}$ is the 'true' probability distribution $\pi(a|s)$ collected during the simulation. 
+- $\text{reward}$ is th reward from the state. 
+
+**Loss function**. As we have tuples such as $\{\text{vec_state}, \pi_{\text{vec}}, \text{reward}\}$, it is straightfoward to submit the $\text{vec_state}$ to the NN and compute the discordances between the predictions $\{\text{pred-}\pi_{\text{vec}},\text{pred-reward}\}$ and $\{\pi_{\text{vec}},\text{reward}\}$. 
+
+**Categorical Cross-Entropy**. Since $\hat{\mathbf{y}}=\text{pred-}\pi_{\text{vec}}$ and $\mathbf{y}=\pi_{\text{vec}}$ are two probability distribution, it seems reasonable to use 
+
+$$
+L_{CCE}(\hat{\mathbf{y}},\mathbf{y})=-\sum_{i=1}^c \mathbf{y}(i)\log \hat{\mathbf{y}}(i)\;,
+$$
+
+where $c$ is the number of categories ($c=9$ in Tic-Tac-Toe).
+
+**MSE**. In adition we compare $\hat{x}=\text{pred-reward}$ and $x=\text{reward}$ as follows: 
+
+$$
+L_{MSE}(\hat{x},x)=(\hat{x}-x)^2. 
+$$
+
+The overall minimization is on $L_{CCE} + L_{MSE}$.
+
+**Testing Tic-Tac-Toe**. State of the board after the recommended action:
+
+Player: O
+
+**Action 3 (O) | BOARD=...X..... | W/V=-111.34/134 | PP=0.10 | VE=0.39**
+
+Winner: None
+
+MCTS tree (up to depth 2):
+- ROOT | B=......... | W/V=841.78/1000 | PP=1.00 | VE=0.00
+  - Action 8 (O) | B=........X | W/V=-88.48/105 | PP=0.11 | VE=0.39
+    - Action 5 (X) | B=.....O..X | W/V=15.19/18 | PP=0.17 | VE=0.75
+    - Action 6 (X) | B=......O.X | W/V=8.23/10 | PP=0.12 | VE=0.75
+    - Action 3 (X) | B=...O....X | W/V=8.45/10 | PP=0.09 | VE=0.75
+    - Action 1 (X) | B=.O......X | W/V=5.59/7 | PP=0.10 | VE=0.75
+    - Action 4 (X) | B=....O...X | W/V=19.54/22 | PP=0.14 | VE=0.75
+    - Action 7 (X) | B=.......OX | W/V=13.50/16 | PP=0.16 | VE=0.75
+    - Action 2 (X) | B=..O.....X | W/V=6.27/8 | PP=0.12 | VE=0.75
+    - Action 0 (X) | B=O.......X | W/V=11.33/13 | PP=0.10 | VE=0.75
+  - Action 2 (O) | B=..X...... | W/V=-91.02/108 | PP=0.11 | VE=0.39
+    - Action 5 (X) | B=..X..O... | W/V=11.39/14 | PP=0.16 | VE=0.72
+    - Action 4 (X) | B=..X.O.... | W/V=26.11/29 | PP=0.15 | VE=0.72
+    - Action 6 (X) | B=..X...O.. | W/V=13.96/16 | PP=0.12 | VE=0.72
+    - Action 1 (X) | B=.OX...... | W/V=4.52/6 | PP=0.11 | VE=0.72
+    - Action 7 (X) | B=..X....O. | W/V=11.70/14 | PP=0.14 | VE=0.72
+    - Action 3 (X) | B=..XO..... | W/V=5.46/7 | PP=0.10 | VE=0.72
+    - Action 0 (X) | B=O.X...... | W/V=10.31/12 | PP=0.10 | VE=0.72
+    - Action 8 (X) | B=..X.....O | W/V=7.19/9 | PP=0.12 | VE=0.72
+  - Action 0 (O) | B=X........ | W/V=-89.02/106 | PP=0.10 | VE=0.39
+    - Action 3 (X) | B=X..O..... | W/V=6.53/8 | PP=0.10 | VE=0.80
+    - Action 1 (X) | B=XO....... | W/V=5.55/7 | PP=0.09 | VE=0.80
+    - Action 6 (X) | B=X.....O.. | W/V=6.26/8 | PP=0.11 | VE=0.80
+    - Action 7 (X) | B=X......O. | W/V=14.28/17 | PP=0.16 | VE=0.80
+    - Action 4 (X) | B=X...O.... | W/V=17.43/20 | PP=0.15 | VE=0.80
+    - Action 8 (X) | B=X.......O | W/V=12.22/14 | PP=0.10 | VE=0.80
+    - Action 5 (X) | B=X....O... | W/V=14.34/17 | PP=0.16 | VE=0.80
+    - Action 2 (X) | B=X.O...... | W/V=12.03/14 | PP=0.12 | VE=0.80
+  - Action 6 (O) | B=......X.. | W/V=-99.89/119 | PP=0.11 | VE=0.39
+    - Action 4 (X) | B=....O.X.. | W/V=22.00/25 | PP=0.15 | VE=0.69
+    - Action 5 (X) | B=.....OX.. | W/V=13.01/16 | PP=0.17 | VE=0.69
+    - Action 2 (X) | B=..O...X.. | W/V=16.59/19 | PP=0.12 | VE=0.69
+    - Action 7 (X) | B=......XO. | W/V=16.12/19 | PP=0.15 | VE=0.69
+    - Action 1 (X) | B=.O....X.. | W/V=5.50/7 | PP=0.09 | VE=0.69
+    - Action 3 (X) | B=...O..X.. | W/V=6.17/8 | PP=0.11 | VE=0.69
+    - Action 8 (X) | B=......X.O | W/V=10.09/12 | PP=0.11 | VE=0.69
+    - Action 0 (X) | B=O.....X.. | W/V=10.02/12 | PP=0.11 | VE=0.69
+  - Action 7 (O) | B=.......X. | W/V=-102.53/122 | PP=0.12 | VE=0.39
+    - Action 4 (X) | B=....O..X. | W/V=23.93/27 | PP=0.14 | VE=0.76
+    - Action 8 (X) | B=.......XO | W/V=10.08/12 | PP=0.11 | VE=0.76
+    - Action 1 (X) | B=.O.....X. | W/V=5.22/7 | PP=0.11 | VE=0.76
+    - Action 3 (X) | B=...O...X. | W/V=10.03/12 | PP=0.10 | VE=0.76
+    - Action 2 (X) | B=..O....X. | W/V=11.87/14 | PP=0.11 | VE=0.76
+    - Action 5 (X) | B=.....O.X. | W/V=16.54/20 | PP=0.19 | VE=0.76
+    - Action 0 (X) | B=O......X. | W/V=9.93/12 | PP=0.11 | VE=0.76
+    - Action 6 (X) | B=......OX. | W/V=14.54/17 | PP=0.13 | VE=0.76
+  - Action 5 (O) | B=.....X... | W/V=-105.34/125 | PP=0.13 | VE=0.39
+    - Action 6 (X) | B=.....XO.. | W/V=4.78/7 | PP=0.14 | VE=0.81
+    - Action 7 (X) | B=.....X.O. | W/V=15.84/19 | PP=0.17 | VE=0.81
+    - Action 0 (X) | B=O....X... | W/V=6.32/8 | PP=0.10 | VE=0.81
+    - Action 2 (X) | B=..O..X... | W/V=5.96/8 | PP=0.12 | VE=0.81
+    - Action 1 (X) | B=.O...X... | W/V=3.42/5 | PP=0.10 | VE=0.81
+    - Action 8 (X) | B=.....X..O | W/V=12.77/15 | PP=0.12 | VE=0.81
+    - Action 3 (X) | B=...O.X... | W/V=5.38/7 | PP=0.09 | VE=0.81
+    - Action 4 (X) | B=....OX... | W/V=50.49/55 | PP=0.17 | VE=0.81
+  - **Action 3 (O) | B=...X..... | W/V=-111.34/134 | PP=0.10 | VE=0.39**
+    - Action 4 (X) | B=...XO.... | W/V=25.11/29 | PP=0.16 | VE=0.74
+    - Action 7 (X) | B=...X...O. | W/V=16.75/20 | PP=0.15 | VE=0.74
+    - Action 5 (X) | B=...X.O... | W/V=15.50/19 | PP=0.16 | VE=0.74
+    - Action 1 (X) | B=.O.X..... | W/V=15.89/18 | PP=0.08 | VE=0.74
+    - Action 2 (X) | B=..OX..... | W/V=5.90/8 | PP=0.11 | VE=0.74
+    - Action 8 (X) | B=...X....O | W/V=17.28/20 | PP=0.11 | VE=0.74
+    - Action 0 (X) | B=O..X..... | W/V=10.18/12 | PP=0.08 | VE=0.74
+    - Action 6 (X) | B=...X..O.. | W/V=4.34/7 | PP=0.14 | VE=0.74
+  - Action 1 (O) | B=.X....... | W/V=-81.94/97 | PP=0.10 | VE=0.39
+    - Action 6 (X) | B=.X....O.. | W/V=9.17/11 | PP=0.13 | VE=0.67
+    - Action 5 (X) | B=.X...O... | W/V=9.93/12 | PP=0.14 | VE=0.67
+    - Action 7 (X) | B=.X.....O. | W/V=9.06/11 | PP=0.13 | VE=0.67
+    - Action 0 (X) | B=OX....... | W/V=10.46/12 | PP=0.10 | VE=0.67
+    - Action 2 (X) | B=.XO...... | W/V=9.13/11 | PP=0.14 | VE=0.67
+    - Action 8 (X) | B=.X......O | W/V=10.40/12 | PP=0.11 | VE=0.67
+    - Action 4 (X) | B=.X..O.... | W/V=12.95/15 | PP=0.14 | VE=0.67
+    - Action 3 (X) | B=.X.O..... | W/V=10.44/12 | PP=0.10 | VE=0.67
+  - Action 4 (O) | B=....X.... | W/V=-72.22/84 | PP=0.12 | VE=0.39
+    - Action 6 (X) | B=....X.O.. | W/V=9.54/11 | PP=0.13 | VE=0.75
+    - Action 0 (X) | B=O...X.... | W/V=7.83/9 | PP=0.11 | VE=0.75
+    - Action 7 (X) | B=....X..O. | W/V=10.31/12 | PP=0.14 | VE=0.75
+    - Action 2 (X) | B=..O.X.... | W/V=12.46/14 | PP=0.13 | VE=0.75
+    - Action 3 (X) | B=...OX.... | W/V=6.83/8 | PP=0.11 | VE=0.75
+    - Action 5 (X) | B=....XO... | W/V=12.15/14 | PP=0.17 | VE=0.75
+    - Action 8 (X) | B=....X...O | W/V=6.98/8 | PP=0.10 | VE=0.75
+    - Action 1 (X) | B=.O..X.... | W/V=5.72/7 | PP=0.11 | VE=0.75
+
+**Testing on Go**. When applied to the Go game, AlphaZero yields an astonishing performance. The process is as usual (see {numref}`AlphaGo1`): 
+
+```{figure} ./images/Topic4/AlphaGo1-removebg-preview.png
+---
+name: AlphaGo1
+width: 800px
+align: center
+height: 600px
+---
+AlphaZero applied to Go. Credit: [Nature](https://www.nature.com/articles/nature24270).
+```
+
+Most of the performance is due to the off-line self-playing. 
 
 
 <!--

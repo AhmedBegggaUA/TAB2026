@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'topic4';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="5. Introduction to the practical part of TAB2026" href="practice_1_1.html" />
+    <link rel="next" title="5. Assignment 06/25" href="ExamC3of2025.html" />
     <link rel="prev" title="3. Heuristic Search" href="topic3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,23 +191,27 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Game Search</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exam solutions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ExamC3of2025.html">5. Assignment 06/25</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 1</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">5. Introduction to the practical part of TAB2026</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">6. Graph Construction for Matching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">7. Graph Matching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_4.html">8. Graph Matching with Topological Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_1_5.html">9. SoftAssign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">6. Introduction to the practical part of TAB2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">7. Graph Construction for Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">8. Graph Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_4.html">9. Graph Matching with Topological Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_5.html">10. SoftAssign</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 2</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_2_search.html">10. Search Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_2_1_search.html">11. UCS and A* Search</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice_2_2_search.html">12. Search Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_search.html">11. Search Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_1_search.html">12. UCS and A* Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_2_search.html">13. Search Algorithms</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 3</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_3.html">13. Pacman with AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_3.html">14. Pacman with AI</a></li>
 </ul>
 
     </div>
@@ -409,6 +413,16 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategies">4.2.2. Strategies</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-minimax-method">4.2.3. The Minimax Method</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-alpha-beta-method">4.2.4. The Alpha-Beta Method</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-tree-search">4.3. Monte Carlo Tree Search</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">4.3.1. Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generic-mcts">4.3.2. Generic MCTS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcts-for-games">4.3.3. MCTS for Games</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tic-tac-toe">4.3.3.1. Tic-Tac-Toe</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alphazero">4.3.3.2. AlphaZero</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -687,8 +701,503 @@ e(J) = w_1 \cdot\text{score}(J) + w_2\cdot \text{food_distance}(J) + w_3\cdot \t
 <li><p>The root updates its <span class="math notranslate nohighlight">\(\alpha\)</span> and sends <span class="math notranslate nohighlight">\((10,+\infty)\)</span> to is second child.</p></li>
 <li><p>The pair <span class="math notranslate nohighlight">\((10,+\infty)\)</span> passes through F and D.</p></li>
 <li><p>D is a MIN node having <span class="math notranslate nohighlight">\((10,+\infty)\)</span> and it updates its <span class="math notranslate nohighlight">\(\beta\)</span>. This leads to <span class="math notranslate nohighlight">\((10,5)\)</span>. As <span class="math notranslate nohighlight">\(\beta\le\alpha\)</span>, MIN declares a cut and returns its <span class="math notranslate nohighlight">\(\alpha=10\)</span>.</p></li>
-<li><p>F has now the pair <span class="math notranslate nohighlight">\((10,+\infty)\)</span>. No cut. It asks G.</p></li>
+<li><p>F has now the pair <span class="math notranslate nohighlight">\((10,+\infty)\)</span>. No cut. It asks G. Only if G gets a value greater than <span class="math notranslate nohighlight">\(\alpha=10\)</span>, say <span class="math notranslate nohighlight">\(20\)</span>, may change the best movement to the root. If this happens, we obtain <span class="math notranslate nohighlight">\(\alpha=20\)</span> and F returns <span class="math notranslate nohighlight">\((20,+\infty)\)</span>.</p></li>
+<li><p>Finally, the root chooses the second child as the optimal move.</p></li>
 </ol>
+</section>
+</section>
+<section id="monte-carlo-tree-search">
+<h2><span class="section-number">4.3. </span>Monte Carlo Tree Search<a class="headerlink" href="#monte-carlo-tree-search" title="Permalink to this heading">#</a></h2>
+<section id="motivation">
+<h3><span class="section-number">4.3.1. </span>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h3>
+<p>Modern game searchers such as <a class="reference external" href="https://www.nature.com/articles/nature24270">Alpha Zero and its variants</a> <strong>do not rely on Minimax-like search</strong>. The reason? Well, even with activating the Alpha-Beta heuristic, complex games such as Chess and Go lead to <strong>very large branching processes</strong> which collapse in practice. This is even worse in Pacman, where we have to double the number of levels for the ghosts.</p>
+<p><span style="color:#f88146"><strong>Monte Carlo Tree Search (MCTS)</strong></span> provides a more “flexible and intelligent” way of performing a tree search. Let us detail here what do “flexible and intelligent” means:</p>
+<ul class="simple">
+<li><p><strong>More focused search</strong>. Minimax tree expansions are (in the absence of Alpha-Beta cuts) <strong>symmetric</strong>, i.e. they make grow the tree uniformly. It is the Alpha-Beta cut what breaks eventually such a symmetry when it discovers not promising subtrees. <span style="color:#f88146">MCTS, puts more search effort on the <strong>most promising subreees</strong></span>.</p></li>
+<li><p><strong>Keeps the balance</strong>. In MCTS, “more focused seach” does not mean pure depth-search but <span style="color:#f88146">a balance between <strong>exploiting</strong></span> (refine the most promising subtrees) <span style="color:#f88146">and <strong>exploring</strong></span> (test unexplored subtrees which may lead to even better estimations).</p></li>
+</ul>
+</section>
+<section id="generic-mcts">
+<h3><span class="section-number">4.3.2. </span>Generic MCTS<a class="headerlink" href="#generic-mcts" title="Permalink to this heading">#</a></h3>
+<p><strong>Example</strong>. Let us start by searching from the root on a <span class="math notranslate nohighlight">\(b-\)</span><em>nary tree</em> of depth <span class="math notranslate nohighlight">\(d\)</span>. Note that for a constrant branching factor <span class="math notranslate nohighlight">\(b\)</span>, we have the following increasing number of nodes as the level grows:</p>
+<div class="math notranslate nohighlight">
+\[
+\underbrace{b^0}_{root} + b^1 + b^2 + \ldots + b^{d-1} + \underbrace{b^d}_{leaves}\;.
+\]</div>
+<p>In MCTS, the root has to decide <span style="color:#f88146">what of its <span class="math notranslate nohighlight">\(b\)</span> actions (children) leads to a <strong>maximal reward</strong></span>. However, the rewards are placed at the <span class="math notranslate nohighlight">\(b^d\)</span> leaves.</p>
+<p>Let us <strong>assume (initially)</strong> that at each level of the tree is a <strong>unique player</strong> just exploring what of the <span class="math notranslate nohighlight">\(b\)</span> subtrees leads to the maximal reward (no zero-sum game for the moment).</p>
+<p>The MCTS’s search loop has the following logic:</p>
+<div class="proof algorithm admonition" id="MCTS">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.3 </span> (MCTS-Generic)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Root node <span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(\text{num_iter}=n\)</span>, <span class="math notranslate nohighlight">\(\text{explore_const}=C\)</span><br />
+<strong>Output</strong> Best action <span class="math notranslate nohighlight">\(a\)</span> from <span class="math notranslate nohighlight">\(s\)</span>.</p>
+<ol class="arabic simple">
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(k=1,2,\ldots, \text{num_iter}\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(J_k\leftarrow \textbf{Select}\)</span>(<span class="math notranslate nohighlight">\(s\)</span>,<span class="math notranslate nohighlight">\(\text{explore_const}\)</span>)</p></li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(J_k\)</span> is <strong>not</strong> terminal <strong>then</strong>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(J_k\leftarrow \textbf{Expand}\)</span>(<span class="math notranslate nohighlight">\(J_k\)</span>)</p></li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\text{reward}\leftarrow \textbf{Simulate}\)</span>(<span class="math notranslate nohighlight">\(J_k\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\textbf{Backpropagate}\)</span>(<span class="math notranslate nohighlight">\(J_k\)</span>,<span class="math notranslate nohighlight">\(\text{reward}\)</span>)</p></li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(a\leftarrow\textbf{BestAction}\)</span>(<span class="math notranslate nohighlight">\(s\)</span>)</p></li>
+<li><p><strong>return</strong> <span class="math notranslate nohighlight">\(a\)</span></p></li>
+</ol>
+</section>
+</div><figure class="align-center" id="mcts-loop">
+<a class="reference internal image-reference" href="_images/MCTS-Loop-removebg-preview.png"><img alt="_images/MCTS-Loop-removebg-preview.png" src="_images/MCTS-Loop-removebg-preview.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.5 </span><span class="caption-text">MCTS-loop. Source: The Art of Reinforcement Learning book.</span><a class="headerlink" href="#mcts-loop" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Some indications (see also <a class="reference internal" href="#mcts-loop"><span class="std std-numref">Fig. 4.5</span></a>):</p>
+<ol class="arabic">
+<li><p><strong>Loop and return</strong>. Note that the search stands for a given number of iterations and after them it returns the best estimation from the root <span class="math notranslate nohighlight">\(s\)</span>.</p></li>
+<li><p><strong>Node parameters</strong>. Each node has 3 parameters: <span class="math notranslate nohighlight">\(W\)</span> (wins or total reward), <span class="math notranslate nohighlight">\(V\)</span> (number of visits) and <span class="math notranslate nohighlight">\(\text{parent}\)</span>. These parameters are set/updated during the seach and  <span style="color:#f88146">it is typically the <strong>most visited child</strong> from the root <span class="math notranslate nohighlight">\(s\)</span> which is returned as <strong>best action</strong></span>.</p></li>
+<li><p><strong>Selection</strong> and/or <strong>expansion</strong>. Each iteration ‘selects’ a node (and ‘expands’ it if it is not a terminal):</p>
+<p>a) <ins>If the node is terminal</ins>, then we perform a <strong>simulation</strong> (which is going to return the reward in this case) and then we <strong>backpropagate</strong> (basically backup rewards and number of visits up to the respective parents).</p>
+<p>b) <ins>If the node is not terminal</ins>, we proceed to <strong>expand</strong> it. Herein, expansion means (i) choosing ‘randomly’ one of the ‘not-yet-choosen’ children of <span class="math notranslate nohighlight">\(J_k\)</span>, (ii) mark it as chosen, (iii) and name it after its parent. If all the children are yet choosed, <strong>expand</strong> return the parent itself. Anyway, the result is <strong>simulated</strong> and <strong>backpropagated</strong>.</p>
+</li>
+<li><p><strong>Simulation</strong>. A ‘simulation’ is as follows:</p>
+<p>a) It <span style="color:#f88146">can be seen as a <strong>depth-search</strong> (rollout)</span> that goes from the node <span class="math notranslate nohighlight">\(J_k\)</span> where it is called until one terminal node, where it returns the <strong>reward</strong> to the calling node <span class="math notranslate nohighlight">\(J_k\)</span>.</p>
+<p>b) The rollout is done according to some kind of <strong>rollout policy</strong>. The most usual policy is to get randomly a child (action) each time whe progress to the leaves.</p>
+<p>c) Here in we are <strong>not</strong> ‘expanding’ nodes, just generating children and children of children until we reach a leaf.</p>
+</li>
+<li><p><strong>Backpropagation</strong> (Backup). Note that the <span class="math notranslate nohighlight">\(\textbf{Backpropagate}\)</span> call in the MCTS loop is the last call for each iteration and it does not return anything. All we do here is just to travel back from <span class="math notranslate nohighlight">\(J_k\)</span> to the root <span class="math notranslate nohighlight">\(s\)</span> doing three things:</p>
+<p>a) Incrementing the node visits <span class="math notranslate nohighlight">\(+1\)</span>.</p>
+<p>b) Increment the node wins <span class="math notranslate nohighlight">\(+\text{reward}\)</span>.</p>
+<p>b) Go back its parent.</p>
+</li>
+</ol>
+<p>Therefore, <span style="color:#f88146">each iteration updates the tree giving new <strong>statistics</strong> to the nodes</span>.</p>
+<p><strong>Selection policy</strong>. The call to <span class="math notranslate nohighlight">\(\textbf{Select}\)</span>, has to select <span class="math notranslate nohighlight">\(J_k\)</span>. Then <span class="math notranslate nohighlight">\(J_k\)</span> is either a <strong>child of the root</strong> if there exist an un-tried action for the root, or a <strong>child of a child of the root</strong> (recursive), otherwise.</p>
+<p>Anyway, this must be done by following a given criterion. In MCTS, such a criterion follows a <span style="color:#f88146">trade-off between <strong>exploration</strong> and <strong>exploitation</strong></span> by means of maximizing</p>
+<div class="math notranslate nohighlight">
+\[
+UCB_1 = \underbrace{\frac{W(J_k)}{V(J_k)}}_{\text{exploit}} + \underbrace{C\cdot\sqrt{\frac{log V(s)}{V(J_k)}}}_{\text{explore}}\;,
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(W(J_k)\)</span> is the <strong>cumulative reward</strong> of <span class="math notranslate nohighlight">\(J_k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(V(J_k)\)</span> are the <strong>self-visits</strong> or visits  to <span class="math notranslate nohighlight">\(J_k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span> is the <strong>exploration constant</strong>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(V(s)\)</span> are the <strong>parent visits</strong> or visits to the root <span class="math notranslate nohighlight">\(s\)</span>.</p></li>
+</ul>
+<p>The cost <span class="math notranslate nohighlight">\(UCB_1\)</span> (<strong>Upper-Confidence Bound</strong>) follows this rationale:</p>
+<p>a) <span class="math notranslate nohighlight">\(W(J_k)/V(J_k)\)</span> measures the <strong>average reward</strong> of <span class="math notranslate nohighlight">\(J_k\)</span>. This first term (known as <strong>exploitation</strong>) enforces MCTS to seach the most promising subtree.</p>
+<p>b) The second term is also a ratio, but <strong>between visits</strong>. The numerator is <span class="math notranslate nohighlight">\(\log\)</span> because everytime the root is visited, all the nodes below it are <strong>less visited</strong>. This second term encourages <strong>exploration</strong> (i.e. visiting non-optimal subtrees with very low number of visits).</p>
+<p>c) In the beginning, <span class="math notranslate nohighlight">\(N(J_k)=0\)</span> and <span class="math notranslate nohighlight">\(UCB_1=+\infty\)</span>. This ensures that each child of the root is selected at least once!</p>
+<p><strong>Example (back)</strong>. Coming back to the <span class="math notranslate nohighlight">\(b-\)</span>ary tree. Let us set <span class="math notranslate nohighlight">\(b=2\)</span> (binary) and <span class="math notranslate nohighlight">\(d=4\)</span>.</p>
+<p>The stucture of the tree is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+R &amp;:&amp; [N1, N2]\\
+\hline
+N1 &amp;:&amp; [N3, N4]\\
+N3 &amp;:&amp; [N5, N6]\\
+N5 &amp;:&amp; [L7, \;L8]\\
+L7 &amp;:&amp; \text{reward}=34,\; L8 &amp;:&amp;\text{reward}=38\\ 
+N6 &amp;:&amp; [L9, \;L10]\\
+L9 &amp;:&amp; \text{reward}=45,\; L10 &amp;:&amp;\text{reward}=51\\
+N4 &amp;:&amp; [N11, N12]\\
+N11 &amp;:&amp; [L13, \;L14]\\
+L13 &amp;:&amp; \text{reward}=63,\; L14 &amp;:&amp;\text{reward}=70\\
+N12 &amp;:&amp; [L15, \;L16]\\
+L15 &amp;:&amp; \text{reward}=77,\; L16 &amp;:&amp;\text{reward}=80\\
+\hline
+N2 &amp;:&amp; [N17, N18]\\
+N17 &amp;:&amp; [N19, N20]\\
+N19 &amp;:&amp; [L21, \;L22]\\
+L21 &amp;:&amp; \text{reward}=100,\; L22 &amp;:&amp;\text{reward}=100\\ 
+N20 &amp;:&amp; [L23, \;L24]\\
+L23 &amp;:&amp; \text{reward}=100,\; L24 &amp;:&amp;\text{reward}=100\\
+N18 &amp;:&amp; [N25, N26]\\
+N25 &amp;:&amp; [L27, \;L28]\\
+L27 &amp;:&amp; \text{reward}=100,\; L28 &amp;:&amp;\text{reward}=100\\
+N26 &amp;:&amp; [L29, \;L30]\\
+L29 &amp;:&amp; \text{reward}=100,\; L30 &amp;:&amp;\text{reward}=100\\
+\hline
+\end{eqnarray}
+\end{split}\]</div>
+<p>Note that each horizontal line separates the two main sub-trees and the leaves are encoded as nodes with reward. <strong>Note also that the subtree <span class="math notranslate nohighlight">\(N2\)</span> is the most promising since all its leaves do have a reward of <span class="math notranslate nohighlight">\(100\)</span></strong>.</p>
+<p><strong>Iteration 1</strong>. In the begining, we have the root <span class="math notranslate nohighlight">\(R\)</span> (see <a class="reference internal" href="#mcts-1-2"><span class="std std-numref">Fig. 4.6</span></a>-left). The root has two children <span class="math notranslate nohighlight">\(N1\)</span> and <span class="math notranslate nohighlight">\(N2\)</span>, both with zero visits so far. We randomly select <span class="math notranslate nohighlight">\(N2\)</span>, expand it and perform a simimulation leading to leaf node with reward <span class="math notranslate nohighlight">\(100\)</span>. The backup procedure ‘reinforces’ the path leading to it and ends up giving <span class="math notranslate nohighlight">\(W(N2)=100\)</span>, <span class="math notranslate nohighlight">\(V(N2)=1\)</span>, <span class="math notranslate nohighlight">\(W(R)=100\)</span> and <span class="math notranslate nohighlight">\(V(R)=1\)</span>.</p>
+<figure class="align-center" id="mcts-1-2">
+<a class="reference internal image-reference" href="_images/MCTS-It1-2-removebg-preview.png"><img alt="_images/MCTS-It1-2-removebg-preview.png" src="_images/MCTS-It1-2-removebg-preview.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.6 </span><span class="caption-text">MCTS-example: Iterations 1 and 2. Created by Gemini.</span><a class="headerlink" href="#mcts-1-2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Iteration 2</strong>. The root <span class="math notranslate nohighlight">\(R\)</span> selects now <span class="math notranslate nohighlight">\(N1\)</span> based on <span class="math notranslate nohighlight">\(UBC_1\)</span>, since <span class="math notranslate nohighlight">\(V(N1)=0\)</span> (see <a class="reference internal" href="#mcts-1-2"><span class="std std-numref">Fig. 4.6</span></a>-right). Then, <span class="math notranslate nohighlight">\(N1\)</span> is simulated and reaches a leaf with reward <span class="math notranslate nohighlight">\(45\)</span>. The backup provides <span class="math notranslate nohighlight">\(W(N1)=45\)</span> and <span class="math notranslate nohighlight">\(V(N1)=1\)</span>, but also <span class="math notranslate nohighlight">\(W(R)+45=145\)</span> and <span class="math notranslate nohighlight">\(V(R)+1 = 2\)</span>.</p>
+<p><strong>Iteration 3</strong>. For iteration 3, all the children has been selected, the root <span class="math notranslate nohighlight">\(R\)</span> does not have any ‘untried action’ and only <span class="math notranslate nohighlight">\(N1\)</span> or <span class="math notranslate nohighlight">\(N2\)</span> can be selected. Looking at <span class="math notranslate nohighlight">\(UCB_1\)</span> we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+UCB_1 (N1) &amp;=&amp; \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + C\cdot\sqrt{\frac{log 2}{1}}\\
+UCB_1 (N2) &amp;=&amp; \frac{W(N2)}{V(N2)} + C\cdot\sqrt{\frac{log V(R)}{V(N2)}} = \frac{100}{1} + C\cdot\sqrt{\frac{log 2}{1}}\;.\\
+\end{eqnarray}
+\end{split}\]</div>
+<p>Since both <span class="math notranslate nohighlight">\(N1\)</span> and <span class="math notranslate nohighlight">\(N2\)</span> have the same exploration term (the second one), the selection is determined by the WIN/VISIT ratio, where <span class="math notranslate nohighlight">\(N2\)</span> is better.</p>
+<p>Then, in this iteration we select <span class="math notranslate nohighlight">\(N2\)</span> and expand one of its two children: <span class="math notranslate nohighlight">\(N17\)</span> in this case (<a class="reference internal" href="#mcts-3"><span class="std std-numref">Fig. 4.7</span></a>). The simulation from <span class="math notranslate nohighlight">\(N17\)</span> to a leaf leads to a reward of <span class="math notranslate nohighlight">\(100\)</span>. This means that <span class="math notranslate nohighlight">\(W(N2)\)</span> becomes <span class="math notranslate nohighlight">\(200\)</span>, <span class="math notranslate nohighlight">\(V(N2)=2\)</span>, and for the root we have <span class="math notranslate nohighlight">\(W(R)=245\)</span> and <span class="math notranslate nohighlight">\(V(R)=3\)</span>.</p>
+<figure class="align-center" id="mcts-3">
+<a class="reference internal image-reference" href="_images/MCTS-It3-removebg-preview.png"><img alt="_images/MCTS-It3-removebg-preview.png" src="_images/MCTS-It3-removebg-preview.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.7 </span><span class="caption-text">MCTS-example: Iteration 3. Created by Gemini.</span><a class="headerlink" href="#mcts-3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Iteration 4</strong>. The new selection must be either <span class="math notranslate nohighlight">\(N1\)</span>, <span class="math notranslate nohighlight">\(N2\)</span>. Why not <span class="math notranslate nohighlight">\(N17\)</span>?. Because <span class="math notranslate nohighlight">\(N1\)</span> and <span class="math notranslate nohighlight">\(N2\)</span> <strong>still do have untried actions</strong>. We have, for <span class="math notranslate nohighlight">\(C=1.4\)</span> and <span class="math notranslate nohighlight">\(\log =\ln\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+UCB_1 (N1) &amp;=&amp; \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 46.6\\
+UCB_1 (N2) &amp;=&amp; \frac{W(N2)}{V(N2)} + C\cdot\sqrt{\frac{log V(R)}{V(N2)}} = \frac{145}{2} + 1.4\cdot\sqrt{\frac{log 3}{2}} = 73.5\;.\\
+\end{eqnarray}
+\end{split}\]</div>
+<p>Note, that though the exploration term of <span class="math notranslate nohighlight">\(N2\)</span> decreases wrt to that of <span class="math notranslate nohighlight">\(N1\)</span>, the WIN/VISIT ratio is still recommending <span class="math notranslate nohighlight">\(N2\)</span> for this iteration. Exploiting the <span class="math notranslate nohighlight">\(N2\)</span> subtree leads to <a class="reference internal" href="#mcts-4"><span class="std std-numref">Fig. 4.8</span></a> where:</p>
+<figure class="align-center" id="mcts-4">
+<a class="reference internal image-reference" href="_images/MCTS-It4-removebg-preview.png"><img alt="_images/MCTS-It4-removebg-preview.png" src="_images/MCTS-It4-removebg-preview.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.8 </span><span class="caption-text">MCTS-example: Iteration 4. Created by Gemini.</span><a class="headerlink" href="#mcts-4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>the last unexplored child of <span class="math notranslate nohighlight">\(N2\)</span>, <span class="math notranslate nohighlight">\(N18\)</span> is selected and its simulation returs <span class="math notranslate nohighlight">\(100\)</span> leading to <span class="math notranslate nohighlight">\(W(N2)=300\)</span>, <span class="math notranslate nohighlight">\(V(N2)=3\)</span>, <span class="math notranslate nohighlight">\(W(R)=345\)</span> and <span class="math notranslate nohighlight">\(V(R)=4\)</span>.</p>
+<p><strong>Iteration 5</strong>. For this iteration, we have that <span class="math notranslate nohighlight">\(N2\)</span> <strong>has explored all its actions and cannot be selected</strong>. Only <span class="math notranslate nohighlight">\(N17\)</span>, <span class="math notranslate nohighlight">\(N18\)</span> and, of course <span class="math notranslate nohighlight">\(N1\)</span>, can be selected. Therefore, we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+UCB_1 (N1) &amp;=&amp; \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 46.6\\
+UCB_1 (N17) &amp;=&amp; \frac{W(N17)}{V(N17)} + C\cdot\sqrt{\frac{log V(N2)}{V(N17)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 3}{1}} = 101.5\;.\\
+UCB_1 (N18) &amp;=&amp; \frac{W(N18)}{V(N18)} + C\cdot\sqrt{\frac{log V(N2)}{V(N18)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 3}{1}} = 101.5\;.\\
+\end{eqnarray}
+\end{split}\]</div>
+<p>As we see in <a class="reference internal" href="#mcts-5"><span class="std std-numref">Fig. 4.9</span></a>, in this iteration we MCTS chooses <span class="math notranslate nohighlight">\(N17\)</span> (could also be <span class="math notranslate nohighlight">\(N18\)</span> because they are equally promising).</p>
+<figure class="align-center" id="mcts-5">
+<a class="reference internal image-reference" href="_images/MCTS-It5-removebg-preview.png"><img alt="_images/MCTS-It5-removebg-preview.png" src="_images/MCTS-It5-removebg-preview.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.9 </span><span class="caption-text">MCTS-example: Iteration 5. Created by Gemini.</span><a class="headerlink" href="#mcts-5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Iteration 6 and beyond</strong>. What should be the next step? Firstly, as <span class="math notranslate nohighlight">\(N17\)</span> and <span class="math notranslate nohighlight">\(N18\)</span> still have not explored all their children, they can be again chosen for expansion as <span class="math notranslate nohighlight">\(N1\)</span>, but know there is a new node: <span class="math notranslate nohighlight">\(N19\)</span>. Therefore, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+UCB_1 (N1) &amp;=&amp; \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + 1.4\cdot\sqrt{\frac{log 5}{1}} = 46.8\\
+UCB_1 (N17) &amp;=&amp; \frac{W(N17)}{V(N17)} + C\cdot\sqrt{\frac{log V(N2)}{V(N17)}} = \frac{200}{2} + 1.4\cdot\sqrt{\frac{log 4}{2}} = 101.2\;.\\
+UCB_1 (N18) &amp;=&amp; \frac{W(N18)}{V(N18)} + C\cdot\sqrt{\frac{log V(N2)}{V(N18)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 101.6\;.\\
+UCB_1 (N19) &amp;=&amp; \frac{W(N19)}{V(N19)} + C\cdot\sqrt{\frac{log V(N17)}{V(N19)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 2}{1}} = 101.2\;.\\
+\end{eqnarray}
+\end{split}\]</div>
+<p>Herein, the <strong>exploration term is key</strong> to choose <span class="math notranslate nohighlight">\(N18\)</span>, thus enforcing breath-like search  (more exploration than exploitation).</p>
+<p><br></br>
+<span style="color:#d94f0b">
+<strong>Exercise</strong>. The tree in <a class="reference internal" href="#mcts-10"><span class="std std-numref">Fig. 4.10</span></a> represents the status of the MCTS search at iteration <span class="math notranslate nohighlight">\(10\)</span>. We ask: <strong>a)</strong> How did MCTS arrive to this result?, and <strong>b)</strong> Predict result for next iteration.
+</span></p>
+<figure class="align-center" id="mcts-10">
+<a class="reference internal image-reference" href="_images/MCTS-It10-removebg-preview.png"><img alt="_images/MCTS-It10-removebg-preview.png" src="_images/MCTS-It10-removebg-preview.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.10 </span><span class="caption-text">MCTS-example: Iteration 10. Created by Gemini.</span><a class="headerlink" href="#mcts-10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><br></br>
+<span style="color:#d94f0b">
+<strong>a)</strong> First of all, note that <span class="math notranslate nohighlight">\(N1\)</span> is still un-chosen. This means that the search is still focused on subtree <span class="math notranslate nohighlight">\(N2\)</span> (this is normal because all the leaves in this subtree provide a reward of <span class="math notranslate nohighlight">\(100\)</span> - see the binary tree on top of this example).
+</span>
+<br></br>
+<span style="color:#d94f0b">
+Once this is clear, focus on subtree <span class="math notranslate nohighlight">\(N2\)</span> and observe that its root has <span class="math notranslate nohighlight">\(9\)</span> visits so far. These visits are comming from its offspring, mainly from <span class="math notranslate nohighlight">\(N17\)</span> and <span class="math notranslate nohighlight">\(N18\)</span> (<span class="math notranslate nohighlight">\(4\)</span> visits each). This symmetry means that both subtrees are explored in a similar way: i) a more promising subtree (<span class="math notranslate nohighlight">\(N19\)</span> and <span class="math notranslate nohighlight">\(N26\)</span> respectively) which has reached a leave, and ii) a less promising subtree not yet expanded.<br />
+</span>
+<br></br>
+<span style="color:#d94f0b">
+<strong>b)</strong> Each subtree (<span class="math notranslate nohighlight">\(N17\)</span> and <span class="math notranslate nohighlight">\(N18\)</span>) leads to select a leave (in green in <a class="reference internal" href="#mcts-10"><span class="std std-numref">Fig. 4.10</span></a>). As <strong>leaves cannot be selected</strong> (they are terminal nodes), next iteration will explore one of these nodes: <span class="math notranslate nohighlight">\(N19\)</span>, <span class="math notranslate nohighlight">\(N20\)</span>, <span class="math notranslate nohighlight">\(N26\)</span> and <span class="math notranslate nohighlight">\(N25\)</span> (in addition to <span class="math notranslate nohighlight">\(N1\)</span>, whose exploration term is not competitive for this maximal depth):
+</span>
+<br></br>
+<span style="color:#d94f0b">
+<span class="math notranslate nohighlight">\(
+\begin{eqnarray}
+UCB_1 (N19) &amp;=&amp; \frac{W(N19)}{V(N19)} + C\cdot\sqrt{\frac{log V(N17)}{V(N19)}} = \frac{200}{2} + 1.4\cdot\sqrt{\frac{log 4}{2}} = 101.16\\
+UCB_1 (N20) &amp;=&amp; \frac{W(N20)}{V(N20)} + C\cdot\sqrt{\frac{log V(N17)}{V(N20)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 101.64\;.\\
+UCB_1 (N26) &amp;=&amp; \frac{W(N26)}{V(N26)} + C\cdot\sqrt{\frac{log V(N18)}{V(N26)}} = \frac{200}{2} + 1.4\cdot\sqrt{\frac{log 4}{2}} = 101.16\;.\\
+UCB_1 (N25) &amp;=&amp; \frac{W(N25)}{V(N25)} + C\cdot\sqrt{\frac{log V(N18)}{V(N25)}} = \frac{100}{1} + 1.4\cdot\sqrt{\frac{log 4}{1}} = 101.64\;.\\
+UCB_1 (N1) &amp;=&amp; \frac{W(N1)}{V(N1)} + C\cdot\sqrt{\frac{log V(R)}{V(N1)}} = \frac{45}{1} + 1.4\cdot\sqrt{\frac{log 10}{1}} = 47.12\;.\\
+\end{eqnarray}
+\)</span>
+</span>
+<br></br>
+<span style="color:#d94f0b">
+Therefore, either <span class="math notranslate nohighlight">\(N20\)</span> or <span class="math notranslate nohighlight">\(N25\)</span> are the most promising nodes to select. This is preferred to pick a children of <span class="math notranslate nohighlight">\(N19\)</span> or <span class="math notranslate nohighlight">\(N26\)</span>. Note that <strong>this decision was mainly influenced by the exploration term</strong> (all exploitation terms are equal to <span class="math notranslate nohighlight">\(100\)</span>).
+</span>
+<br></br>
+<span style="color:#d94f0b">
+Actually, by <span class="math notranslate nohighlight">\(50\)</span> iterations, all leaves of subtree <span class="math notranslate nohighlight">\(N2\)</span> have been explored, and <span class="math notranslate nohighlight">\(N1\)</span> will never be selected:
+</span></p>
+<figure class="align-center" id="mcts-50">
+<a class="reference internal image-reference" href="_images/MCTS-It50-removebg-preview.png"><img alt="_images/MCTS-It50-removebg-preview.png" src="_images/MCTS-It50-removebg-preview.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.11 </span><span class="caption-text">MCTS-example: Iteration 50. Created by Gemini.</span><a class="headerlink" href="#mcts-50" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Conclusion</strong>. As Minimax/<span class="math notranslate nohighlight">\(\alpha-\beta\)</span>, <span style="color:#f88146">MCTS is <strong>driven by the distribution of the rewards</strong> in the leaves</span>. In the above example and exercise, we have biased the leaves towards high values in one of the subtrees (<span class="math notranslate nohighlight">\(N2\)</span>) and smaller values in the other. The prefered action is <span class="math notranslate nohighlight">\(N2\)</span> (and it always has been), because the tree is not deep enough to activate the exploration term of <span class="math notranslate nohighlight">\(N1\)</span>.</p>
+</section>
+<section id="mcts-for-games">
+<h3><span class="section-number">4.3.3. </span>MCTS for Games<a class="headerlink" href="#mcts-for-games" title="Permalink to this heading">#</a></h3>
+<section id="tic-tac-toe">
+<h4><span class="section-number">4.3.3.1. </span>Tic-Tac-Toe<a class="headerlink" href="#tic-tac-toe" title="Permalink to this heading">#</a></h4>
+<p>The main difference between the generic MCTS search and MCTS-Game search is that MAX levels are implemented as usual MCTS search, whereas <span style="color:#f88146">MIN levels lead to <strong>negative WINs</strong></span>. Therefore, the main difference is in the backup.</p>
+<p><span style="color:#f88146"><strong>Backpropagate</strong>. In MCTS-Game Search, a MAX node is udated a <span class="math notranslate nohighlight">\(+\text{reward}\)</span> whereas a MIN node is udated a <span class="math notranslate nohighlight">\(-\text{reward}\)</span></span>.</p>
+<p><strong>Example</strong>. Tic-Tac-Toe has a maximum of <span class="math notranslate nohighlight">\(9\)</span> choices (if the board is empty). In <a class="reference internal" href="#ttt-9"><span class="std std-numref">Fig. 4.12</span></a> we show the status of the MCTS search at iteration 9:</p>
+<figure class="align-center" id="ttt-9">
+<a class="reference internal image-reference" href="_images/TTT-it9-removebg-preview.png"><img alt="_images/TTT-it9-removebg-preview.png" src="_images/TTT-it9-removebg-preview.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.12 </span><span class="caption-text">Tic-Tac-Toe. MCTS search tree for 9 Iterations. Created by Gemini.</span><a class="headerlink" href="#ttt-9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Some considerations:</p>
+<ul>
+<li><p><strong>Root and children</strong>. Note that the root is player ‘X’ and it starts with an empty board. This means that it can make one of 9 actions and yield the turn to ‘O’. The objetive of MCTS is to discover what of these children is more promising.</p></li>
+<li><p><strong>Rewards</strong>. When we reach a leave we can obtain three types of rewards: <span class="math notranslate nohighlight">\(+1\)</span> (WIN), <span class="math notranslate nohighlight">\(-1\)</span> (LOSS) and <span class="math notranslate nohighlight">\(0\)</span> (DRAW) all wrt ‘X’ (MAX).</p></li>
+<li><p><strong>First explorations</strong>. At iteration 10, we are sure that the root ‘X’ has explored the potential of all its 9 moves before going in depth.</p>
+<p>a) Some of these moves report <span class="math notranslate nohighlight">\(+1\)</span>, some <span class="math notranslate nohighlight">\(-1\)</span> and some <span class="math notranslate nohighlight">\(0\)</span>.</p>
+<p>b) All of them have <span class="math notranslate nohighlight">\(1\)</span> visit  which confirm the dominance of the exploration term in <span class="math notranslate nohighlight">\(UCB_1\)</span>. This is because children with <span class="math notranslate nohighlight">\(0\)</span> visits lead to <span class="math notranslate nohighlight">\(+\infty\)</span>.</p>
+<p>c) Root’s WIN is <span class="math notranslate nohighlight">\(-4\)</span> which is the sum of all the WINs of its children.</p>
+</li>
+</ul>
+<p><strong>Selection and Expansion</strong>. Then, once that all have <span class="math notranslate nohighlight">\(1\)</span> visit, one of them with WIN<span class="math notranslate nohighlight">\(=1\)</span> is going to be selected.</p>
+<p><strong>Simulations</strong> This is <strong>BIG difference</strong> wrt Minimax/<span class="math notranslate nohighlight">\(\alpha-\beta\)</span>. Simulations choose and deploy children randomly (the most basic <strong>rollout policy</strong>) until hitting a terminal node.</p>
+<p><strong>Iteration 10</strong>. At this point, the node with WIN<span class="math notranslate nohighlight">\(=1\)</span> selected expands one of its children whose simulation provides a DRAW reward. This increments the number of visits of the ROOT but not its WINS.</p>
+<figure class="align-center" id="ttt-10">
+<a class="reference internal image-reference" href="_images/TTT-it10-removebg-preview.png"><img alt="_images/TTT-it10-removebg-preview.png" src="_images/TTT-it10-removebg-preview.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.13 </span><span class="caption-text">Tic-Tac-Toe. MCTS search tree for 10 Iterations. Created by Gemini.</span><a class="headerlink" href="#ttt-10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Iteration 11</strong> Illustrated the ‘<span class="math notranslate nohighlight">\(-\text{reward}\)</span>’ performed at levels where ‘O’ is in turn (see <a class="reference internal" href="#ttt-11"><span class="std std-numref">Fig. 4.14</span></a>)</p>
+<figure class="align-center" id="ttt-11">
+<a class="reference internal image-reference" href="_images/TTT-it11-removebg-preview.png"><img alt="_images/TTT-it11-removebg-preview.png" src="_images/TTT-it11-removebg-preview.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.14 </span><span class="caption-text">Tic-Tac-Toe. MCTS search tree for 11 Iterations. Created by Gemini.</span><a class="headerlink" href="#ttt-11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Backup</strong>. Note that node <span class="math notranslate nohighlight">\(N1\)</span> (movement 1) predicted a WIN<span class="math notranslate nohighlight">\(=1\)</span> from ‘O’ in the previous iteration (<a class="reference internal" href="#ttt-11"><span class="std std-numref">Fig. 4.14</span></a>). After selecting its child <span class="math notranslate nohighlight">\(N5\)</span> (movement 5) which achieves a reward of <span class="math notranslate nohighlight">\(+1\)</span>, <span style="color:#f88146">its reward is reduced to <span class="math notranslate nohighlight">\(0\)</span> in the <strong>backup</strong> since it is a ‘O’ node**</span>. As a result, after 11 visits, the ROOT has a WIN of <span class="math notranslate nohighlight">\(-3\)</span> instead of <span class="math notranslate nohighlight">\(-4\)</span> as in the previous iterations.</p>
+<p><strong>Going on</strong>. At iteration <span class="math notranslate nohighlight">\(1000\)</span>, the WIN expectation of the ROOT is clear and the most promising movement of is <span class="math notranslate nohighlight">\(N0\)</span> (0 movement) with a predicted WIN of <span class="math notranslate nohighlight">\(+3\)</span> (see <a class="reference internal" href="#ttt-1000"><span class="std std-numref">Fig. 4.15</span></a> where we only plot 3 levels for clarity):</p>
+<figure class="align-center" id="ttt-1000">
+<a class="reference internal image-reference" href="_images/MCTS-It1000-removebg-preview.png"><img alt="_images/MCTS-It1000-removebg-preview.png" src="_images/MCTS-It1000-removebg-preview.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.15 </span><span class="caption-text">Tic-Tac-Toe. MCTS search tree for 1000 Iterations. Created by Gemini.</span><a class="headerlink" href="#ttt-1000" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>However, in MCTS the <span style="color:#f88146">best child action <strong>is not taken according to WINs</strong> but according to the maximal <strong>number of visit</strong></span> since MCTS visits more the most promising parts of the tree.</p>
+</section>
+<section id="alphazero">
+<h4><span class="section-number">4.3.3.2. </span>AlphaZero<a class="headerlink" href="#alphazero" title="Permalink to this heading">#</a></h4>
+<p>Looking at MCTS the following question arises: <span style="color:#f88146">What part of the tree search <strong>bottleneck can be optimized</strong> via a Neural Network (NN)?</span>. There are two key points:</p>
+<ol class="arabic simple">
+<li><p><strong>Policy Network</strong>. In the general MCTS, the <strong>selection</strong> of a child is random. We could train a NN to provide <ins>more informative selections</ins>. This is the Policy Network.</p></li>
+<li><p><strong>Value Network</strong>. The <strong>simulation</strong> is the main bottleneck of MCTS, so it deserves a predictive tool for <ins>saving computational load</ins>.</p></li>
+</ol>
+<p>Instead of training two NNs, AlphaZero trains a <span style="color:#f88146">unique NN with two <strong>output heads</strong></span>: probability distribution and value. Then, given a state <span class="math notranslate nohighlight">\(J\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+f_{\theta}(J)= [\pi(a|J),v(J)]\;, 
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\pi(a|J)\)</span> is a probability distribution over the possible actions <span class="math notranslate nohighlight">\(a\)</span> that can be taken from state <span class="math notranslate nohighlight">\(J\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(v(J)\)</span> is the predicted reward from <span class="math notranslate nohighlight">\(J\)</span>.</p></li>
+</ul>
+<p>The NN is called just <strong>after</strong> the <span class="math notranslate nohighlight">\(\text{Select}\)</span> of a state <span class="math notranslate nohighlight">\(J\)</span>. Therefore, <span class="math notranslate nohighlight">\(\pi(A=a|J)\)</span> provides a grounded means of sampling the children <span class="math notranslate nohighlight">\(a\)</span> of <span class="math notranslate nohighlight">\(J\)</span> for doing <span class="math notranslate nohighlight">\(J_k\leftarrow \text{Expand}\)</span> and <span class="math notranslate nohighlight">\(\text{reward}\leftarrow v(J)\)</span> <strong>replaces the simulation</strong> from <span class="math notranslate nohighlight">\(J_k\)</span>.</p>
+<p>Summarizing, we have:</p>
+<div class="proof algorithm admonition" id="AlphaZero">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.4 </span> (MCTS-AlphaZero)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Root node <span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(\text{num_iter}=n\)</span>, <span class="math notranslate nohighlight">\(\text{explore_const}=C\)</span><br />
+<strong>Output</strong> Best action <span class="math notranslate nohighlight">\(a\)</span> from <span class="math notranslate nohighlight">\(s\)</span>.</p>
+<ol class="arabic simple">
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(k=1,2,\ldots, \text{num_iter}\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(J_k\leftarrow \textbf{Select}\)</span>(<span class="math notranslate nohighlight">\(s\)</span>,<span class="math notranslate nohighlight">\(\text{explore_const}\)</span>)</p></li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(J_k\)</span> is <strong>not</strong> terminal <strong>then</strong>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\([\pi(a|J_k),v(J_k)]\leftarrow f_{\theta}(J_k)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(J_k\leftarrow \textbf{Expand}\)</span>(<span class="math notranslate nohighlight">\(J_k\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{reward}\leftarrow v(J_k)\)</span></p></li>
+</ol>
+</li>
+<li><p><strong>else</strong>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\text{reward}\leftarrow \textbf{Reward}(J_k)\)</span></p></li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\textbf{Backpropagate}\)</span>(<span class="math notranslate nohighlight">\(J_k\)</span>,<span class="math notranslate nohighlight">\(\text{reward}\)</span>)</p></li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(a\leftarrow\textbf{BestAction}\)</span>(<span class="math notranslate nohighlight">\(s\)</span>)</p></li>
+<li><p><strong>return</strong> <span class="math notranslate nohighlight">\(a\)</span></p></li>
+</ol>
+</section>
+</div><p><strong>Selection criterion</strong>. Instead of <span class="math notranslate nohighlight">\(UBC_1\)</span>, AlphaZero uses a modification according to the existence of the NN. This is the Polynomial Upper Confidence Tree (PUCT)</p>
+<div class="math notranslate nohighlight">
+\[
+PUCT(s,a) = \underbrace{\frac{W(a)}{V(a)}}_{Q(s,a)} + \underbrace{C\cdot\pi(a|s)\cdot\frac{\sqrt{N(s)}}{1 + N(a)}}_{U(s,a)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is the parent and <span class="math notranslate nohighlight">\(a\)</span> the child. Note that if <span class="math notranslate nohighlight">\(a\)</span> has not been visited, <span class="math notranslate nohighlight">\(PUCT\)</span> sould return <span class="math notranslate nohighlight">\(+\infty\)</span>, as usual, in order to encourage breath-first search for un-visited states.</p>
+<p><strong>Self-play</strong>. The NN is trained by simulating a given number of games, each one with <span class="math notranslate nohighlight">\(\text{num_iter}\)</span> iterations.</p>
+<p><strong>Training</strong>. Consider, for instance, the Tic-Tac-Toe game. We have that <span class="math notranslate nohighlight">\(f_{\theta}\)</span> is an MLP with a vectorized state of <span class="math notranslate nohighlight">\(9\)</span> binary (‘X’,’O’)input dimensions (positions in the board). Then, in the following layers we increase the dimensions (e.g. 128) and later on we decrease them to produce <span class="math notranslate nohighlight">\(9\)</span> outputs (probabilities of performing any of the <span class="math notranslate nohighlight">\(9\)</span> actions) + 1 output for the value.</p>
+<p>As we are simulating the game for a given number of iterations, we get <span class="math notranslate nohighlight">\(\text{num_games}\times\text{num_iter}\)</span> ‘training samples’, each one as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\{\text{vec_state}, \pi_{\text{vec}}, \text{reward}\}\;,
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\text{vec_state}\)</span> is the vectorized state.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi_{\text{vec}}\)</span> is the ‘true’ probability distribution <span class="math notranslate nohighlight">\(\pi(a|s)\)</span> collected during the simulation.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{reward}\)</span> is th reward from the state.</p></li>
+</ul>
+<p><strong>Loss function</strong>. As we have tuples such as <span class="math notranslate nohighlight">\(\{\text{vec_state}, \pi_{\text{vec}}, \text{reward}\}\)</span>, it is straightfoward to submit the <span class="math notranslate nohighlight">\(\text{vec_state}\)</span> to the NN and compute the discordances between the predictions <span class="math notranslate nohighlight">\(\{\text{pred-}\pi_{\text{vec}},\text{pred-reward}\}\)</span> and <span class="math notranslate nohighlight">\(\{\pi_{\text{vec}},\text{reward}\}\)</span>.</p>
+<p><strong>Categorical Cross-Entropy</strong>. Since <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}=\text{pred-}\pi_{\text{vec}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}=\pi_{\text{vec}}\)</span> are two probability distribution, it seems reasonable to use</p>
+<div class="math notranslate nohighlight">
+\[
+L_{CCE}(\hat{\mathbf{y}},\mathbf{y})=-\sum_{i=1}^c \mathbf{y}(i)\log \hat{\mathbf{y}}(i)\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(c\)</span> is the number of categories (<span class="math notranslate nohighlight">\(c=9\)</span> in Tic-Tac-Toe).</p>
+<p><strong>MSE</strong>. In adition we compare <span class="math notranslate nohighlight">\(\hat{x}=\text{pred-reward}\)</span> and <span class="math notranslate nohighlight">\(x=\text{reward}\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+L_{MSE}(\hat{x},x)=(\hat{x}-x)^2. 
+\]</div>
+<p>The overall minimization is on <span class="math notranslate nohighlight">\(L_{CCE} + L_{MSE}\)</span>.</p>
+<p><strong>Testing Tic-Tac-Toe</strong>. State of the board after the recommended action:</p>
+<p>Player: O</p>
+<p><strong>Action 3 (O) | BOARD=…X….. | W/V=-111.34/134 | PP=0.10 | VE=0.39</strong></p>
+<p>Winner: None</p>
+<p>MCTS tree (up to depth 2):</p>
+<ul class="simple">
+<li><p>ROOT | B=……… | W/V=841.78/1000 | PP=1.00 | VE=0.00</p>
+<ul>
+<li><p>Action 8 (O) | B=……..X | W/V=-88.48/105 | PP=0.11 | VE=0.39</p>
+<ul>
+<li><p>Action 5 (X) | B=…..O..X | W/V=15.19/18 | PP=0.17 | VE=0.75</p></li>
+<li><p>Action 6 (X) | B=……O.X | W/V=8.23/10 | PP=0.12 | VE=0.75</p></li>
+<li><p>Action 3 (X) | B=…O….X | W/V=8.45/10 | PP=0.09 | VE=0.75</p></li>
+<li><p>Action 1 (X) | B=.O……X | W/V=5.59/7 | PP=0.10 | VE=0.75</p></li>
+<li><p>Action 4 (X) | B=….O…X | W/V=19.54/22 | PP=0.14 | VE=0.75</p></li>
+<li><p>Action 7 (X) | B=…….OX | W/V=13.50/16 | PP=0.16 | VE=0.75</p></li>
+<li><p>Action 2 (X) | B=..O…..X | W/V=6.27/8 | PP=0.12 | VE=0.75</p></li>
+<li><p>Action 0 (X) | B=O…….X | W/V=11.33/13 | PP=0.10 | VE=0.75</p></li>
+</ul>
+</li>
+<li><p>Action 2 (O) | B=..X…… | W/V=-91.02/108 | PP=0.11 | VE=0.39</p>
+<ul>
+<li><p>Action 5 (X) | B=..X..O… | W/V=11.39/14 | PP=0.16 | VE=0.72</p></li>
+<li><p>Action 4 (X) | B=..X.O…. | W/V=26.11/29 | PP=0.15 | VE=0.72</p></li>
+<li><p>Action 6 (X) | B=..X…O.. | W/V=13.96/16 | PP=0.12 | VE=0.72</p></li>
+<li><p>Action 1 (X) | B=.OX…… | W/V=4.52/6 | PP=0.11 | VE=0.72</p></li>
+<li><p>Action 7 (X) | B=..X….O. | W/V=11.70/14 | PP=0.14 | VE=0.72</p></li>
+<li><p>Action 3 (X) | B=..XO….. | W/V=5.46/7 | PP=0.10 | VE=0.72</p></li>
+<li><p>Action 0 (X) | B=O.X…… | W/V=10.31/12 | PP=0.10 | VE=0.72</p></li>
+<li><p>Action 8 (X) | B=..X…..O | W/V=7.19/9 | PP=0.12 | VE=0.72</p></li>
+</ul>
+</li>
+<li><p>Action 0 (O) | B=X…….. | W/V=-89.02/106 | PP=0.10 | VE=0.39</p>
+<ul>
+<li><p>Action 3 (X) | B=X..O….. | W/V=6.53/8 | PP=0.10 | VE=0.80</p></li>
+<li><p>Action 1 (X) | B=XO……. | W/V=5.55/7 | PP=0.09 | VE=0.80</p></li>
+<li><p>Action 6 (X) | B=X…..O.. | W/V=6.26/8 | PP=0.11 | VE=0.80</p></li>
+<li><p>Action 7 (X) | B=X……O. | W/V=14.28/17 | PP=0.16 | VE=0.80</p></li>
+<li><p>Action 4 (X) | B=X…O…. | W/V=17.43/20 | PP=0.15 | VE=0.80</p></li>
+<li><p>Action 8 (X) | B=X…….O | W/V=12.22/14 | PP=0.10 | VE=0.80</p></li>
+<li><p>Action 5 (X) | B=X….O… | W/V=14.34/17 | PP=0.16 | VE=0.80</p></li>
+<li><p>Action 2 (X) | B=X.O…… | W/V=12.03/14 | PP=0.12 | VE=0.80</p></li>
+</ul>
+</li>
+<li><p>Action 6 (O) | B=……X.. | W/V=-99.89/119 | PP=0.11 | VE=0.39</p>
+<ul>
+<li><p>Action 4 (X) | B=….O.X.. | W/V=22.00/25 | PP=0.15 | VE=0.69</p></li>
+<li><p>Action 5 (X) | B=…..OX.. | W/V=13.01/16 | PP=0.17 | VE=0.69</p></li>
+<li><p>Action 2 (X) | B=..O…X.. | W/V=16.59/19 | PP=0.12 | VE=0.69</p></li>
+<li><p>Action 7 (X) | B=……XO. | W/V=16.12/19 | PP=0.15 | VE=0.69</p></li>
+<li><p>Action 1 (X) | B=.O….X.. | W/V=5.50/7 | PP=0.09 | VE=0.69</p></li>
+<li><p>Action 3 (X) | B=…O..X.. | W/V=6.17/8 | PP=0.11 | VE=0.69</p></li>
+<li><p>Action 8 (X) | B=……X.O | W/V=10.09/12 | PP=0.11 | VE=0.69</p></li>
+<li><p>Action 0 (X) | B=O…..X.. | W/V=10.02/12 | PP=0.11 | VE=0.69</p></li>
+</ul>
+</li>
+<li><p>Action 7 (O) | B=…….X. | W/V=-102.53/122 | PP=0.12 | VE=0.39</p>
+<ul>
+<li><p>Action 4 (X) | B=….O..X. | W/V=23.93/27 | PP=0.14 | VE=0.76</p></li>
+<li><p>Action 8 (X) | B=…….XO | W/V=10.08/12 | PP=0.11 | VE=0.76</p></li>
+<li><p>Action 1 (X) | B=.O…..X. | W/V=5.22/7 | PP=0.11 | VE=0.76</p></li>
+<li><p>Action 3 (X) | B=…O…X. | W/V=10.03/12 | PP=0.10 | VE=0.76</p></li>
+<li><p>Action 2 (X) | B=..O….X. | W/V=11.87/14 | PP=0.11 | VE=0.76</p></li>
+<li><p>Action 5 (X) | B=…..O.X. | W/V=16.54/20 | PP=0.19 | VE=0.76</p></li>
+<li><p>Action 0 (X) | B=O……X. | W/V=9.93/12 | PP=0.11 | VE=0.76</p></li>
+<li><p>Action 6 (X) | B=……OX. | W/V=14.54/17 | PP=0.13 | VE=0.76</p></li>
+</ul>
+</li>
+<li><p>Action 5 (O) | B=…..X… | W/V=-105.34/125 | PP=0.13 | VE=0.39</p>
+<ul>
+<li><p>Action 6 (X) | B=…..XO.. | W/V=4.78/7 | PP=0.14 | VE=0.81</p></li>
+<li><p>Action 7 (X) | B=…..X.O. | W/V=15.84/19 | PP=0.17 | VE=0.81</p></li>
+<li><p>Action 0 (X) | B=O….X… | W/V=6.32/8 | PP=0.10 | VE=0.81</p></li>
+<li><p>Action 2 (X) | B=..O..X… | W/V=5.96/8 | PP=0.12 | VE=0.81</p></li>
+<li><p>Action 1 (X) | B=.O…X… | W/V=3.42/5 | PP=0.10 | VE=0.81</p></li>
+<li><p>Action 8 (X) | B=…..X..O | W/V=12.77/15 | PP=0.12 | VE=0.81</p></li>
+<li><p>Action 3 (X) | B=…O.X… | W/V=5.38/7 | PP=0.09 | VE=0.81</p></li>
+<li><p>Action 4 (X) | B=….OX… | W/V=50.49/55 | PP=0.17 | VE=0.81</p></li>
+</ul>
+</li>
+<li><p><strong>Action 3 (O) | B=…X….. | W/V=-111.34/134 | PP=0.10 | VE=0.39</strong></p>
+<ul>
+<li><p>Action 4 (X) | B=…XO…. | W/V=25.11/29 | PP=0.16 | VE=0.74</p></li>
+<li><p>Action 7 (X) | B=…X…O. | W/V=16.75/20 | PP=0.15 | VE=0.74</p></li>
+<li><p>Action 5 (X) | B=…X.O… | W/V=15.50/19 | PP=0.16 | VE=0.74</p></li>
+<li><p>Action 1 (X) | B=.O.X….. | W/V=15.89/18 | PP=0.08 | VE=0.74</p></li>
+<li><p>Action 2 (X) | B=..OX….. | W/V=5.90/8 | PP=0.11 | VE=0.74</p></li>
+<li><p>Action 8 (X) | B=…X….O | W/V=17.28/20 | PP=0.11 | VE=0.74</p></li>
+<li><p>Action 0 (X) | B=O..X….. | W/V=10.18/12 | PP=0.08 | VE=0.74</p></li>
+<li><p>Action 6 (X) | B=…X..O.. | W/V=4.34/7 | PP=0.14 | VE=0.74</p></li>
+</ul>
+</li>
+<li><p>Action 1 (O) | B=.X……. | W/V=-81.94/97 | PP=0.10 | VE=0.39</p>
+<ul>
+<li><p>Action 6 (X) | B=.X….O.. | W/V=9.17/11 | PP=0.13 | VE=0.67</p></li>
+<li><p>Action 5 (X) | B=.X…O… | W/V=9.93/12 | PP=0.14 | VE=0.67</p></li>
+<li><p>Action 7 (X) | B=.X…..O. | W/V=9.06/11 | PP=0.13 | VE=0.67</p></li>
+<li><p>Action 0 (X) | B=OX……. | W/V=10.46/12 | PP=0.10 | VE=0.67</p></li>
+<li><p>Action 2 (X) | B=.XO…… | W/V=9.13/11 | PP=0.14 | VE=0.67</p></li>
+<li><p>Action 8 (X) | B=.X……O | W/V=10.40/12 | PP=0.11 | VE=0.67</p></li>
+<li><p>Action 4 (X) | B=.X..O…. | W/V=12.95/15 | PP=0.14 | VE=0.67</p></li>
+<li><p>Action 3 (X) | B=.X.O….. | W/V=10.44/12 | PP=0.10 | VE=0.67</p></li>
+</ul>
+</li>
+<li><p>Action 4 (O) | B=….X…. | W/V=-72.22/84 | PP=0.12 | VE=0.39</p>
+<ul>
+<li><p>Action 6 (X) | B=….X.O.. | W/V=9.54/11 | PP=0.13 | VE=0.75</p></li>
+<li><p>Action 0 (X) | B=O…X…. | W/V=7.83/9 | PP=0.11 | VE=0.75</p></li>
+<li><p>Action 7 (X) | B=….X..O. | W/V=10.31/12 | PP=0.14 | VE=0.75</p></li>
+<li><p>Action 2 (X) | B=..O.X…. | W/V=12.46/14 | PP=0.13 | VE=0.75</p></li>
+<li><p>Action 3 (X) | B=…OX…. | W/V=6.83/8 | PP=0.11 | VE=0.75</p></li>
+<li><p>Action 5 (X) | B=….XO… | W/V=12.15/14 | PP=0.17 | VE=0.75</p></li>
+<li><p>Action 8 (X) | B=….X…O | W/V=6.98/8 | PP=0.10 | VE=0.75</p></li>
+<li><p>Action 1 (X) | B=.O..X…. | W/V=5.72/7 | PP=0.11 | VE=0.75</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Testing on Go</strong>. When applied to the Go game, AlphaZero yields an astonishing performance. The process is as usual (see <a class="reference internal" href="#alphago1"><span class="std std-numref">Fig. 4.16</span></a>):</p>
+<figure class="align-center" id="alphago1">
+<a class="reference internal image-reference" href="_images/AlphaGo1-removebg-preview.png"><img alt="_images/AlphaGo1-removebg-preview.png" src="_images/AlphaGo1-removebg-preview.png" style="width: 800px; height: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.16 </span><span class="caption-text">AlphaZero applied to Go. Credit: <a class="reference external" href="https://www.nature.com/articles/nature24270">Nature</a>.</span><a class="headerlink" href="#alphago1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Most of the performance is due to the off-line self-playing.</p>
 <!--
 
 ##  Rubik's cube
@@ -1866,6 +2375,7 @@ KL divergences between Normals with different and same mean.
 </section>
 </section>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1907,11 +2417,11 @@ KL divergences between Normals with different and same mean.
       </div>
     </a>
     <a class="right-next"
-       href="practice_1_1.html"
+       href="ExamC3of2025.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>Introduction to the practical part of TAB2026</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Assignment 06/25</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1937,6 +2447,16 @@ KL divergences between Normals with different and same mean.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategies">4.2.2. Strategies</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-minimax-method">4.2.3. The Minimax Method</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-alpha-beta-method">4.2.4. The Alpha-Beta Method</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-tree-search">4.3. Monte Carlo Tree Search</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">4.3.1. Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generic-mcts">4.3.2. Generic MCTS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcts-for-games">4.3.3. MCTS for Games</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tic-tac-toe">4.3.3.1. Tic-Tac-Toe</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alphazero">4.3.3.2. AlphaZero</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
