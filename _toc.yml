@@ -28,3 +28,6 @@ parts:
   - file: practice_2_search
   - file: practice_2_1_search
   - file: practice_2_2_search
+- caption: Practice 3
+  chapters:
+  - file: practice_3
