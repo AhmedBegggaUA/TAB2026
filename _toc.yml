@@ -16,6 +16,9 @@ parts:
 - caption: Game Searching
   chapters:
   - file: topic4
+- caption: Exam solutions 
+  chapters:
+  - file: ExamC3of2025
 - caption: Practice 1
   chapters:
   - file: practice_1_1

@@ -7,9 +7,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Assignment 06/25 &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
+    <title>5. Assignment 06/25 &#8212; Técnicas y Algoritmos de Búsqueda IA</title>
   
   
   
@@ -19,15 +19,15 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
@@ -40,15 +40,13 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
@@ -69,6 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'ExamC3of2025';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Introduction to the practical part of TAB2026" href="practice_1_1.html" />
+    <link rel="prev" title="4. Game Search" href="topic4.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -78,7 +78,7 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -121,12 +121,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -166,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    TAB2025
+                    TAB2026
                 </a>
             </li>
         </ul>
@@ -175,9 +183,35 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="topic1.html">1. NP-Complete Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topic2.html">2. Simulated and Deterministic Annealing</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Puzzles and Rubik</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic3.html">3. Heuristic Search</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Game Searching</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic4.html">4. Game Search</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exam solutions</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Assignment 06/25</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 1</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">3. Introduction to the practical part of TAB2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_1.html">6. Introduction to the practical part of TAB2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_2.html">7. Graph Construction for Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_3.html">8. Graph Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_4.html">9. Graph Matching with Topological Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_1_5.html">10. SoftAssign</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice_2_search.html">11. Search Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_1_search.html">12. UCS and A* Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice_2_2_search.html">13. Search Algorithms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice_3.html">14. Pacman with AI</a></li>
 </ul>
 
     </div>
@@ -373,11 +407,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sat3-vs-clique">SAT3 vs Clique</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-matching">Graph Matching</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#da-clustering">DA Clustering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubik-and-beam-search">Rubik and Beam Search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alpha-beta-cuts">Alpha-Beta Cuts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sat3-vs-clique">5.1. SAT3 vs Clique</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-matching">5.2. Graph Matching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#da-clustering">5.3. DA Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubik-and-beam-search">5.4. Rubik and Beam Search</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alpha-beta-cuts">5.5. Alpha-Beta Cuts</a></li>
 </ul>
             </nav>
         </div>
@@ -387,12 +421,12 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="assignment-06-25">
-<h1>Assignment 06/25<a class="headerlink" href="#assignment-06-25" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">5. </span>Assignment 06/25<a class="headerlink" href="#assignment-06-25" title="Permalink to this heading">#</a></h1>
 <section id="sat3-vs-clique">
-<h2>SAT3 vs Clique<a class="headerlink" href="#sat3-vs-clique" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.1. </span>SAT3 vs Clique<a class="headerlink" href="#sat3-vs-clique" title="Permalink to this heading">#</a></h2>
 <p><span style="color:#d94f0b"><strong>Exercise Q1</strong>. Is the formula
 </span>
 <span style="color:#d94f0b">
@@ -407,13 +441,13 @@ document.write(`
 <strong>Answer</strong>. This formula is clearly satisfiable since each variable is true in one clause and false in the other or viceversa. For instance, if <span class="math notranslate nohighlight">\(x_1=1\)</span> in the first clause, then <span class="math notranslate nohighlight">\(\neg x_1=0\)</span> in the second, and the same reasoning is valid for the remaining variables. In other words, we can make <span class="math notranslate nohighlight">\(x_1=1\)</span> and <span class="math notranslate nohighlight">\(x_2=0\)</span> in the first clause, thus satifying <span class="math notranslate nohighlight">\(c_1\)</span>, because <span class="math notranslate nohighlight">\(x_1=1\)</span>, and also satisfying <span class="math notranslate nohighlight">\(c_2\)</span> since <span class="math notranslate nohighlight">\(\neg x_2 = 1\)</span>.
 </span>
 <br></br>
-<span style="color:#d94f0b">Concerning the mapping of SAT3 to the Maximal Clique, be aware that we have <span class="math notranslate nohighlight">\(2\)</span> clauses <span class="math notranslate nohighlight">\(c_1=(x_1\lor x_2\lor \neg x_3)\)</span> and <span class="math notranslate nohighlight">\(c_2=(\neg x_1\lor \neg x_2\lor x_3)\)</span>. Mapping SAT3 to Maximal Clique consists of creating a graph with as many nodes as literals: <span class="math notranslate nohighlight">\(3c\)</span>, where <span class="math notranslate nohighlight">\(c\)</span> is the number of clauses. The edges in the clique graph can link any pair of literals except <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(\neg x_i\)</span>. In  In <code class="xref std std-numref docutils literal notranslate"><span class="pre">SAT3-clique</span></code>, we show all the possible edges.
+<span style="color:#d94f0b">Concerning the mapping of SAT3 to the Maximal Clique, be aware that we have <span class="math notranslate nohighlight">\(2\)</span> clauses <span class="math notranslate nohighlight">\(c_1=(x_1\lor x_2\lor \neg x_3)\)</span> and <span class="math notranslate nohighlight">\(c_2=(\neg x_1\lor \neg x_2\lor x_3)\)</span>. Mapping SAT3 to Maximal Clique consists of creating a graph with as many nodes as literals: <span class="math notranslate nohighlight">\(3c\)</span>, where <span class="math notranslate nohighlight">\(c\)</span> is the number of clauses. The edges in the clique graph can link any pair of literals except <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(\neg x_i\)</span>. In  In <a class="reference internal" href="#sat3-clique"><span class="std std-numref">Fig. 5.1</span></a>, we show all the possible edges.
 </span>
 <br></br></p>
 <figure class="align-center" id="sat3-clique">
 <a class="reference internal image-reference" href="_images/SATcliqueExam-removebg-preview.png"><img alt="_images/SATcliqueExam-removebg-preview.png" src="_images/SATcliqueExam-removebg-preview.png" style="width: 450px; height: 400px;" /></a>
 <figcaption>
-<p><span class="caption-text">Possible to create many cliques of <span class="math notranslate nohighlight">\(c=2\)</span> nodes.</span><a class="headerlink" href="#sat3-clique" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Possible to create many cliques of <span class="math notranslate nohighlight">\(c=2\)</span> nodes.</span><a class="headerlink" href="#sat3-clique" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -422,14 +456,14 @@ Once we have the <em>clique graph</em>, if the formula is satisfiable we will fi
 </span></p>
 </section>
 <section id="graph-matching">
-<h2>Graph Matching<a class="headerlink" href="#graph-matching" title="Permalink to this heading">#</a></h2>
-<p><span style="color:#d94f0b"><strong>Exercise Q2</strong>. Given the pair of graphs <span class="math notranslate nohighlight">\(X=(V,E)\)</span> (left) and <span class="math notranslate nohighlight">\(Y=(V',E')\)</span> right in <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExMatching2</span></code>, the current assignment encodes a way of making <span class="math notranslate nohighlight">\(X\)</span> a exact subgraph of <span class="math notranslate nohighlight">\(Y\)</span>. <strong>a)</strong> How many ways do we have of making <span class="math notranslate nohighlight">\(X\)</span> an exact subgraph of <span class="math notranslate nohighlight">\(Y\)</span>?
+<h2><span class="section-number">5.2. </span>Graph Matching<a class="headerlink" href="#graph-matching" title="Permalink to this heading">#</a></h2>
+<p><span style="color:#d94f0b"><strong>Exercise Q2</strong>. Given the pair of graphs <span class="math notranslate nohighlight">\(X=(V,E)\)</span> (left) and <span class="math notranslate nohighlight">\(Y=(V',E')\)</span> right in <a class="reference internal" href="#exmatching2"><span class="std std-numref">Fig. 5.2</span></a>, the current assignment encodes a way of making <span class="math notranslate nohighlight">\(X\)</span> a exact subgraph of <span class="math notranslate nohighlight">\(Y\)</span>. <strong>a)</strong> How many ways do we have of making <span class="math notranslate nohighlight">\(X\)</span> an exact subgraph of <span class="math notranslate nohighlight">\(Y\)</span>?
 </span>
 <br></br></p>
 <figure class="align-center" id="exmatching2">
 <a class="reference internal image-reference" href="_images/Matching2-Photoroom.png"><img alt="_images/Matching2-Photoroom.png" src="_images/Matching2-Photoroom.png" style="width: 600px; height: 400px;" /></a>
 <figcaption>
-<p><span class="caption-text">A Maximal Common Substructure.</span><a class="headerlink" href="#exmatching2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.2 </span><span class="caption-text">A Maximal Common Substructure.</span><a class="headerlink" href="#exmatching2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -500,13 +534,13 @@ Concerning the <strong>cost function</strong>, the most popular is the <strong>q
 </span>
 <br></br>
 <span style="color:#d94f0b">
-where <span class="math notranslate nohighlight">\(\mathbf{X}_{ab}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{Y}_{ij}\)</span> encode the respective neighboring rules (sides of the rectangle) as we show in <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExRectangle</span></code>.
+where <span class="math notranslate nohighlight">\(\mathbf{X}_{ab}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{Y}_{ij}\)</span> encode the respective neighboring rules (sides of the rectangle) as we show in <a class="reference internal" href="#exrectangle"><span class="std std-numref">Fig. 5.3</span></a>.
 </span>
 <br></br></p>
 <figure class="align-center" id="exrectangle">
 <a class="reference internal image-reference" href="_images/Rectangle-Photoroom.png"><img alt="_images/Rectangle-Photoroom.png" src="_images/Rectangle-Photoroom.png" style="width: 600px; height: 400px;" /></a>
 <figcaption>
-<p><span class="caption-text">The Rectangle Rule in Graph Matching.</span><a class="headerlink" href="#exrectangle" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.3 </span><span class="caption-text">The Rectangle Rule in Graph Matching.</span><a class="headerlink" href="#exrectangle" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -596,14 +630,14 @@ This means that <span class="math notranslate nohighlight">\(p\approx 1\)</span>
 </span></p>
 </section>
 <section id="da-clustering">
-<h2>DA Clustering<a class="headerlink" href="#da-clustering" title="Permalink to this heading">#</a></h2>
-<p><span style="color:#d94f0b"><strong>Exercise Q3</strong>. Starting from the corresponding exercise in the first control, we explain the layout in <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExClusteringA</span></code>.
+<h2><span class="section-number">5.3. </span>DA Clustering<a class="headerlink" href="#da-clustering" title="Permalink to this heading">#</a></h2>
+<p><span style="color:#d94f0b"><strong>Exercise Q3</strong>. Starting from the corresponding exercise in the first control, we explain the layout in <a class="reference internal" href="#exclusteringa"><span class="std std-numref">Fig. 5.4</span></a>.
 </span>
 <br></br></p>
 <figure class="align-center" id="exclusteringa">
 <a class="reference internal image-reference" href="_images/ClusteringDA1Da-removebg-preview.png"><img alt="_images/ClusteringDA1Da-removebg-preview.png" src="_images/ClusteringDA1Da-removebg-preview.png" style="width: 600px; height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-text">Data-cluster assignment and one-dimensional data layout below.</span><a class="headerlink" href="#exclusteringa" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.4 </span><span class="caption-text">Data-cluster assignment and one-dimensional data layout below.</span><a class="headerlink" href="#exclusteringa" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -722,7 +756,7 @@ Therefore, we have:
 </span>
 <br></br>
 <span style="color:#d94f0b">
-Which <strong>satisfies the requirement</strong> of <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExClusteringA</span></code>.After normalization, we have
+Which <strong>satisfies the requirement</strong> of <a class="reference internal" href="#exclusteringa"><span class="std std-numref">Fig. 5.4</span></a>.After normalization, we have
 </span>
 <br></br>
 <span style="color:#d94f0b">
@@ -820,13 +854,13 @@ c_2=+2 &amp;\rightarrow c_1'=+1.83\:.\\
 </span>
 <br></br>
 <span style="color:#d94f0b">
-The message to take herein is that as you increment more <span class="math notranslate nohighlight">\(\epsilon\)</span> we have: <strong>a)</strong> it is more and more likely that <span class="math notranslate nohighlight">\(X_2\)</span> belongs to cluster <span class="math notranslate nohighlight">\(c_2\)</span> since <span class="math notranslate nohighlight">\(X_2 = c_1 + \epsilon\)</span>, and <strong>b)</strong> X_3 belongs to cluster <span class="math notranslate nohighlight">\(c_1\)</span> since <span class="math notranslate nohighlight">\(X_3 = c_2 - \epsilon\)</span> as we show in <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExClusteringB</span></code>.
+The message to take herein is that as you increment more <span class="math notranslate nohighlight">\(\epsilon\)</span> we have: <strong>a)</strong> it is more and more likely that <span class="math notranslate nohighlight">\(X_2\)</span> belongs to cluster <span class="math notranslate nohighlight">\(c_2\)</span> since <span class="math notranslate nohighlight">\(X_2 = c_1 + \epsilon\)</span>, and <strong>b)</strong> X_3 belongs to cluster <span class="math notranslate nohighlight">\(c_1\)</span> since <span class="math notranslate nohighlight">\(X_3 = c_2 - \epsilon\)</span> as we show in <a class="reference internal" href="#exclusteringb"><span class="std std-numref">Fig. 5.5</span></a>.
 </span>
 <br></br></p>
 <figure class="align-center" id="exclusteringb">
 <a class="reference internal image-reference" href="_images/ClusteringDA1Db-removebg-preview.png"><img alt="_images/ClusteringDA1Db-removebg-preview.png" src="_images/ClusteringDA1Db-removebg-preview.png" style="width: 600px; height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-text">Data-cluster assignment and one-dimensional data layout below.</span><a class="headerlink" href="#exclusteringb" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.5 </span><span class="caption-text">Data-cluster assignment and one-dimensional data layout below.</span><a class="headerlink" href="#exclusteringb" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -1001,8 +1035,8 @@ c_2=+2 &amp;\rightarrow c_1'=+2.79\:,\\
 <br></br></p>
 </section>
 <section id="rubik-and-beam-search">
-<h2>Rubik and Beam Search<a class="headerlink" href="#rubik-and-beam-search" title="Permalink to this heading">#</a></h2>
-<p><span style="color:#d94f0b"><strong>Exercise Q4</strong>. This is an example of a practical question with a theoretical flavor. All we expect here is that you reason about the heuristic-search procsss. layout in <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExClusteringA</span></code>.
+<h2><span class="section-number">5.4. </span>Rubik and Beam Search<a class="headerlink" href="#rubik-and-beam-search" title="Permalink to this heading">#</a></h2>
+<p><span style="color:#d94f0b"><strong>Exercise Q4</strong>. This is an example of a practical question with a theoretical flavor. All we expect here is that you reason about the heuristic-search procsss. layout in <a class="reference internal" href="#exclusteringa"><span class="std std-numref">Fig. 5.4</span></a>.
 </span>
 <br></br>
 <span style="color:#d94f0b">
@@ -1032,13 +1066,13 @@ S_2=\frac{1-2^{d}}{1-2} = -1 + 2^d = 2^d-1\;
 </span>
 <br></br>
 <span style="color:#d94f0b">
-For <span class="math notranslate nohighlight">\(d=5\)</span> we have: <span class="math notranslate nohighlight">\(2^5 - 1 = 31\)</span> generated nodes as we illustrate <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExBEAM1</span></code>:<br />
+For <span class="math notranslate nohighlight">\(d=5\)</span> we have: <span class="math notranslate nohighlight">\(2^5 - 1 = 31\)</span> generated nodes as we illustrate <a class="reference internal" href="#exbeam1"><span class="std std-numref">Fig. 5.6</span></a>:<br />
 </span>
 <br></br></p>
 <figure class="align-center" id="exbeam1">
 <a class="reference internal image-reference" href="_images/ExBEAM1-removebg-preview.png"><img alt="_images/ExBEAM1-removebg-preview.png" src="_images/ExBEAM1-removebg-preview.png" style="width: 800px; height: 400px;" /></a>
 <figcaption>
-<p><span class="caption-text">Branching process and combinatorial explosion: <span class="math notranslate nohighlight">\(b=2, d=5\)</span>.</span><a class="headerlink" href="#exbeam1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.6 </span><span class="caption-text">Branching process and combinatorial explosion: <span class="math notranslate nohighlight">\(b=2, d=5\)</span>.</span><a class="headerlink" href="#exbeam1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -1047,7 +1081,7 @@ The <strong>most important issue</strong> of combinatorial explosions is that th
 </span>
 <br></br>
 <span style="color:#d94f0b">
-BEAM search contains this explosions by allowing to hold the best <span class="math notranslate nohighlight">\(2^k\)</span> (<span class="math notranslate nohighlight">\(k\)</span> is constant) nodes in the OPEN list. Suposse, for instance that <span class="math notranslate nohighlight">\(k=2=b\)</span> in illustrate <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExBEAM1</span></code>. This means that OPEN can only hold no more that <span class="math notranslate nohighlight">\(2^2=4\)</span> nodes.
+BEAM search contains this explosions by allowing to hold the best <span class="math notranslate nohighlight">\(2^k\)</span> (<span class="math notranslate nohighlight">\(k\)</span> is constant) nodes in the OPEN list. Suposse, for instance that <span class="math notranslate nohighlight">\(k=2=b\)</span> in illustrate <a class="reference internal" href="#exbeam1"><span class="std std-numref">Fig. 5.6</span></a>. This means that OPEN can only hold no more that <span class="math notranslate nohighlight">\(2^2=4\)</span> nodes.
 </span>
 <br></br>
 <span style="color:#d94f0b">
@@ -1110,14 +1144,14 @@ g(9) &amp;= 1.0\cdot 0.7\cdot 0.3 = \mathbf{0.21}\\
 </span>
 <br></br>
 <span style="color:#d94f0b">
-And we “purge” node <span class="math notranslate nohighlight">\(2\)</span>. Then, the border becomes <span class="math notranslate nohighlight">\(\text{OPEN}=\{9,17,25,28\}\)</span>. As you can see, the fact that <span class="math notranslate nohighlight">\(g(\mathbf{n})\)</span> comes for a product keeps a balance between DFS and BFS. In <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExBEAM2</span></code>, we illustrate the process. The slashes’ colors show what nodes belong to each of the versions of the search border <span class="math notranslate nohighlight">\(\text{OPEN}\)</span>, before purging node <span class="math notranslate nohighlight">\(2\)</span>.
+And we “purge” node <span class="math notranslate nohighlight">\(2\)</span>. Then, the border becomes <span class="math notranslate nohighlight">\(\text{OPEN}=\{9,17,25,28\}\)</span>. As you can see, the fact that <span class="math notranslate nohighlight">\(g(\mathbf{n})\)</span> comes for a product keeps a balance between DFS and BFS. In <a class="reference internal" href="#exbeam2"><span class="std std-numref">Fig. 5.7</span></a>, we illustrate the process. The slashes’ colors show what nodes belong to each of the versions of the search border <span class="math notranslate nohighlight">\(\text{OPEN}\)</span>, before purging node <span class="math notranslate nohighlight">\(2\)</span>.
 </span>
 <br></br>
 <br></br></p>
 <figure class="align-center" id="exbeam2">
 <a class="reference internal image-reference" href="_images/ExBEAM2-removebg-preview.png"><img alt="_images/ExBEAM2-removebg-preview.png" src="_images/ExBEAM2-removebg-preview.png" style="width: 800px; height: 400px;" /></a>
 <figcaption>
-<p><span class="caption-text">BEAM search in action. Example: <span class="math notranslate nohighlight">\(k=2\)</span>.</span><a class="headerlink" href="#exbeam2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.7 </span><span class="caption-text">BEAM search in action. Example: <span class="math notranslate nohighlight">\(k=2\)</span>.</span><a class="headerlink" href="#exbeam2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -1126,17 +1160,17 @@ And we “purge” node <span class="math notranslate nohighlight">\(2\)</span>.
 </span>
 <br></br>
 <span style="color:#d94f0b">
-<strong>Answer</strong>. At a given node <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>, the deep oracle (once trained, i.e. working in the test regimes) provides the proability of each of its succesors: <span class="math notranslate nohighlight">\(b=12\)</span> in Rubik. These are the numbers that we have coded in <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExBEAM2</span></code>. Remind that in Rubik, each successor is a different move from the configuration coded by <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>. Then, <span class="math notranslate nohighlight">\(g(\mathbf{n})\)</span> is calculated as a concatenation of probabilities. Recursively we express this as <span class="math notranslate nohighlight">\(g(\mathbf{n})=p(\mathbf{n})\cdot g(\text{parent}(\mathbf{n}))\)</span> (section “Beam Search and Rubik”).
+<strong>Answer</strong>. At a given node <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>, the deep oracle (once trained, i.e. working in the test regimes) provides the proability of each of its succesors: <span class="math notranslate nohighlight">\(b=12\)</span> in Rubik. These are the numbers that we have coded in <a class="reference internal" href="#exbeam2"><span class="std std-numref">Fig. 5.7</span></a>. Remind that in Rubik, each successor is a different move from the configuration coded by <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>. Then, <span class="math notranslate nohighlight">\(g(\mathbf{n})\)</span> is calculated as a concatenation of probabilities. Recursively we express this as <span class="math notranslate nohighlight">\(g(\mathbf{n})=p(\mathbf{n})\cdot g(\text{parent}(\mathbf{n}))\)</span> (section “Beam Search and Rubik”).
 </span>
 <br></br>
 <span style="color:#d94f0b">
-We have that <span class="math notranslate nohighlight">\(g(\mathbf{n})=\prod_i p(\mathbf{n}_i)\)</span> where <span class="math notranslate nohighlight">\(\mathbf{n}_i\)</span> are all the nodes in the (best) path from <span class="math notranslate nohighlight">\(\mathbf{n}_0\)</span> to <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>. In problems such as Rubik, where the configuration space <span class="math notranslate nohighlight">\(\Omega\)</span> is huge, <strong>this high-entropy regime is  very likely unless we use a vast amount of data to train the deep oracle</strong>, as we explain in section “Rubik State Space”. Basically, what happens is that the deep oracle is only “locally effective” and each transition has roughly <span class="math notranslate nohighlight">\(p(\text{successor}(\mathbf{n}))=\frac{1}{12}\)</span>. As a result, <span class="math notranslate nohighlight">\(g(\mathbf{n})\approx \frac{1}{12^d}\)</span>, where <span class="math notranslate nohighlight">\(d\)</span> is the depth of node <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>, and all <span class="math notranslate nohighlight">\(g(\mathbf{n})\)</span> are nearly equal, thus transforming BEAM-search in a constrained BFS. The most entropic the regime, the larger the length of the optimal path (God’s number is <span class="math notranslate nohighlight">\(N=20\)</span> for Rubik). This rationale is summarized in <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExEntropy-Rubik</span></code>.
+We have that <span class="math notranslate nohighlight">\(g(\mathbf{n})=\prod_i p(\mathbf{n}_i)\)</span> where <span class="math notranslate nohighlight">\(\mathbf{n}_i\)</span> are all the nodes in the (best) path from <span class="math notranslate nohighlight">\(\mathbf{n}_0\)</span> to <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>. In problems such as Rubik, where the configuration space <span class="math notranslate nohighlight">\(\Omega\)</span> is huge, <strong>this high-entropy regime is  very likely unless we use a vast amount of data to train the deep oracle</strong>, as we explain in section “Rubik State Space”. Basically, what happens is that the deep oracle is only “locally effective” and each transition has roughly <span class="math notranslate nohighlight">\(p(\text{successor}(\mathbf{n}))=\frac{1}{12}\)</span>. As a result, <span class="math notranslate nohighlight">\(g(\mathbf{n})\approx \frac{1}{12^d}\)</span>, where <span class="math notranslate nohighlight">\(d\)</span> is the depth of node <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>, and all <span class="math notranslate nohighlight">\(g(\mathbf{n})\)</span> are nearly equal, thus transforming BEAM-search in a constrained BFS. The most entropic the regime, the larger the length of the optimal path (God’s number is <span class="math notranslate nohighlight">\(N=20\)</span> for Rubik). This rationale is summarized in <a class="reference internal" href="#exentropy-rubik"><span class="std std-numref">Fig. 5.8</span></a>.
 </span>
 <br></br></p>
 <figure class="align-center" id="exentropy-rubik">
 <a class="reference internal image-reference" href="_images/Entropy-Beam-removebg-preview.png"><img alt="_images/Entropy-Beam-removebg-preview.png" src="_images/Entropy-Beam-removebg-preview.png" style="width: 500px; height: 400px;" /></a>
 <figcaption>
-<p><span class="caption-text">Entropy analysis for many executions of Rubik Beam Search.</span><a class="headerlink" href="#exentropy-rubik" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.8 </span><span class="caption-text">Entropy analysis for many executions of Rubik Beam Search.</span><a class="headerlink" href="#exentropy-rubik" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -1146,7 +1180,7 @@ In other words, the less entropic (more informative) is the deep oracle, the bet
 <br></br></p>
 </section>
 <section id="alpha-beta-cuts">
-<h2>Alpha-Beta Cuts<a class="headerlink" href="#alpha-beta-cuts" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.5. </span>Alpha-Beta Cuts<a class="headerlink" href="#alpha-beta-cuts" title="Permalink to this heading">#</a></h2>
 <p><span style="color:#d94f0b"><strong>Exercise Q5</strong>. Typical problem for testing the <span class="math notranslate nohighlight">\(\alpha-\beta\)</span> algorithm in a MINIMAX tree.
 </span>
 <br></br>
@@ -1155,13 +1189,13 @@ In other words, the less entropic (more informative) is the deep oracle, the bet
 </span>
 <br></br>
 <span style="color:#d94f0b">
-<strong>Answer</strong>: we put the solution directly in <code class="xref std std-numref docutils literal notranslate"><span class="pre">ExAlpha</span></code>, showing (left-to-right or top-down) the order in which we update <span class="math notranslate nohighlight">\(\alpha\)</span> in MAX nodes and <span class="math notranslate nohighlight">\(\beta\)</span> in MIN nodes, if it proceeds. Put the values returned by the children to be more informative.<br />
+<strong>Answer</strong>: we put the solution directly in <a class="reference internal" href="#exalpha"><span class="std std-numref">Fig. 5.9</span></a>, showing (left-to-right or top-down) the order in which we update <span class="math notranslate nohighlight">\(\alpha\)</span> in MAX nodes and <span class="math notranslate nohighlight">\(\beta\)</span> in MIN nodes, if it proceeds. Put the values returned by the children to be more informative.<br />
 </span>
 <br></br></p>
 <figure class="align-center" id="exalpha">
 <a class="reference internal image-reference" href="_images/ExALPHA-removebg-preview.png"><img alt="_images/ExALPHA-removebg-preview.png" src="_images/ExALPHA-removebg-preview.png" style="width: 800px; height: 600px;" /></a>
 <figcaption>
-<p><span class="caption-text">Alpha-Beta algorithm on a MINIMAX tree.</span><a class="headerlink" href="#exalpha" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.9 </span><span class="caption-text">Alpha-Beta algorithm on a MINIMAX tree.</span><a class="headerlink" href="#exalpha" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
@@ -1209,6 +1243,24 @@ Cuts <span class="math notranslate nohighlight">\(\alpha\ge\beta\)</span> are co
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="topic4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Game Search</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="practice_1_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Introduction to the practical part of TAB2026</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1218,17 +1270,18 @@ Cuts <span class="math notranslate nohighlight">\(\alpha\ge\beta\)</span> are co
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sat3-vs-clique">SAT3 vs Clique</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-matching">Graph Matching</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#da-clustering">DA Clustering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubik-and-beam-search">Rubik and Beam Search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alpha-beta-cuts">Alpha-Beta Cuts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sat3-vs-clique">5.1. SAT3 vs Clique</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-matching">5.2. Graph Matching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#da-clustering">5.3. DA Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubik-and-beam-search">5.4. Rubik and Beam Search</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alpha-beta-cuts">5.5. Alpha-Beta Cuts</a></li>
 </ul>
   </nav></div>
 
@@ -1277,8 +1330,8 @@ By Francisco Javier Escolano Ruiz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>
