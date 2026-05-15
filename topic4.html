@@ -1057,14 +1057,14 @@ PUCT(s,a) = \underbrace{\frac{W(s,a)}{N(s,a)}}_{Q(s,a)} + C\underbrace{\cdot\pi(
 <p><span style="color:#f88146"><strong>Important</strong>. the pair <span class="math notranslate nohighlight">\((s,a)\)</span> refers to <strong>edges</strong> <span class="math notranslate nohighlight">\((parent, child)\)</span>. These edges are inialized when the node <span class="math notranslate nohighlight">\(s\)</span> is selected so that we have an idea of what the border is</span>.</p>
 <p>In <a class="reference internal" href="#puct1"><span class="std std-numref">Fig. 4.16</span></a> se show an example of selection (among all the pairs with a <span class="math notranslate nohighlight">\(\text{None}\)</span> child):</p>
 <figure class="align-center" id="puct1">
-<a class="reference internal image-reference" href="images/Topic4/PUCT1-removebg-preview.png"><img alt="images/Topic4/PUCT1-removebg-preview.png" src="images/Topic4/PUCT1-removebg-preview.png" style="width: 800px; height: 600px;" /></a>
+<a class="reference internal image-reference" href="_images/PUCT1-removebg-preview.png"><img alt="_images/PUCT1-removebg-preview.png" src="_images/PUCT1-removebg-preview.png" style="width: 800px; height: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 4.16 </span><span class="caption-text">PUCT in AlphaZero (Selection). Credit: <a class="reference external" href="https://medium.com/&#64;bentou.pub/alphazero-from-scratch-in-pytorch-for-the-game-of-chain-reaction-part-2-b2e7edda14fb">Medium</a>.</span><a class="headerlink" href="#puct1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>and in <a class="reference internal" href="#puct2"><span class="std std-numref">Fig. 4.17</span></a> se show the resulting expansion (<span class="math notranslate nohighlight">\(\text{None}\)</span> extremes are created):</p>
 <figure class="align-center" id="puct2">
-<a class="reference internal image-reference" href="images/Topic4/PUCT2-removebg-preview.png"><img alt="images/Topic4/PUCT2-removebg-preview.png" src="images/Topic4/PUCT2-removebg-preview.png" style="width: 800px; height: 600px;" /></a>
+<a class="reference internal image-reference" href="_images/PUCT2-removebg-preview.png"><img alt="_images/PUCT2-removebg-preview.png" src="_images/PUCT2-removebg-preview.png" style="width: 800px; height: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 4.17 </span><span class="caption-text">PUCT in AlphaZero (Expansion). Credit: <a class="reference external" href="https://medium.com/&#64;bentou.pub/alphazero-from-scratch-in-pytorch-for-the-game-of-chain-reaction-part-2-b2e7edda14fb">Medium</a>.</span><a class="headerlink" href="#puct2" title="Permalink to this image">#</a></p>
 </figcaption>
